@@ -15,6 +15,16 @@ cpkg install $PACKAGE.txz
 cpkg -i $PACKAGE.txz
 ```
 
+> cpkg не скачивает пакеты при установке.
+
+Скачивание пакета:
+
+```bash
+cpkg download $PACKAGE
+# или
+cpkg -d $PACKAGE
+```
+
 Удаление ПО:
 ```bash
 cpkg remove $PACKAGE
