@@ -9,4 +9,5 @@
 # CLEAN - cleaning cache mode
 # LOG_DIR - directory for logs
 
+QUIET="false"
 
