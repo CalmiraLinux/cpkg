@@ -77,6 +77,7 @@ check_file
 #
 # COMMAND LINE PARSING
 #
+
 if [ $# -eq 0 ]; then
 	help_pkg
 fi

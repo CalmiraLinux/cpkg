@@ -106,6 +106,7 @@ function install_pkg() {
 	PKG=$1
 	cd /var/cache/cpkg/archives
 	cd PKG
+    DIR=$(pwd)
 	if test -f "config.sh"; then
 		source config.sh
 	else
@@ -117,12 +118,11 @@ function install_pkg() {
 	if test -f "preinst.sh"; then
 		print_msg ">> \e[32mExecute preinstall script\e[0m"
 		chmod +x preinst.sh
-		bash preinst.sh
+		./preinst.sh
 	fi
 
 	if test -f "postinst.sh"; then
 		print_msg ">> \e[32mSetting up postinstall script\e[0m\n"
-		DIR=$(pwd)
 		chmod +x postinst.sh
 	fi
 
