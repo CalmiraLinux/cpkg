@@ -30,7 +30,7 @@
 # SOURCE - a mirror of Calmira
 CONF=/etc/cpkg
 SOURCE=$CONF/pkg.list
-QUIET="false"	# turn off quiet mode (default)
+QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
 if [[ $(whoami) -eq "root" ]]; then	# get log directory
@@ -63,7 +63,7 @@ for FUNC in other-functions.sh core-functions.sh; do
 		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
 	else
 		print_dbg_msg "FAIL"
-		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found!\e[0m"
+		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found! \e[0m"
 		exit 0
 	fi
 done
