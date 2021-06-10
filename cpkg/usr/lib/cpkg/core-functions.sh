@@ -205,25 +205,6 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 }
 
-# Update package
-function update_pkg() {
-	PKG=$1
-	cd $CACHE
-	print_msg ">> \e[32mDownload $PKG...\e[0m"
-	print_dbg_msg "Change dir ($CACHE)
-Download package $PKG..."
-	log_msg "Downloading package $PKG" "Process"
-	wget $REPO/$PKG > /var/log/cpkg.log
-	if test -f $PKG; then
-		log_msg "Downloading ($PKG) complete" "OK"
-	else
-		log_msg "Downloading ($PKG) fail!" "FAIL"
-		error no_pkg
-		exit 0
-	fi
-	install_pkg $PKG
-}
-
 function download_pkg() {
 	if grep "$1" $SOURCE; then
 		print_msg "Found package '$1'"
