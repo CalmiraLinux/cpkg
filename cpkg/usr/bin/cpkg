@@ -113,6 +113,30 @@ while [ -n "$1" ]; do
 			cd /var/cache/cpkg/archives
 			download_pkg $2
 		;;
+		
+		local_repo)
+		    if test -f /usr/bin/git; then
+		        mkdir -pv /var/cache/cpkg/localrepo
+		        cd /var/cache/cpkg/localrepo
+		        git clone https://github.com/Linuxoid85/cpkg_packages
+		    else
+		        print_msg "\e[1;31mERROR: package \e[1;35m'git'\e[0m\e[1;31m doesn't installed! \e[0m"
+		        exit 0
+		    fi
+		;;
+
+        update)
+        	echo -e "[ $(date) ] [ Update package list ]\n" >> $LOG_DIR/history.log
+            cd /etc/cpkg
+            rm -vf pkg.list
+            print_msg -n ">> \e[1;32mDownload package list...\e[0m"
+            wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
+            if test -f pkg.list; then
+                print_msg "done"
+            else
+                print_msg "FAIL"
+            fi
+        ;;
 
 		list|-l)
 			echo -e "[ $(date) ] [ List packages ]\n" >> $LOG_DIR/history.log
