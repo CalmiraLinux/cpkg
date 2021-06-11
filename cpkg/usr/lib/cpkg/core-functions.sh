@@ -124,6 +124,7 @@ function install_pkg() {
 	if test -f "postinst.sh"; then
 		print_msg ">> \e[32mSetting up postinstall script\e[0m\n"
 		chmod +x postinst.sh
+		POSTINST=$DIR/postinst.sh
 	fi
 
 	if test -f "port.sh"; then
@@ -145,14 +146,20 @@ function install_pkg() {
 			exit 0
 		fi
 	fi
+	
+	if [ $PORT = "true" ]; then
+	    CONF_DIR=$DIR
+	else
+	    CONF_DIR=..
+	fi
 
 	print_msg ">> \e[1;32mSetting up a package...\e[0m\n"
 	echo "$NAME $VERSION $DESCRIPTION $FILES
 " >> /etc/cpkg/database/all_db
 	mkdir /etc/cpkg/database/packages/$NAME			# Creating a directory with information about the package
-	cp ../config.sh /etc/cpkg/database/packages/$NAME	# Copyng config file in database
-	if test -f "../changelog"; then
-		cp ../changelog /etc/cpkg/database/packages/$NAME	# Copyng changelog file in database
+	cp $CONF_DIR/config.sh /etc/cpkg/database/packages/$NAME	# Copyng config file in database
+	if test -f "$CONF_DIR/changelog"; then
+		cp $CONF_DIR/changelog /etc/cpkg/database/packages/$NAME	# Copyng changelog file in database
 	fi
 
 	if [ -f $POSTINST ]; then
