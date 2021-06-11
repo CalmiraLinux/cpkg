@@ -212,9 +212,11 @@ function download_pkg() {
 		print_msg "Package '$1' doesn't fing of $SOURCE"
 		exit 0
 	fi
-
-	print_dbg_msg "download package..."
-	wget $1 -o $LOG_DIR/download.log
+	
+	PKG=$(grep "$1" $SOURCE)
+	alias wget='wget --no-check-certificate'
+	print_msg "download package..."
+	wget $PKG
 
 	print_dbg_msg -n "test package... "
 	if test -f "$1.txz"; then
