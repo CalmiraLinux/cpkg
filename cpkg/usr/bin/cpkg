@@ -33,6 +33,16 @@ SOURCE=$CONF/pkg.list
 QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
+
+for FUNC in "other-functions.sh" "core-functions.sh"; do
+	if test -f "/usr/lib/cpkg/$FUNC"; then
+		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
+	else
+		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found! \e[0m"
+		exit 0
+	fi
+done
+
 if [[ $(whoami) -eq "root" ]]; then	# get log directory
 	LOG_DIR=/var/log/
 else
@@ -46,27 +56,12 @@ else
 fi
 
 print_dbg_msg "testing cpkg files... "
-for FILE in "settings" "pkg.list"; do
-	print_dbg_msg -n "testing $FILE... "
-	if test -f "/etc/cpkg/$FILE"; then
-		print_dbg_msg "done"
-		source /etc/cpkg/$FILE
-	else
-		print_dbg_msg "FAIL"
-	fi
-done
-
-for FUNC in other-functions.sh core-functions.sh; do
-	print_dbg_msg -n "testing $FUNC... "
-	if test -f "/usr/lib/cpkg/$FUNC"; then
-		print_dbg_msg "done"
-		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
-	else
-		print_dbg_msg "FAIL"
-		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found! \e[0m"
-		exit 0
-	fi
-done
+if test -f "/etc/cpkg/settings"; then
+	print_dbg_msg "done"
+	source /etc/cpkg/settings
+else
+	print_dbg_msg "FAIL"
+fi
 
 source /etc/lsb-release				# Load the system information
 
@@ -89,8 +84,15 @@ while [ -n "$1" ]; do
 			echo -e "[ $(date) ] [ Install the package $2 ]\n" >> $LOG_DIR/history.log
 
 			# Clean package cache
-			if [[ $CLEAN -eq "true" ]]; then
+			if [ $CLEAN = "true" ]; then
+			    print_dbg_msg "clean package cache..."
 				cache_clean
+			fi
+			
+			if test -f $2; then
+			    echo "ok"
+			else
+			    download_pkg $2
 			fi
 
 			unpack_pkg $2	# Unpack the package
@@ -110,7 +112,6 @@ while [ -n "$1" ]; do
 			fi
 
 			echo -e "[ $(date) ] [ Download the package $2 ]\n" >> $LOG_DIR/history.log
-			cd /var/cache/cpkg/archives
 			download_pkg $2
 		;;
 		
@@ -130,7 +131,7 @@ while [ -n "$1" ]; do
             cd /etc/cpkg
             rm -vf pkg.list
             print_msg -n ">> \e[1;32mDownload package list...\e[0m"
-            wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
+            wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list --no-check-certificate
             if test -f pkg.list; then
                 print_msg "done"
             else

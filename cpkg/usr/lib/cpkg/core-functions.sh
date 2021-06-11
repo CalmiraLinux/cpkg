@@ -216,15 +216,19 @@ function download_pkg() {
 	PKG=$(grep "$1" $SOURCE)
 	alias wget='wget --no-check-certificate'
 	print_msg "download package..."
-	wget $PKG
+	wget $PKG --no-check-certificate
 
 	print_dbg_msg -n "test package... "
-	if test -f "$1.txz"; then
+	if test -f "$1"; then
 		print_dbg_msg "done"
 	else
-		print_dbg_msg "FAIL"
-		print_msg "\e[1;31mERROR: package '$1' was downloaded unsuccesfully!\e[0m"
-		exit 0
+	    if test -f "$1.txz"; then
+	        print_dbg_msg "done"
+	    else
+    		print_dbg_msg "FAIL"
+	    	print_msg "\e[1;31mERROR: package '$1' was downloaded unsuccesfully!\e[0m"
+	    	exit 0
+	    fi
 	fi
 }
 
