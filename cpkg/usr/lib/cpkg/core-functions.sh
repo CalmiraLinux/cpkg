@@ -27,10 +27,10 @@
 #
 # BASE VARIABLES
 #
-VERSION=1.0
+VERSION=1.0pa3
 GetArch=$(uname -m)
 GetDate=$(date)
-GetCalmiraVersion=$DISTRIB_ID
+GetCalmiraVersion=$DISTRIB_RELEASE
 GetPkgLocation=$(pwd)
 
 #==================================================================#
@@ -312,7 +312,7 @@ function cache_clean() {
 # Help
 function help_pkg() {
 	echo -e "\e[1;35mcpkg - Calmira Package Manager\e1[0m
-\e[1mVersion:\e[0m        $VERSION
+\e[1mVersion:\e[0m        $VERSION (PreAlpha 3)
 \e[1mDistro version:\e[0m $GetCalmiraVersion
 
 \e[1;32mBASE FUNCTIONS\e[0m
