@@ -1,0 +1,177 @@
+#!/bin/bash
+#
+# CPkg - an automated packaging tool fog Calmira Linux
+# Cooyright (C) 2021 Michail Krasnov
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://github.com/Linuxoid85/cpkg
+# Michail Krasnov (aka Linuxoid85) michail383krasnov@mail.ru
+#
+
+#==================================================================#
+#
+# LOAD SCRIPT CONFIGURATIONS
+#
+
+# CONF - configuration directory
+# SOURCE - a mirror of Calmira
+CONF=/etc/cpkg
+SOURCE=$CONF/pkg.list
+QUIET="true"	# turn off quiet mode (default)
+DBG="false"	# turn off debug mode (default)
+CLEAN="false"	# turn off cleaning cache (default)
+
+for FUNC in "other-functions.sh" "core-functions.sh"; do
+	if test -f "/usr/lib/cpkg/$FUNC"; then
+		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
+	else
+		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found! \e[0m"
+		exit 0
+	fi
+done
+
+if [[ $(whoami) -eq "root" ]]; then	# get log directory
+	LOG_DIR=/var/log/
+else
+	LOG_DIR=~/.local/share/cpkg/log
+	if test -d $LOG_DIR; then
+		print_dbg_msg "done"
+	else
+		print_dbg_msg "retry..."
+		mkdir -p $LOG_DIR
+	fi
+fi
+
+print_dbg_msg "testing cpkg files... "
+if test -f "/etc/cpkg/settings"; then
+	print_dbg_msg "done"
+	source /etc/cpkg/settings
+else
+	print_dbg_msg "FAIL"
+fi
+
+source /etc/lsb-release				# Load the system information
+
+test_root
+check_file
+
+#==================================================================#
+#
+# COMMAND LINE PARSING
+#
+
+if [ $# -eq 0 ]; then
+	help_pkg
+fi
+
+# Options
+while [ -n "$1" ]; do
+	case $1 in
+        build)
+            print_dbg_msg -n "testing directory '/etc/cpkg/database/packages/$1'..."
+            if test -d "/etc/cpkg/database/packages/$1"; then
+                print_dbg_msg " done"
+                cd /etc/cpkg/database/packages/$1
+                
+                print_dbg_msg "read package info..."
+                source config.sh
+            else
+                print_dbg_msg " FAIL"
+                print_msg "\e[1;31mPackage\e[0m \e[35m$PKG\e[0m \e[1;31mis not installed or it's name was entered incorrectly\e[0m"
+                exit 0
+            fi
+               
+            # make tmp dirs PKG and PKG/pkg
+            print_dbg_msg "make temp dir..."
+            mkdir -pv PKG/pkg
+            
+            # testing dirs
+            for DIR in "PKG" "pkg"; do
+                if test -d "$DIR"; then
+                    print_dbg_msg "$DIR: created"
+                    print_msg "\e[32mDirectory $DIR is created\e[0m"
+                else
+                    print_dbg_msg "$DIR: don't created"
+                    print_msg "\e[1;31mERROR: directory $DIR doesn't create... \e[0m"
+                    exit 0
+                fi
+            done
+                
+            # copy package information in PKG/
+            # файл port.sh не копируется здесь потому что создаётся бинарный пакет.
+            for FILE in "config.sh" "changelog" "postinst.sh" "preinst.sh"; do
+                if test -f "FILE"; then
+                    print_dbg_msg "copy file $FILE..."
+                    cp $FILE PKG/
+                else
+                    print_dbg_msg "$FILE: skip"
+                    if [ $FILE = "config.sh" ]; then
+                        print_msg "\e[1;31mERROR: 'config.sh' doesn't find. Abort generating package."
+                        exit 0
+                    fi
+                fi
+            done
+            
+            # test files
+            unset FILE
+            for FILE in "PKG/config.sh" "PKG/changelog" "PKG/postinst.sh" "PKG/preinst.sh"; do
+            	if test -f "$FILE"; then
+            		print_dbg_msg "$FILE: copyed"
+            	else
+            		print_dbg_msg "$FILE: skip"
+            		if [ $FILE = "config.sh" ]; then
+                        print_msg "\e[1;31mERROR: 'config.sh' doesn't find. Abort generating package."
+                        exit 0
+                    fi
+                fi
+            done
+            
+            # copy package data
+            unset FILE
+            for FILE in $FILES; do
+            	cd PKG/pkg
+            	cp -r $FILE .
+            done
+            
+            cd ../../
+            tar -cf "$NAME-$VERSION.txz" PKG -J
+            rm -rf PKG
+            
+            if test -f "$NAME-$VERSION.txz"; then
+            	cp "$NAME-$VERSION.txz" /usr/pkg
+            	cd /usr/pkg
+	            read -p "Show the package data? (Y/n) " run
+			    if [ $run = Y ]; then
+    	    		tar -listf "$NAME-$VERSION.txz"
+    			fi
+            
+            	print_msg "Packing done."
+            else
+            	print_msg "PAckaging FAIL."
+            fi
+        ;;
+        
+		--quiet=true)	# Turn on quiet mode
+			QUIET="true"
+		;;
+
+		--debug-mode)	# Turn on a debug mode
+			DBG="true"
+		;;
+	esac
+	exit 0
+done
+        
