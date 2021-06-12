@@ -158,9 +158,11 @@ function install_pkg() {
 " >> /etc/cpkg/database/all_db
 	mkdir /etc/cpkg/database/packages/$NAME			# Creating a directory with information about the package
 	cp $CONF_DIR/config.sh /etc/cpkg/database/packages/$NAME	# Copyng config file in database
-	if test -f "$CONF_DIR/changelog"; then
-		cp $CONF_DIR/changelog /etc/cpkg/database/packages/$NAME	# Copyng changelog file in database
-	fi
+	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
+    	if test -f "$CONF_DIR/$FILE"; then
+	    	cp $CONF_DIR/$FILE /etc/cpkg/database/packages/$NAME/	# Copyng changelog and other files in database
+	    fi
+	done
 
 	if [ -f $POSTINST ]; then
 		print_msg ">> \e[32mExecute postinstall script\e[0m"
