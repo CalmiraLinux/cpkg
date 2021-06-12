@@ -36,7 +36,7 @@ MAINTAINER=Linuxoid85
 FILES="/usr/bin/cpkg /usr/lib/cpkg /etc/cpkg/{pkg.list,settings}"
 EOF
 
-tar -cvfJ cpkg-1.0pa3.txz PKG
+tar -cvf cpkg-1.0pa3.txz PKG -J
 
 if test -f "cpkg-1.0pa3.txz"; then
     echo "Build package done"
