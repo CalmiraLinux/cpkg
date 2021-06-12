@@ -123,7 +123,7 @@ FILES="/usr/bin/{some_pkg,test_cpkg} /usr/share/some_pkg/"
 Например, скачивание последней тестовой версии pa2:
 ```bash
 # Скачивание пакета. Заметьте, что скачивается он из раздела Releases (GitHub).
-https://github.com/Linuxoid85/cpkg/releases/download/1.0.pa2/cpkg.txz
+wget https://github.com/Linuxoid85/cpkg/releases/download/1.0.pa2/cpkg.txz
 # Установка или обновление
 cpkg -i cpkg.txz
 # Обновление списка пакетов cpkg
