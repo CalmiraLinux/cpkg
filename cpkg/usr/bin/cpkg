@@ -33,6 +33,7 @@ SOURCE=$CONF/pkg.list
 QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
+NCURSES="false"	# turn off pseudographic mode (default)
 
 for FUNC in "other-functions.sh" "core-functions.sh"; do
 	if test -f "/usr/lib/cpkg/$FUNC"; then
@@ -120,6 +121,11 @@ while [ -n "$1" ]; do
 		        mkdir -pv /var/cache/cpkg/localrepo
 		        cd /var/cache/cpkg/localrepo
 		        git clone https://github.com/Linuxoid85/cpkg_packages
+		        if test -d "cpkg_packages"; then
+		        	print_msg "Done"
+		        else
+		        	print_msg "\e[1;31mFAIL\e[0m"
+		        fi
 		    else
 		        print_msg "\e[1;31mERROR: package \e[1;35m'git'\e[0m\e[1;31m doesn't installed! \e[0m"
 		        exit 0
@@ -166,13 +172,17 @@ while [ -n "$1" ]; do
 		help)
 			help_pkg
 		;;
-
-		--quiet=true)	# Turn on quiet mode
+		
+		--quiet)
 			QUIET="true"
 		;;
-
-		--debug-mode)	# Turn on a debug mode
+		
+		--debug)
 			DBG="true"
+		;;
+		
+		--ncurses)
+			NCURSES="true"
 		;;
 
 

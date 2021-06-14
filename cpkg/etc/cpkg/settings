@@ -8,6 +8,8 @@
 # DBG - debug mode (only for develops!)
 # CLEAN - cleaning cache mode
 # LOG_DIR - directory for logs
+# NCURSES - pseudographic mode
+# BRANCH - packages branch
 
 QUIET="false"
-
+BRANCH="main"

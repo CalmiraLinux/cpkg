@@ -169,7 +169,15 @@ function install_pkg() {
 		cd $DIR
 		./postinst.sh
 	else
-		exit 0
+		print_dbg_msg "postinst.sh doesn't exists"
+	fi
+	
+	unset NAME VERSION DESCRIPTION MAINTAINER DEPENDS FILES
+	if [ -d $CONFIGS ]; then
+		print_dbg_msg "unsetting done (1)"
+	else
+		unset CONFIGS
+		print-msg "unsetting done (2)"
 	fi
 }
 
@@ -177,11 +185,11 @@ function install_pkg() {
 function remove_pkg() {
 	PKG=$1
 	log_msg "Search package $PKG" "Process"
-	if test -d "/etc/cpkg/database/packages/$PKG"; then
+	if test -d "/var/db/cpkg/packages/$PKG"; then
 		log_msg "Search package $PKG: $PWD" "OK"
 		log_msg "Read package information" "Process"
 		if test -f "/etc/cpkg/database/packages/$PKG/config.sh"; then
-			cd /etc/cpkg/database/packages/$PKG
+			cd /var/db/cpkg/packages/$PKG
 			log_msg "Read package information:" "OK"
 			source config.sh
 		else
@@ -202,6 +210,16 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 
 	log_msg "Remove package data" "Process"
 	rm -rf $FILES
+	
+	if [ -d $CONFIGS ]; then
+		echo "\e[34mPlease delete a configuration files:\e[0m"
+		echo -e "$CONFIGS\n"
+	fi
+	
+	if [ -d $DEPS ]; then
+		echo "\e[34mPlease uninstal a depends:\e[0m"
+		echo -e "$DEPS\n"
+	fi
 
 	log_msg "Remove database" "Process"
 	rm -rf /etc/cpkg/database/packages/$PKG
@@ -223,9 +241,8 @@ function download_pkg() {
 	fi
 	
 	PKG=$(grep "$1" $SOURCE)
-	alias wget='wget --no-check-certificate'
 	print_msg "download package..."
-	wget $PKG --no-check-certificate
+	wget $PKG
 
 	print_dbg_msg -n "test package... "
 	if test -f "$1"; then
@@ -313,7 +330,23 @@ function cache_clean() {
 
 # Help
 function help_pkg() {
-	echo -e "\e[1;35mcpkg - Calmira Package Manager\e1[0m
+	if [ $NCURSES = "true" ]; then
+		print_ps_dialog "cpkg - Calmira Package Manager
+Version: $VERSION (PreAlpha3)
+Distro version: $GetCalmiraVersion
+
+BASE FUNCTIONS:
+install - install the package
+remove  - remove the package
+list    - list all packages
+search  - search a package
+download - download a package
+
+---------------------------------------------------
+(C) 2021 Micail Krasnov <michail383krasnov@mail.ru>
+For Calmira GNU/Linux $GetCalmiraVersion"
+	else
+		echo -e "\e[1;35mcpkg - Calmira Package Manager\e1[0m
 \e[1mVersion:\e[0m        $VERSION (PreAlpha 3)
 \e[1mDistro version:\e[0m $GetCalmiraVersion
 
@@ -331,9 +364,11 @@ function help_pkg() {
 \e[1m-I\e[0m             - information about package
 \e[1m-s\e[0m             - search install package
 \e[1m--quiet=true\e[0m   - quiet mode
-\e[1m--debug-mode\e[0m   - debug mode
+\e[1m--debug-mode=true\e[0m   - debug mode
+\e[1m--ncurses\e[0       - pseudographic mode
 ---------------------------------------------------
 (C) 2021 Michail Krasnov \e[4m<michail383krasnov@mail.ru>\e[0m
 For Calmira GNU/Linux $GetCalmiraVersion
 "
+fi
 }

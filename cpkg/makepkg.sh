@@ -11,7 +11,7 @@ source config.sh
 PACKAGE="$NAME-$VERSION.txz"
 
 echo -e "\e[1mDIRS:\e[0m"
-for FILE in "usr" "usr/bin" "usr/lib" "usr/lib/cpkg" "etc" "etc/cpkg"; do
+for FILE in "usr" "usr/bin" "usr/lib" "usr/lib/cpkg" "etc" "etc/cpkg" "var" "var/db" "var/db/cpkg" "var/db/cpkg/packages"; do
     if test -d $FILE; then
         echo "$FILE is found"
     else
@@ -32,7 +32,7 @@ done
 
 echo -e "\nMake dirs and copy package data..."
 mkdir -pv PKG/pkg > log
-cp -rv {usr,etc} PKG/pkg/ >> log
+cp -rv {usr,etc,var} PKG/pkg/ >> log
 
 echo -e "Write package information..."
 echo "$(cat config.sh)" > PKG/config.sh
@@ -57,13 +57,13 @@ echo -e "\nBuild package..."
 tar -cf $PACKAGE PKG -J
 
 echo "Test package..."
-if test -f "cpkg-1.0pa3.txz"; then
+if test -f "$NAME-$VERSION.txz"; then
     echo "Build package done"
+    rm -rf PKG
     read -p "Show the package data? (Y/n) " run
     if [ $run = Y ]; then
         tar -listf $PACKAGE
     fi
-    rm -rf PKG
 else
     echo "Build package FAIL"
 fi

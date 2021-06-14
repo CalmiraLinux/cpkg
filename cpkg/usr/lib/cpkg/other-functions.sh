@@ -27,6 +27,8 @@
 #
 # BASE VARIABLES
 #
+BACKTITLE="Calmira package manager"		# Backtitle for `print_ps_msg`
+TITLE="cpkg"							# Title for `print_ps_msg`
 
 #==================================================================#
 #
@@ -40,6 +42,18 @@ function print_msg() {
 	else
 		echo -e $@
 	fi
+}
+
+function print_warn_msg() {
+	if [[ $QUIET = "true" ]]; then
+		echo "$@" > /dev/null
+	else
+		echo -e "\e[34m$@\e[0m"
+	fi
+}
+
+function print_ps_msg() {
+	dialog --backtitle "$BACKTITLE" --title " $TITLE " --msgbox "$1" 0 0
 }
 
 # Function for print a debug messages on screen
