@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# CPkg - an automated packaging tool fog Calmira Linux
+# Copyright (C) 2021 Michail Krasnov
+#
+# other-functions.sh
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://github.com/Linuxoid85/cpkg
+# Michail Krasnov <michail383krasnov@mail.ru>
+#
+
+# errors
+ERROR_NO_FUNC="\e[1;31mОШИБКА: файл /usr/lib/cpkg/$FUNC не существует! \e[0m"
+ERROR_PACKAGE_NOT_INSTALLED="\e[1;31mОШИБКА: пакет \e[1;35m$PACKAGE\e[0m\e[1;31m не установлен! \e[0m"
+ERROR_NO_OPTION="\e[1;31mОШИБКА: опция(и) '$@' не существуют! \e[0m\n"
+ERROR_UNPACK_PKG_NOT_FOUND="\e[1;31mПакет\e[0m\e[35m $PKG\e[0m\e[1;31m не распакован! \e[0m"
+
+# actions
+ACTION_INSTALL="Установка пакета"
+ACTION_REMOVE="Удаление пакета"
+ACTION_DOWNLOAD="Установка пакета"
+ACTION_UPDATE_LIST="Обновление списка пакетов"
+ACTION_LIST="Просмотр списка пакетов"
+ACTION_SEARCH="Поиск пакета"
+ACTION_INFO="Просмотр информации о пакете"
+ACTION_CLEAN="Очистка кеша"
+ACTION_UKNOWN_OPTION="Запуск 'cpkg' с опцией(ями), которая(ые) неизвестна(ы) ПМ: "
+
+# other
+DONE="готово"
+RETRY="повторение..."
+FAIL="\e[1;31mОШИБКА\e[0m"
+PKGLIST_DOWNLOAD=">> \e[1;32mСкачивание списка пакетов...\e[0m"
+FILE="Файл"
+DOESNT_EXISTS="не существует!"
+DOESNT_INSTALLED="не установлен!"
+PACKAGE="Пакет"
+
+## core-functions.sh
+
+# search_pkg and file_search
+SEARCH_PACKAGE=">> \e[1;32mПоиск пакета\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
+SEARCH1="\e[32mПакет\e[0m"
+SEARCH2="\e[32mсуществует в \e[0m"
+SEARCH_RESULT="Результаты поиска:"
+
+# unpack_pkg
+UNPACK1=">> \e[1;32mРаспаковка пакета\e[0m"
+UNPACK_COMPLETE1="\e[32mПакет\e[0m"
+UNPACK_COMPLETE2="\e[32mраспакован\e[0m\n"
+UNPACK_FAIL1="\e[1;31mПакет\e[0m"
+UNPACK_FAIL2="\e[1;31mне был распакован! \e[0m"
+
+# arch_test
+ARCH_TEST=">> \e[1;32mТест архитектуры пакета...\e[0m"
+ARCH_VARIABLE_NOT_FOUND="\e[31m[ Указатель архитектуры не существует ]\e[0m"
+MULTIARCH_DONE="\e[32m[ Мультиархитектурный тест прошёл успешно! ]\e[0m"
+ARCH_DONE="\e[32m[ Архитектурный тест прошёл успешно! ]\e[0m"
+
+# install_pkg
+EXECUTE_PREINSTALL=">> \e[32mЗапуск предустановочного скрипта...\e[0m"
+EXECUTE_POSTINSTALL=">> \e[32mЗапуск послеустановочного скрипта...\e[0m"
+SETTING_UP_POSTINSTALL=">> \e[32mНастройка послеустановочного скрипта...\e[0m"
+INSTALL_PORT=">> \e[1;32mУстановка port-пакета...\e[0m"
+COPY_PKG_DATA=">> \e[1;32mКопирование данных пакета...\e[0m"
+WARN_NO_PKG_DIR="\e[33mПРЕДУПРЕЖДЕНИЕ: директория 'pkg' отсутствует\e[0m"
+SETTING_UP_PACKAGE=">> \e[1;32mНастройка пакета...\e[0m"
+
+# remove_pkg
+PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY="не установлен, либо имя введено неправильно."
+REMOVE_PKG=">> \e[1;34mУдаление пакета\e[0m"
+REMOVE_PKG_FAIL="не был удалён успешно!"
+REMOVE_PKG_OK="удалён успешно."
+
+# download_pkg
+FOUND_PKG="Существует"
+NOT_FOUND_PKG="не существует в"
+DOWNLOAD_PKG=">> \e[1;32mСкачивание пакета...\e[0m"
+DOWNLOAD_PKG_FAIL="не был скачан успешно!"
+
+# package_info
+PACKAGE_INFO="Информация о пакете"
+PACKAGE_NAME="Имя:"
+PACKAGE_RELEASE="Версия:"
+PACKAGE_DESCRIPTION="Описание:"
+PACKAGE_MAINTAINER="Сборщик пакета:"
+PACKAGE_FILES="Установленные файлы:"
+
+# cache_clean
+CACHE_CLEAN="Очистка кеша..."

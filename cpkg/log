@@ -1,0 +1,80 @@
+mkdir: создан каталог 'PKG'
+mkdir: создан каталог 'PKG/pkg'
+'usr' -> 'PKG/pkg/usr'
+'usr/bin' -> 'PKG/pkg/usr/bin'
+'usr/bin/.cpkg.swp' -> 'PKG/pkg/usr/bin/.cpkg.swp'
+'usr/bin/.cpkg.swo' -> 'PKG/pkg/usr/bin/.cpkg.swo'
+'usr/bin/cpkg' -> 'PKG/pkg/usr/bin/cpkg'
+'usr/lib' -> 'PKG/pkg/usr/lib'
+'usr/lib/cpkg' -> 'PKG/pkg/usr/lib/cpkg'
+'usr/lib/cpkg/other-functions.sh' -> 'PKG/pkg/usr/lib/cpkg/other-functions.sh'
+'usr/lib/cpkg/core-functions.sh' -> 'PKG/pkg/usr/lib/cpkg/core-functions.sh'
+'usr/share' -> 'PKG/pkg/usr/share'
+'usr/share/cpkg' -> 'PKG/pkg/usr/share/cpkg'
+'usr/share/cpkg/changelog' -> 'PKG/pkg/usr/share/cpkg/changelog'
+'usr/share/cpkg/locale' -> 'PKG/pkg/usr/share/cpkg/locale'
+'usr/share/cpkg/locale/ru_RU.UTF-8.sh' -> 'PKG/pkg/usr/share/cpkg/locale/ru_RU.UTF-8.sh'
+'usr/share/doc' -> 'PKG/pkg/usr/share/doc'
+'usr/share/doc/cpkg' -> 'PKG/pkg/usr/share/doc/cpkg'
+'usr/share/doc/cpkg/CHANGELOG' -> 'PKG/pkg/usr/share/doc/cpkg/CHANGELOG'
+'etc' -> 'PKG/pkg/etc'
+'etc/cpkg' -> 'PKG/pkg/etc/cpkg'
+'etc/cpkg/settings' -> 'PKG/pkg/etc/cpkg/settings'
+'etc/cpkg/pkg.list' -> 'PKG/pkg/etc/cpkg/pkg.list'
+'var' -> 'PKG/pkg/var'
+'var/cache' -> 'PKG/pkg/var/cache'
+'var/cache/cpkg' -> 'PKG/pkg/var/cache/cpkg'
+'var/cache/cpkg/archives' -> 'PKG/pkg/var/cache/cpkg/archives'
+'var/db' -> 'PKG/pkg/var/db'
+'var/db/cpkg' -> 'PKG/pkg/var/db/cpkg'
+'var/db/cpkg/all_db' -> 'PKG/pkg/var/db/cpkg/all_db'
+'var/db/cpkg/packages' -> 'PKG/pkg/var/db/cpkg/packages'
+'var/db/cpkg/packages/cpkg' -> 'PKG/pkg/var/db/cpkg/packages/cpkg'
+'var/db/cpkg/packages/cpkg/config.sh' -> 'PKG/pkg/var/db/cpkg/packages/cpkg/config.sh'
+'var/db/cpkg/packages/cpkg/changelog' -> 'PKG/pkg/var/db/cpkg/packages/cpkg/changelog'
+'var/db/cpkg/packages/system' -> 'PKG/pkg/var/db/cpkg/packages/system'
+'var/db/cpkg/packages/system/postinst.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/postinst.sh'
+'var/db/cpkg/packages/system/preinst.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/preinst.sh'
+'var/db/cpkg/packages/system/port.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/port.sh'
+'var/db/cpkg/packages/system/config.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/config.sh'
+PKG/
+PKG/config.sh
+PKG/changelog
+PKG/pkg/
+PKG/pkg/var/
+PKG/pkg/var/db/
+PKG/pkg/var/db/cpkg/
+PKG/pkg/var/db/cpkg/packages/
+PKG/pkg/var/db/cpkg/packages/cpkg/
+PKG/pkg/var/db/cpkg/packages/cpkg/config.sh
+PKG/pkg/var/db/cpkg/packages/cpkg/changelog
+PKG/pkg/var/db/cpkg/packages/system/
+PKG/pkg/var/db/cpkg/packages/system/config.sh
+PKG/pkg/var/db/cpkg/packages/system/port.sh
+PKG/pkg/var/db/cpkg/packages/system/preinst.sh
+PKG/pkg/var/db/cpkg/packages/system/postinst.sh
+PKG/pkg/var/db/cpkg/all_db
+PKG/pkg/var/cache/
+PKG/pkg/var/cache/cpkg/
+PKG/pkg/var/cache/cpkg/archives/
+PKG/pkg/usr/
+PKG/pkg/usr/bin/
+PKG/pkg/usr/bin/.cpkg.swp
+PKG/pkg/usr/bin/cpkg
+PKG/pkg/usr/bin/.cpkg.swo
+PKG/pkg/usr/lib/
+PKG/pkg/usr/lib/cpkg/
+PKG/pkg/usr/lib/cpkg/core-functions.sh
+PKG/pkg/usr/lib/cpkg/other-functions.sh
+PKG/pkg/usr/share/
+PKG/pkg/usr/share/doc/
+PKG/pkg/usr/share/doc/cpkg/
+PKG/pkg/usr/share/doc/cpkg/CHANGELOG
+PKG/pkg/usr/share/cpkg/
+PKG/pkg/usr/share/cpkg/changelog
+PKG/pkg/usr/share/cpkg/locale/
+PKG/pkg/usr/share/cpkg/locale/ru_RU.UTF-8.sh
+PKG/pkg/etc/
+PKG/pkg/etc/cpkg/
+PKG/pkg/etc/cpkg/pkg.list
+PKG/pkg/etc/cpkg/settings

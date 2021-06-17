@@ -30,16 +30,24 @@
 # SOURCE - a mirror of Calmira
 CONF=/etc/cpkg
 SOURCE=$CONF/pkg.list
+DATABASE=/var/db/cpkg
 QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
 NCURSES="false"	# turn off pseudographic mode (default)
 
+if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
+    source /usr/share/cpkg/locale/$LANG.sh
+else
+    echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
+    exit 0
+fi
+
 for FUNC in "other-functions.sh" "core-functions.sh"; do
 	if test -f "/usr/lib/cpkg/$FUNC"; then
 		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
 	else
-		echo -e "\e[1;31mERROR: source /usr/lib/cpkg/$FUNC doesn't found! \e[0m"
+		echo -e "$ERROR_NO_FUNC"
 		exit 0
 	fi
 done
@@ -49,19 +57,19 @@ if [[ $(whoami) -eq "root" ]]; then	# get log directory
 else
 	LOG_DIR=~/.local/share/cpkg/log
 	if test -d $LOG_DIR; then
-		print_dbg_msg "done"
+		print_dbg_msg "$DONE"
 	else
-		print_dbg_msg "retry..."
+		print_dbg_msg "$RETRY"
 		mkdir -p $LOG_DIR
 	fi
 fi
 
 print_dbg_msg "testing cpkg files... "
 if test -f "/etc/cpkg/settings"; then
-	print_dbg_msg "done"
+	print_dbg_msg "$DONE"
 	source /etc/cpkg/settings
 else
-	print_dbg_msg "FAIL"
+	print_dbg_msg "$FAIL"
 fi
 
 source /etc/lsb-release				# Load the system information
@@ -82,27 +90,22 @@ fi
 while [ -n "$1" ]; do
 	case $1 in
 		install|-i)
-			echo -e "[ $(date) ] [ Install the package $2 ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_INSTALL $2 ]\n" >> $LOG_DIR/history.log
 
 			# Clean package cache
 			if [ $CLEAN = "true" ]; then
-			    print_dbg_msg "clean package cache..."
+				print_dbg_msg "clean package cache..."
 				cache_clean
 			fi
 			
-			if test -f $2; then
-			    echo "ok"
-			else
-			    download_pkg $2
-			fi
-
+			search_pkg $2	# Search the package
 			unpack_pkg $2	# Unpack the package
 			cd /var/cache/cpkg/archives
 			install_pkg $2
 		;;
 
 		remove|-r)
-			echo -e "[ $(date) ] [ Remove the package $2 ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_REMOVE $2 ]\n" >> $LOG_DIR/history.log
 			remove_pkg $2	# Remove
 		;;
 
@@ -112,7 +115,7 @@ while [ -n "$1" ]; do
 				cache_clean
 			fi
 
-			echo -e "[ $(date) ] [ Download the package $2 ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_DOWNLOAD $2 ]\n" >> $LOG_DIR/history.log
 			download_pkg $2
 		;;
 		
@@ -122,50 +125,48 @@ while [ -n "$1" ]; do
 		        cd /var/cache/cpkg/localrepo
 		        git clone https://github.com/Linuxoid85/cpkg_packages
 		        if test -d "cpkg_packages"; then
-		        	print_msg "Done"
+		        	print_msg "$DONE"
 		        else
-		        	print_msg "\e[1;31mFAIL\e[0m"
+		        	print_msg "$FAIL"
 		        fi
 		    else
-		        print_msg "\e[1;31mERROR: package \e[1;35m'git'\e[0m\e[1;31m doesn't installed! \e[0m"
+                	PACKAGE=git
+		        print_msg "$ERROR_PACKAGE_NOT_INSTALLED"
+		        unset PACKAGE
 		        exit 0
 		    fi
 		;;
 
-        update)
-        	echo -e "[ $(date) ] [ Update package list ]\n" >> $LOG_DIR/history.log
-            cd /etc/cpkg
-            rm -vf pkg.list
-            print_msg -n ">> \e[1;32mDownload package list...\e[0m"
-            wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list --no-check-certificate
-            if test -f pkg.list; then
-                print_msg "done"
-            else
-                print_msg "FAIL"
-            fi
-        ;;
-
-		list|-l)
-			echo -e "[ $(date) ] [ List packages ]\n" >> $LOG_DIR/history.log
-			if [ $2 = "--verbose" ]; then
-				file_list --verbose=on
+		update)
+        		echo -e "[ $(date) ] [ $ACTION_UPDATE_LIST ]\n" >> $LOG_DIR/history.log
+			cd /etc/cpkg
+			rm -vf pkg.list
+			print_msg -n "$PKGLIST_DOWNLOAD"
+			wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
+			if test -f pkg.list; then
+				print_msg "$DONE"
 			else
-				file_list --verbose=off
+				print_msg "$FAIL"
 			fi
 		;;
 
+		list|-l)
+			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
+			file_list --verbose=on
+		;;
+
 		search|-s)
-			echo -e "[ $(date) ] [ Search install package ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_SEARCH $2 ]\n" >> $LOG_DIR/history.log
 			file_list --verbose=on |grep $2
 		;;
 
 		info|-I)
-			echo -e "[ $(date) ] [ Information about $2 ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_INFO $2 ]\n" >> $LOG_DIR/history.log
 			package_info $2
 		;;
 
 		clean|-C)
-			echo -e "[ $(date) ] [ Clean cache ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_CLEAN ]\n" >> $LOG_DIR/history.log
 			cache_clean
 		;;
 
@@ -193,8 +194,8 @@ while [ -n "$1" ]; do
 		;;
 
 		*)
-			echo -e "[ $(date) ] [ Uknown option(s) '$@' ]\n" >> $LOG_DIR/history.log
-			echo -e "\e[1;31mERROR: option(s) '$@' doesn't exists! \e[0m\n"
+			echo -e "[ $(date) ] [ $ACTION_UKNOWN_OPTION '$@' ]\n" >> $LOG_DIR/history.log
+			echo -e "$ERROR_NO_OPTION"
 			help_pkg
 		;;
 	esac

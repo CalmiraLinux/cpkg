@@ -44,14 +44,6 @@ function print_msg() {
 	fi
 }
 
-function print_warn_msg() {
-	if [[ $QUIET = "true" ]]; then
-		echo "$@" > /dev/null
-	else
-		echo -e "\e[34m$@\e[0m"
-	fi
-}
-
 function print_ps_msg() {
 	dialog --backtitle "$BACKTITLE" --title " $TITLE " --msgbox "$1" 0 0
 }
@@ -103,89 +95,27 @@ function error() {
 # Function to check for the presence of the
 # required files and directories
 function check_file() {
-	# Test the cache dir
-	print_dbg_msg -n "check cache dir (1) '/var/cahce/cpkg' ... "
-	if test -d "/var/cache/cpkg"; then
-		print_dbg_msg "done"
-	else
-		print_dbg_msg "fail"
-		print_msg -n "\e[1;31mERROR\e[0m: cache dir (var/cache/cpkg) doesn't exists! Create it? (y/n) "
-		if [[ $QUIET -eq "true" ]]; then
-			mkdir -p /var/cache/cpkg
-		else
-			read run
-			if [[ $run -eq "y" ]]; then
-				mkdir -pv /var/cache/cpkg
-			else
-				print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
-				exit 0
-			fi
-		fi
-	fi
-
-	# Test the cache dir (2)
-	print_dbg_msg -n "check cache dir (2) '/var/cache/cpkg/archives' ... "
-	if test -d "/var/cache/cpkg/archives"; then
-		print_dbg_msg "done"
-	else
-		print_dbg_msg "fail"
-		print_msg -n "\e[1;31mERROR\e[0m: cache dir (var/cache/cpkg/archives) doesn't exists! Create it? (y/n) "
-		if [[ $QUIET -eq "true" ]]; then
-			mkdir -p /var/cache/cpkg/archives
-		else
-			read run
-			if [[ $run -eq "y" ]]; then
-				mkdir -pv /var/cache/cpkg/archives
-			else
-				print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
-				exit 0
-			fi
-		fi
-	fi
-
-	# Test the cpkg configs dir
-	print_dbg_msg -n "check configs dir (2) '/etc/cpkg' ... "
-	if test -d "/etc/cpkg"; then
-		print_dbg_msg "done"
-	else
-		print_dbg_msg "fail"
-		print_msg -n "\e[1;31mERROR\e[0m: cache dir (/etc/cpkg) doesn't exists! Create it? (y/n) "
-		if [[ $QUIET -eq "true" ]]; then
-			mkdir -p /etc/cpkg
-			echo "System: $GetCalmiraVersion
-Version cpkg: 1.0 Alpha 1
-
-"
-		else
-			read run
-			if [[ $run -eq "y" ]]; then
-				mkdir -pv /etc/cpkg
-			else
-				print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
-				exit 0
-			fi
-		fi
-	fi
-
-	# Test the database dir
-	print_dbg_msg -n "check database dir '/etc/cpkg/database/packages' ... "
-	if test -d "/etc/cpkg/database/packages"; then
-		print_dbg_msg "done"
-	else
-		print_dbg_msg "fail"
-		print_msg -n "\e[1;31mERROR\e[0m: cache dir (/etc/cpkg/database/packages) doesn't exists! Create it? (y/n) "
-		if [[ $QUIET -eq "true" ]]; then
-			mkdir -p /etc/cpkg/database/packages
-		else
-			read run
-			if [[ $run -eq "y" ]]; then
-				mkdir -pv /etc/cpkg/database/packages
-			else
-				print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
-				exit 0
-			fi
-		fi
-	fi
+    for DIR in "/var/{cache,db}/cpkg/packages" "/etc/cpkg"; do
+        # Test the cache dir
+        print_dbg_msg -n "check cache dir (1) '/var/cahce/cpkg' ... "
+        if test -d "$DIR"; then
+            print_dbg_msg "done"
+        else
+            print_dbg_msg "fail"
+            print_msg -n "\e[1;31mERROR\e[0m: cache dir ($DIR) doesn't exists! Create it? (y/n) "
+            if [[ $QUIET -eq "true" ]]; then
+                mkdir -p $DIR
+            else
+                read run
+                if [[ $run -eq "y" ]]; then
+                    mkdir -pv $DIR
+                else
+                    print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
+                    exit 0
+                fi
+            fi
+        fi
+    done
 }
 
 function log_msg() {

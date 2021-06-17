@@ -8,10 +8,10 @@
 #
 
 source config.sh
-PACKAGE="$NAME-$VERSION.txz"
+PACKAGE="$NAME-$VERSION-$(date --rfc-3339=date).txz"
 
 echo -e "\e[1mDIRS:\e[0m"
-for FILE in "usr" "usr/bin" "usr/lib" "usr/lib/cpkg" "etc" "etc/cpkg" "var" "var/db" "var/db/cpkg" "var/db/cpkg/packages"; do
+for FILE in "usr/bin" "usr/lib/cpkg" "etc/cpkg" "var/db/cpkg" "var/db/cpkg/packages" "usr/share/cpkg"; do
     if test -d $FILE; then
         echo "$FILE is found"
     else
@@ -54,7 +54,7 @@ else
 fi
 
 echo -e "\nBuild package..."
-tar -cf $PACKAGE PKG -J
+tar -cvf "$PACKAGE" PKG -J >> log
 
 echo "Test package..."
 if test -f "$NAME-$VERSION.txz"; then
