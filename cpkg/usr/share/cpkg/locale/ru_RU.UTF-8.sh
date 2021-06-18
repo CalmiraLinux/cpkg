@@ -23,6 +23,11 @@
 # Michail Krasnov <michail383krasnov@mail.ru>
 #
 
+# cpkg
+CPKG_ABOUT="CPkg - автоматизированная утилита для работы с пакетами (АУРП) в Calmira GNU/Linux"
+CPKG_VER="Версия АУРП:"
+CPKG_DISTRO_VER="Версия дистрибутива:"
+
 # errors
 ERROR_NO_FUNC="\e[1;31mОШИБКА: файл /usr/lib/cpkg/$FUNC не существует! \e[0m"
 ERROR_PACKAGE_NOT_INSTALLED="\e[1;31mОШИБКА: пакет \e[1;35m$PACKAGE\e[0m\e[1;31m не установлен! \e[0m"
@@ -102,3 +107,23 @@ PACKAGE_FILES="Установленные файлы:"
 
 # cache_clean
 CACHE_CLEAN="Очистка кеша..."
+
+# help_pkg
+HELP_CPKG="\e[1;32mБазовые опции\e[0m
+\e[1minstall\e[0m        - установка пакета
+\e[1mremove\e[0m         - удаление пакета
+\e[1mlist\e[0m           - просмотр всех установленных пакетов
+\e[1msearch\e[0m         - поиск пакета
+\e[1mdownload\e[0m       - скачивание пакета
+
+---------------------------------------------------
+\e[1;32mКлючи\e[0m
+\e[1m-i\e[0m             - установка пакета
+\e[1m-r\e[0m             - удаление пакета
+\e[1m-I\e[0m             - информация о пакете
+\e[1m-s\e[0m             - поиск установленного пакета
+\e[1m--quiet=true\e[0m   - тихий режим с минимумом сообщений на экране
+\e[1m--debug-mode=true\e[0m   - debug-режим с большим кол-вом сообщений для отладки
+---------------------------------------------------
+(C) 2021 Михаил Краснов \e[4m<michail383krasnov@mail.ru>\e[0m
+Для Calmira GNU/Linux"

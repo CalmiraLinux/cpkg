@@ -313,47 +313,12 @@ function cache_clean() {
 
 # Help
 function help_pkg() {
-	if [ $NCURSES = "true" ]; then
-		print_ps_dialog "cpkg - Calmira Package Manager
-Version: $VERSION (PreAlpha3)
-Distro version: $GetCalmiraVersion
+	echo -e "\e[1;35m$CPKG_ABOUT\e[0m
+\e[1m$CPKG_VER\e[0m        $VERSION (PreAlpha 4)
+\e[1m$CPKG_DISTRO_VER\e[0m $GetCalmiraVersion
 
-BASE FUNCTIONS:
-install - install the package
-remove  - remove the package
-list    - list all packages
-search  - search a package
-download - download a package
-
----------------------------------------------------
-(C) 2021 Micail Krasnov <michail383krasnov@mail.ru>
-For Calmira GNU/Linux $GetCalmiraVersion"
-	else
-		echo -e "\e[1;35mcpkg - Calmira Package Manager\e1[0m
-\e[1mVersion:\e[0m        $VERSION (PreAlpha 3)
-\e[1mDistro version:\e[0m $GetCalmiraVersion
-
-\e[1;32mBASE FUNCTIONS\e[0m
-\e[1minstall\e[0m        - install package
-\e[1mremove\e[0m         - remove package
-\e[1mlist\e[0m           - list all packages
-\e[1msearch\e[0m         - search a package
-\e[1mdownload\e[0m       - download a package
-
----------------------------------------------------
-\e[1;32mKEYS\e[0m
-\e[1m-i\e[0m             - install package
-\e[1m-r\e[0m             - remove package
-\e[1m-I\e[0m             - information about package
-\e[1m-s\e[0m             - search install package
-\e[1m--quiet=true\e[0m   - quiet mode
-\e[1m--debug-mode=true\e[0m   - debug mode
-\e[1m--ncurses\e[0       - pseudographic mode
----------------------------------------------------
-(C) 2021 Michail Krasnov \e[4m<michail383krasnov@mail.ru>\e[0m
-For Calmira GNU/Linux $GetCalmiraVersion
+$HELP_CPKG $GetCalmiraVersion
 "
-fi
 }
 
 check_file

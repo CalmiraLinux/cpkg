@@ -7,11 +7,10 @@ mkdir: создан каталог 'PKG/pkg'
 'usr/bin/cpkg' -> 'PKG/pkg/usr/bin/cpkg'
 'usr/lib' -> 'PKG/pkg/usr/lib'
 'usr/lib/cpkg' -> 'PKG/pkg/usr/lib/cpkg'
-'usr/lib/cpkg/other-functions.sh' -> 'PKG/pkg/usr/lib/cpkg/other-functions.sh'
 'usr/lib/cpkg/core-functions.sh' -> 'PKG/pkg/usr/lib/cpkg/core-functions.sh'
+'usr/lib/cpkg/other-functions.sh' -> 'PKG/pkg/usr/lib/cpkg/other-functions.sh'
 'usr/share' -> 'PKG/pkg/usr/share'
 'usr/share/cpkg' -> 'PKG/pkg/usr/share/cpkg'
-'usr/share/cpkg/changelog' -> 'PKG/pkg/usr/share/cpkg/changelog'
 'usr/share/cpkg/locale' -> 'PKG/pkg/usr/share/cpkg/locale'
 'usr/share/cpkg/locale/ru_RU.UTF-8.sh' -> 'PKG/pkg/usr/share/cpkg/locale/ru_RU.UTF-8.sh'
 'usr/share/doc' -> 'PKG/pkg/usr/share/doc'
@@ -30,8 +29,8 @@ mkdir: создан каталог 'PKG/pkg'
 'var/db/cpkg/all_db' -> 'PKG/pkg/var/db/cpkg/all_db'
 'var/db/cpkg/packages' -> 'PKG/pkg/var/db/cpkg/packages'
 'var/db/cpkg/packages/cpkg' -> 'PKG/pkg/var/db/cpkg/packages/cpkg'
-'var/db/cpkg/packages/cpkg/config.sh' -> 'PKG/pkg/var/db/cpkg/packages/cpkg/config.sh'
 'var/db/cpkg/packages/cpkg/changelog' -> 'PKG/pkg/var/db/cpkg/packages/cpkg/changelog'
+'var/db/cpkg/packages/cpkg/config.sh' -> 'PKG/pkg/var/db/cpkg/packages/cpkg/config.sh'
 'var/db/cpkg/packages/system' -> 'PKG/pkg/var/db/cpkg/packages/system'
 'var/db/cpkg/packages/system/postinst.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/postinst.sh'
 'var/db/cpkg/packages/system/preinst.sh' -> 'PKG/pkg/var/db/cpkg/packages/system/preinst.sh'
@@ -71,7 +70,6 @@ PKG/pkg/usr/share/doc/
 PKG/pkg/usr/share/doc/cpkg/
 PKG/pkg/usr/share/doc/cpkg/CHANGELOG
 PKG/pkg/usr/share/cpkg/
-PKG/pkg/usr/share/cpkg/changelog
 PKG/pkg/usr/share/cpkg/locale/
 PKG/pkg/usr/share/cpkg/locale/ru_RU.UTF-8.sh
 PKG/pkg/etc/
