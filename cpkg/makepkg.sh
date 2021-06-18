@@ -31,7 +31,8 @@ for FILE in "usr/bin/cpkg" "usr/lib/cpkg/core-functions.sh" "usr/lib/cpkg/other-
 done
 
 echo -e "\nMake dirs and copy package data..."
-mkdir -pv PKG/pkg > log
+echo -e "\n$(date)" >> log
+mkdir -pv PKG/pkg >> log
 cp -rv {usr,etc,var} PKG/pkg/ >> log
 
 echo -e "Write package information..."
