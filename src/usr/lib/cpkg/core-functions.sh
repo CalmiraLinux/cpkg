@@ -45,7 +45,7 @@ function list_depends() {
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
-	echo -e "\e[1mУстановите или удалите эти зависимости перед тем, как устанавливать или удалять этот пакет!\e[0m"
+	echo -e "\n\e[1mУстановите или удалите эти зависимости перед тем, как устанавливать или удалять этот пакет!\e[0m\n"
 	read -p "$CONTINUE (y/n): " run
 	if [ $run = "y" ]; then
 		print_dbg_msg "Continue"
@@ -171,6 +171,7 @@ function install_pkg() {
 	fi
 
 	print_msg "$SETTING_UP_PACKAGE\n"
+	print_msg "$ADD_IN_DB"
 	echo "$NAME $VERSION $DESCRIPTION $FILES
 " >> $DATABASE/all_db
 
