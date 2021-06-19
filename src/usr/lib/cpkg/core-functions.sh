@@ -45,7 +45,6 @@ function list_depends() {
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
-	echo -e "\n\e[1mУстановите или удалите эти зависимости перед тем, как устанавливать или удалять этот пакет!\e[0m\n"
 }
 
 # Function for search a package
@@ -123,6 +122,7 @@ function install_pkg() {
 
 	arch_test_pkg
 	
+	echo -e "\n\e[1mУстановите эти зависимости перед тем, как устанавливать этот пакет!\e[0m\n"
 	list_depends
 	read -p "$CONTINUE (y/n): " run
 	if [ $run = "y" ]; then
@@ -224,8 +224,15 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 
 	log_msg "Remove package $PKG" "Process"
 	
+	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
 	list_depends
-	echo "Удалите эти пакеты перед/после удаления пакета $PKG!"
+	read -p "$CONTINUE (y/n): " run
+	if [ $run = "y" ]; then
+		print_dbg_msg "Continue"
+	else
+		echo "$CANSELLED"
+		exit 0
+	fi
 	
 	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
