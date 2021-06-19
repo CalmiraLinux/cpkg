@@ -35,6 +35,7 @@ QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
 NCURSES="false"	# turn off pseudographic mode (default)
+GetCalmiraVersion=$DISTRIB_RELEASE
 
 if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
     source /usr/share/cpkg/locale/$LANG.sh
@@ -74,7 +75,6 @@ fi
 
 source /etc/lsb-release				# Load the system information
 
-test_root
 check_file
 
 #==================================================================#
@@ -90,6 +90,7 @@ fi
 while [ -n "$1" ]; do
 	case $1 in
 		install|-i)
+			test_root
 			echo -e "[ $(date) ] [ $ACTION_INSTALL $2 ]\n" >> $LOG_DIR/history.log
 
 			# Clean package cache
@@ -105,11 +106,13 @@ while [ -n "$1" ]; do
 		;;
 
 		remove|-r)
+			test_root
 			echo -e "[ $(date) ] [ $ACTION_REMOVE $2 ]\n" >> $LOG_DIR/history.log
 			remove_pkg $2	# Remove
 		;;
 
 		download|-d)
+			test_root
 			# Clean package cache
 			if [[ $CLEAN -eq "true" ]]; then
 				cache_clean
@@ -120,7 +123,8 @@ while [ -n "$1" ]; do
 		;;
 		
 		local_repo)
-		    if test -f /usr/bin/git; then
+			test_root
+      		    if test -f /usr/bin/git; then
 		        mkdir -pv /var/cache/cpkg/localrepo
 		        cd /var/cache/cpkg/localrepo
 		        git clone https://github.com/Linuxoid85/cpkg_packages
@@ -138,6 +142,7 @@ while [ -n "$1" ]; do
 		;;
 
 		update)
+			test_root
         		echo -e "[ $(date) ] [ $ACTION_UPDATE_LIST ]\n" >> $LOG_DIR/history.log
 			cd /etc/cpkg
 			rm -vf pkg.list
@@ -181,10 +186,6 @@ while [ -n "$1" ]; do
 		--debug)
 			DBG="true"
 		;;
-		
-		--ncurses)
-			NCURSES="true"
-		;;
 
 
 		### INSTALL OPTIONS ###
@@ -201,5 +202,4 @@ while [ -n "$1" ]; do
 	esac
 
 	exit 0
-done
-			
+done		

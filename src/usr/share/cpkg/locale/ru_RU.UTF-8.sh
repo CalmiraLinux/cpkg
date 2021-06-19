@@ -55,6 +55,13 @@ FILE="Файл"
 DOESNT_EXISTS="не существует!"
 DOESNT_INSTALLED="не установлен!"
 PACKAGE="Пакет"
+CONTINUE="Продолжить?"
+
+# depends
+REQUIRED_DEP="Необходимые:"
+TESTING_DEP="Для тестирования:"
+OPTIONAL_DEP="Опциональные:"
+BEFORE_DEP="Установлены первее:"
 
 ## core-functions.sh
 
@@ -74,10 +81,11 @@ UNPACK_FAIL2="\e[1;31mне был распакован! \e[0m"
 # arch_test
 ARCH_TEST=">> \e[1;32mТест архитектуры пакета...\e[0m"
 ARCH_VARIABLE_NOT_FOUND="\e[31m[ Указатель архитектуры не существует ]\e[0m"
-MULTIARCH_DONE="\e[32m[ Мультиархитектурный тест прошёл успешно! ]\e[0m"
+MULTIARCH_DONE="\e[32m [ Мультиархитектурный тест прошёл успешно! ] \e[0m"
 ARCH_DONE="\e[32m[ Архитектурный тест прошёл успешно! ]\e[0m"
 
 # install_pkg
+DEPEND_LIST_INSTALL=">> \e[1;32mСписок зависимостей\e[0m"
 EXECUTE_PREINSTALL=">> \e[32mЗапуск предустановочного скрипта...\e[0m"
 EXECUTE_POSTINSTALL=">> \e[32mЗапуск послеустановочного скрипта...\e[0m"
 SETTING_UP_POSTINSTALL=">> \e[32mНастройка послеустановочного скрипта...\e[0m"
@@ -85,6 +93,7 @@ INSTALL_PORT=">> \e[1;32mУстановка port-пакета...\e[0m"
 COPY_PKG_DATA=">> \e[1;32mКопирование данных пакета...\e[0m"
 WARN_NO_PKG_DIR="\e[33mПРЕДУПРЕЖДЕНИЕ: директория 'pkg' отсутствует\e[0m"
 SETTING_UP_PACKAGE=">> \e[1;32mНастройка пакета...\e[0m"
+ADD_IN_DB="\e[32mДобавление пакета в базу данных
 
 # remove_pkg
 PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY="не установлен, либо имя введено неправильно."

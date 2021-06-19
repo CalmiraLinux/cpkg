@@ -58,7 +58,7 @@ echo -e "\nBuild package..."
 tar -cvf "$PACKAGE" PKG -J >> log
 
 echo "Test package..."
-if test -f "$NAME-$VERSION.txz"; then
+if test -f "$PACKAGE"; then
     echo "Build package done"
     rm -rf PKG
     read -p "Show the package data? (Y/n) " run

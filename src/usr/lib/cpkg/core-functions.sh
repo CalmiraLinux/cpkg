@@ -27,10 +27,9 @@
 #
 # BASE VARIABLES
 #
-VERSION=1.0pa3
+VERSION=1.0pa4
 GetArch=$(uname -m)
 GetDate=$(date)
-GetCalmiraVersion=$DISTRIB_RELEASE
 GetPkgLocation=$(pwd)
 PORT=false
 
@@ -38,6 +37,23 @@ PORT=false
 #
 # BASE FUNCTIONS
 #
+
+# Function for list depends
+function list_depends() {
+	echo -e "$DEPEND_LIST_INSTALL
+\e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
+\e[1m$TESTING_DEP\e[0m		$TEST_DEPS
+\e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
+\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
+	echo -e "\e[1mУстановите или удалите эти зависимости перед тем, как устанавливать или удалять этот пакет!\e[0m"
+	read -p "$CONTINUE (y/n): " run
+	if [ $run = "y" ]; then
+		print_dbg_msg "Continue"
+	else
+		echo "Прервано!"
+		exit 0
+	fi
+}
 
 # Function for search a package
 function search_pkg() {
@@ -113,6 +129,8 @@ function install_pkg() {
 	fi
 
 	arch_test_pkg
+	
+	list_depends
 
 	if test -f "preinst.sh"; then
 		print_msg "$EXECUTE_PREINSTALL"
@@ -204,6 +222,10 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 
 	log_msg "Remove package $PKG" "Process"
+	
+	list_depends
+	echo "Удалите эти пакеты перед/после удаления пакета $PKG!"
+	
 	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
 	log_msg "Remove package data" "Process"
@@ -276,6 +298,8 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 	echo -e "\e[1;34m$PACKAGE_DESCRIPTION\e[0m:      $DESCRIPTION"
 	echo -e "\e[1;34m$PACKAGE_MAINTAINER\e[0m:       $MAINTAINER"
 	echo -e "\e[1;34m$PACKAGE_FILES\e[0m:            $FILES"
+	
+	list_depends
 }
 
 # Function for a list packages in file system
