@@ -57,6 +57,16 @@ function print_dbg_msg() {
 	fi
 }
 
+function dialog_msg() {
+	read -p "$CONTINUE (y/n): " run
+	if [ $run = "y" ]; then
+		print_dbg_msg "Continue"
+	else
+		echo "$CANSELLED"
+		exit 0
+	fi
+}
+
 function test_root() {
 	if [[ $(whoami) -ne "root" ]]; then
 		echo -e "\e[1;31mERROR\e[0m: only root can run this program!"
@@ -84,11 +94,7 @@ function error() {
 
 	if [ $1 = "not_found_arch" ]; then
 		echo -e "\e[1;31mERROR\e[0m: doesn't find ARCHITECTURE variable on config.sh!"
-
-		read -p "Continue? (y/N): " run
-		if [ $run = "N" ]; then
-			exit 0
-		fi
+		dialog_msg
 	fi
 }
 
@@ -102,7 +108,7 @@ function check_file() {
             print_dbg_msg "done"
         else
             print_dbg_msg "fail"
-            print_msg -n "\e[1;31mERROR\e[0m: dir ($DIR) doesn't exists! Create it? (y/n) "
+            print_msg -n "\e[1;31mERROR\e[0m: dir ($DIR) doesn't exists! Create it?"
             if [[ $QUIET -eq "true" ]]; then
                 mkdir -p $DIR
             else
@@ -128,5 +134,5 @@ function log_msg() {
 		LOG=$3
 	fi
 
-	echo -e "[ $(date) ] [ $1 ] [ $2 ]\n" >> $LOG
+	echo -e "[ $(date) ] [ $1 ] [ $2 ]" >> $LOG
 }

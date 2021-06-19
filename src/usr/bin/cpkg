@@ -157,7 +157,7 @@ while [ -n "$1" ]; do
 
 		list|-l)
 			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
-			file_list --verbose=on
+			file_list
 		;;
 
 		search|-s)

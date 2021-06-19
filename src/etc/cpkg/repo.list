@@ -1,0 +1,7 @@
+#!/bin/bash
+# For CPkg
+# 2021
+#
+
+RELEASE="calmira2021"
+REPO="https://github.com/Linuxoid85/cpkg_packages/raw"

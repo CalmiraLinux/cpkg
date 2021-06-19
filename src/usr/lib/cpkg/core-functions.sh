@@ -54,12 +54,8 @@ function check_priority() {
 	print_msg "$CHECK_PRIORITY_START"
 	if [ -z $PRIORITY ]; then
 		echo -e "$PRIORITY_NOT_FOUND"
-		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER" && read run
-		if [ $run = "y" ]; then
-			echo -e "$PRIORITY_DONE"
-		else
-			exit 0
-		fi
+		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER"
+		dialog_msg
 	else
 		print_dbg_msg "Priority variable is found"
 		if [ $PRIORITY = "system" ]; then
@@ -148,13 +144,7 @@ function install_pkg() {
 	
 	echo -e "\n\e[1mУстановите эти зависимости перед тем, как устанавливать этот пакет!\e[0m\n"
 	list_depends
-	read -p "$CONTINUE (y/n): " run
-	if [ $run = "y" ]; then
-		print_dbg_msg "Continue"
-	else
-		echo "$CANSELLED"
-		exit 0
-	fi
+	dialog_msg
 
 	if test -f "preinst.sh"; then
 		print_msg "$EXECUTE_PREINSTALL"
@@ -227,15 +217,13 @@ function remove_pkg() {
 	PKG=$1
 	log_msg "Search package $PKG" "Process"
 	if test -d "$DATABASE/packages/$PKG"; then
-		log_msg "Search package $PKG: $PWD" "OK"
-		log_msg "Read package information" "Process"
+		log_msg "Search package $PKG: $PWD" "OK" && log_msg "Read package information" "Process"
 		if test -f "$DATABASE/packages/$PKG/config.sh"; then
 			cd $DATABASE/packages/$PKG
 			log_msg "Read package information:" "OK"
 			source config.sh
 		else
-			log_msg "Read package information:" "FAIL"
-			log_msg "dbg info:
+			log_msg "Read package information:
 test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
 			print_msg "\e[1;31m$FILE\e[0m \e[35m$(pwd)/config.sh\e[0m \e[1;31m$DOESNT_EXISTS $ERROR \e[0m"
 			exit 0
@@ -247,18 +235,11 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 
 	log_msg "Remove package $PKG" "Process"
-	
 	check_priority
 	
 	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
 	list_depends
-	read -p "$CONTINUE (y/n): " run
-	if [ $run = "y" ]; then
-		print_dbg_msg "Continue"
-	else
-		echo "$CANSELLED"
-		exit 0
-	fi
+	dialog_msg
 	
 	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
@@ -313,15 +294,13 @@ function package_info() {
 			log_msg "Read package information:" "OK"
 			source config.sh
 		else
-			log_msg "Read package information:" "FAIL"
-			log_msg "dbg info:
+			log_msg "Read package information:
 test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
 			print_msg "\e[1;31m$ERROR\e[0m: $PWD/config.sh $DOESNT_EXISTS"
 			exit 0
 		fi
 	else
-		log_msg "Print info about package $PKG" "FAIL"
-		log_msg "dbg info:
+		log_msg "Print info about package $PKG:
 test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't find" "FAIL"
 		print_msg "\e[1;31m$ERROR: $PACKAGE \e[10m\e[1;35m$PKG\e[0m\e[1;31m $DOESNT_INSTALLED \e[0m"
 		exit 0
@@ -339,11 +318,7 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 # Function for a list packages in file system
 function file_list() {
 	cd $DATABASE/packages/
-	if [ $1 = "--verbose=on" ]; then
-		exa -l --tree
-	else
-		exa
-	fi
+	exa --tree
 }
 
 # Function for search a package in file system (do not for install/remove package!!!)
@@ -371,8 +346,15 @@ function file_search() {
 # Function for clean cache
 function cache_clean() {
 	print_msg "[ $GetDate ] \e[1;32m$CACHE_CLEAN\e[0m"
-	log_msg "Clearing cpkg cache..." "?"
+	log_msg "Clearing cpkg cache..." "Process"
 	rm -rf /var/cache/cpkg/archives/*
+}
+
+# Function for clean source dir
+function source_clean() {
+	print_msg "[ $GetDate ] \e[1;32m$SRC_CLEAN\e[0m"
+	log_msg "Clearing source directory..." "Process"
+	rm -rf /usr/src/*
 }
 
 # Help
