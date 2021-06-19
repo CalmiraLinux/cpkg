@@ -47,7 +47,7 @@ ACTION_CLEAN="Очистка кеша"
 ACTION_UKNOWN_OPTION="Запуск 'cpkg' с опцией(ями), которая(ые) неизвестна(ы) ПМ: "
 
 # other
-DONE="готово"
+DONE="Завершено"
 RETRY="повторение..."
 FAIL="\e[1;31mОШИБКА\e[0m"
 PKGLIST_DOWNLOAD=">> \e[1;32mСкачивание списка пакетов...\e[0m"
@@ -56,6 +56,7 @@ DOESNT_EXISTS="не существует!"
 DOESNT_INSTALLED="не установлен!"
 PACKAGE="Пакет"
 CONTINUE="Продолжить?"
+CANSELLED="Прервано!"
 
 # depends
 REQUIRED_DEP="Необходимые:"
@@ -93,7 +94,7 @@ INSTALL_PORT=">> \e[1;32mУстановка port-пакета...\e[0m"
 COPY_PKG_DATA=">> \e[1;32mКопирование данных пакета...\e[0m"
 WARN_NO_PKG_DIR="\e[33mПРЕДУПРЕЖДЕНИЕ: директория 'pkg' отсутствует\e[0m"
 SETTING_UP_PACKAGE=">> \e[1;32mНастройка пакета...\e[0m"
-ADD_IN_DB="\e[32mДобавление пакета в базу данных
+ADD_IN_DB="\e[32mДобавление пакета в базу данных\e[0m"
 
 # remove_pkg
 PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY="не установлен, либо имя введено неправильно."

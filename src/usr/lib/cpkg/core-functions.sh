@@ -46,13 +46,6 @@ function list_depends() {
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
 	echo -e "\n\e[1mУстановите или удалите эти зависимости перед тем, как устанавливать или удалять этот пакет!\e[0m\n"
-	read -p "$CONTINUE (y/n): " run
-	if [ $run = "y" ]; then
-		print_dbg_msg "Continue"
-	else
-		echo "Прервано!"
-		exit 0
-	fi
 }
 
 # Function for search a package
@@ -131,6 +124,13 @@ function install_pkg() {
 	arch_test_pkg
 	
 	list_depends
+	read -p "$CONTINUE (y/n): " run
+	if [ $run = "y" ]; then
+		print_dbg_msg "Continue"
+	else
+		echo "$CANSELLED"
+		exit 0
+	fi
 
 	if test -f "preinst.sh"; then
 		print_msg "$EXECUTE_PREINSTALL"
@@ -306,13 +306,19 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 # Function for a list packages in file system
 function file_list() {
 	cd $DATABASE/packages/
-	ls -l
+	if [ $1 = "--verbose=on" ]; then
+		exa -l --tree
+	else
+		exa
+	fi
 }
 
 # Function for search a package in file system (do not for install/remove package!!!)
 function file_search() {
 	PKG=$2
-	print_msg ">> \e[1;32m$SEARCH_PACKAGE\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"; log_msg "Search package $PKG" "Process"
+	print_msg ">> \e[1;32m$SEARCH_PACKAGE\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
+	log_msg "Search package $PKG" "Process"
+
 	if test -f "$PKG"; then
 		echo -e "\e[1;32m$SEARCH_RESULT\e[0m"
 		if [[ $1 -eq "--verbose=on" ]]; then
@@ -320,7 +326,7 @@ function file_search() {
 		fi
 
 		if [[ $1 -eq "--verbose=off" ]]; then
-			file_list --verbose=off $PKG
+			file_list --verbose=off |grep $PKG
 		fi
 	else
 		log_msg "Search package $PKG" "FAIL"
