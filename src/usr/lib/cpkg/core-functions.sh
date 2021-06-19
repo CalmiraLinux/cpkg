@@ -47,6 +47,30 @@ function list_depends() {
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
 }
 
+# Function for check priority of package
+# If priority = system, then package doesn't
+# can remove from Calmira GNU/Linux
+function check_priority() {
+	print_msg "$CHECK_PRIORITY_START"
+	if [ -z $PRIORITY ]; then
+		echo -e "$PRIORITY_NOT_FOUND"
+		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER" && read run
+		if [ $run = "y" ]; then
+			echo -e "$PRIORITY_DONE"
+		else
+			exit 0
+		fi
+	else
+		print_dbg_msg "Priority variable is found"
+		if [ $PRIORITY = "system" ]; then
+			echo -e "\e[1;31m$SYSTEM_PRIORITY_REMOVE_BLOCKED\e[0m"
+			exit 0
+		else
+			echo -e "$PRIORITY_DONE"
+		fi
+	fi
+}
+
 # Function for search a package
 function search_pkg() {
 	PKG=$1
@@ -223,6 +247,8 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 
 	log_msg "Remove package $PKG" "Process"
+	
+	check_priority
 	
 	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
 	list_depends

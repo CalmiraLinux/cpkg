@@ -28,7 +28,7 @@
 # BASE VARIABLES
 #
 BACKTITLE="Calmira package manager"		# Backtitle for `print_ps_msg`
-TITLE="cpkg"							# Title for `print_ps_msg`
+TITLE="cpkg"					# Title for `print_ps_msg`
 
 #==================================================================#
 #
@@ -97,12 +97,12 @@ function error() {
 function check_file() {
     for DIR in "/var/{cache,db}/cpkg/packages" "/etc/cpkg"; do
         # Test the cache dir
-        print_dbg_msg -n "check cache dir (1) '/var/cahce/cpkg' ... "
+        print_dbg_msg -n "check dir '$DIR' ... "
         if test -d "$DIR"; then
             print_dbg_msg "done"
         else
             print_dbg_msg "fail"
-            print_msg -n "\e[1;31mERROR\e[0m: cache dir ($DIR) doesn't exists! Create it? (y/n) "
+            print_msg -n "\e[1;31mERROR\e[0m: dir ($DIR) doesn't exists! Create it? (y/n) "
             if [[ $QUIET -eq "true" ]]; then
                 mkdir -p $DIR
             else
@@ -110,7 +110,7 @@ function check_file() {
                 if [[ $run -eq "y" ]]; then
                     mkdir -pv $DIR
                 else
-                    print_msg "Critical error. Continuation of the work of the 'cpkg' is impossible."
+                    print_msg "$CRITICAL_ERROR"
                     exit 0
                 fi
             fi
@@ -128,6 +128,5 @@ function log_msg() {
 		LOG=$3
 	fi
 
-	echo "[ $(date) ] [ $1 ] [ $2 ]
-" >> $LOG
+	echo -e "[ $(date) ] [ $1 ] [ $2 ]\n" >> $LOG
 }
