@@ -33,5 +33,6 @@ TODO:
 * Почта:         linuxoid85@gmail.com
 
 (C) 2021 Michail Krasnov (Linuxoid85) for Calmira GNU/Linux."
+PRIORITY=system
 MAINTAINER=Linuxoid85
 FILES="/boot /bin /etc /lib /lib64 /opt /sbin /srv /tmp /usr /var"

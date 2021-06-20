@@ -24,8 +24,8 @@
 #
 
 # cpkg
-CPKG_ABOUT="CPkg - автоматизированная утилита для работы с пакетами (АУРП) в Calmira GNU/Linux"
-CPKG_VER="Версия АУРП:"
+CPKG_ABOUT="CPkg - пакетный менеджер для Calmira GNU/Linux"
+CPKG_VER="Версия ПМ:"
 CPKG_DISTRO_VER="Версия дистрибутива:"
 
 # errors
