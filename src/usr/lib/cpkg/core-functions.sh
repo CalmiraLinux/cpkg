@@ -60,9 +60,9 @@ function check_priority() {
 		print_dbg_msg "Priority variable is found"
 		if [ $PRIORITY = "system" ]; then
 			echo -e "\e[1;31m$SYSTEM_PRIORITY_REMOVE_BLOCKED\e[0m"
-			exit 0
+			exit 999
 		else
-			echo -e "$PRIORITY_DONE"
+			echo -e "\e[1m$PRIORITY_MSG:\e[0m	$PRIORITY\n\e[32m$SYSTEM_PRIORITY_REMOVE_OK\e[0m"
 		fi
 	fi
 }
