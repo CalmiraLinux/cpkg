@@ -60,7 +60,7 @@ tar -cvf "$PACKAGE" PKG -J >> log
 echo "Test package..."
 if test -f "$PACKAGE"; then
     echo "Build package done"
-    rm -rf PKG
+    rm -rf PKG log
     read -p "Show the package data? (Y/n) " run
     if [ $run = Y ]; then
         tar -listf $PACKAGE
