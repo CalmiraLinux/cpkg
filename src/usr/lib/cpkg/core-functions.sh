@@ -5,20 +5,6 @@
 #
 # core-functions.sh
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#
 # Project Page: http://github.com/Linuxoid85/cpkg
 # Michail Krasnov <michail383krasnov@mail.ru>
 #
@@ -68,6 +54,7 @@ function check_priority() {
 }
 
 # Function for search a package
+# $1 - package
 function search_pkg() {
 	PKG=$1
 	print_msg "$SEARCH_PACKAGE"
@@ -79,6 +66,7 @@ function search_pkg() {
 }
 
 # Function for unpack a package
+# $1 - package
 function unpack_pkg() {
 	PKG=$1
 	print_dbg_msg "Copy $PKG in /var/cache/cpkg/archives..."
@@ -128,7 +116,7 @@ function arch_test_pkg() {
 
 # Function to install a package
 ## VARIABLES:
-# $1=PKG - package
+# $1 - package
 function install_pkg() {
 	PKG=$1
 	cd /var/cache/cpkg/archives
@@ -186,8 +174,7 @@ function install_pkg() {
 
 	print_msg "$SETTING_UP_PACKAGE\n"
 	print_msg "$ADD_IN_DB"
-	echo "$NAME $VERSION $DESCRIPTION $FILES
-" >> $DATABASE/all_db
+	echo "$NAME $VERSION $DESCRIPTION $FILES" >> $DATABASE/all_db
 
 	if test -d $DATABASE/packages/$NAME; then
 		rm -rvf $DATABASE/packages/$NAME
@@ -213,6 +200,7 @@ function install_pkg() {
 }
 
 # Function for remove package
+# $1 - package
 function remove_pkg() {
 	PKG=$1
 	log_msg "Search package $PKG" "Process"
@@ -243,13 +231,11 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	
 	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
-	log_msg "Remove package data" "Process"
 	rm -rf $FILES
 
-	log_msg "Remove database" "Process"
 	rm -rf $DATABASE/packages/$PKG
 	if test -d $DATABASE/packages/$PKG; then
-		log_msg "Removed unsucessfull" "OK"
+		log_msg "Removed unsucessfull" "FAIL"
 		print_msg "\e[31m$PACKAGE $PKG $REMOVE_PKG_FAIL \e[0m"
 	else
 		log_msg "Removed sucessfull!" "FAIL"
@@ -257,6 +243,8 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 }
 
+# Function for download a package
+# $1 - package
 function download_pkg() {
 	if grep "$1" $SOURCE; then
 		print_msg "$FOUND_PKG '$1'"
@@ -285,11 +273,11 @@ function download_pkg() {
 }
 
 # Function to read package info
+# $1 - package
 function package_info() {
 	PKG=$1
 	if test -d "$DATABASE/packages/$PKG"; then
 		cd $DATABASE/packages/$PKG
-		log_msg "Read package information" "Process"
 		if test -f "config.sh"; then
 			log_msg "Read package information:" "OK"
 			source config.sh
@@ -306,12 +294,11 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 		exit 0
 	fi
 
-	echo -e "\e[1;32m$PACKAGE_INFO ($PKG):\e[0m"
-	echo -e "\e[1;34m$PACKAGE_NAME\e[0m:             $NAME"
-	echo -e "\e[1;34m$PACKAGE_DESCRIPTION\e[0m:      $DESCRIPTION"
-	echo -e "\e[1;34m$PACKAGE_MAINTAINER\e[0m:       $MAINTAINER"
-	echo -e "\e[1;34m$PACKAGE_FILES\e[0m:            $FILES"
-	
+	echo -e "\e[1;32m$PACKAGE_INFO ($PKG):\e[0m
+\e[1;34m$PACKAGE_NAME\e[0m		$NAME
+\e[1;34m$PACKAGE_DESCRIPTION\e[0m	$DESCRIPTION
+\e[1;34m$PACKAGE_MAINTAINER\e[0m	$MAINTAINER
+\e[1;34m$PACKAGE_FILES\e[0m		$FILES"
 	list_depends
 }
 
@@ -322,20 +309,14 @@ function file_list() {
 }
 
 # Function for search a package in file system (do not for install/remove package!!!)
+# $1 - package
 function file_search() {
-	PKG=$2
+	PKG=$1
 	print_msg ">> \e[1;32m$SEARCH_PACKAGE\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 	log_msg "Search package $PKG" "Process"
 
 	if test -f "$PKG"; then
-		echo -e "\e[1;32m$SEARCH_RESULT\e[0m"
-		if [[ $1 -eq "--verbose=on" ]]; then
-			file_list --verbose=on $PKG
-		fi
-
-		if [[ $1 -eq "--verbose=off" ]]; then
-			file_list --verbose=off |grep $PKG
-		fi
+		exa $DATABASE/packages |grep $PKG
 	else
 		log_msg "Search package $PKG" "FAIL"
 		error no_pkg

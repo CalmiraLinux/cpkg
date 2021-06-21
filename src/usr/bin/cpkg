@@ -34,7 +34,6 @@ DATABASE=/var/db/cpkg
 QUIET="true"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
-NCURSES="false"	# turn off pseudographic mode (default)
 GetCalmiraVersion=$DISTRIB_RELEASE
 
 if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
@@ -188,11 +187,13 @@ while [ -n "$1" ]; do
 		;;
 
 
-		### INSTALL OPTIONS ###
+		### INSTALL AND REMOVE OPTIONS ###
 
 		--clean|-c)	# Clean cache before installation
 			CLEAN="true"
 		;;
+		
+		### OTHER OPTIONS ###
 
 		*)
 			echo -e "[ $(date) ] [ $ACTION_UKNOWN_OPTION '$@' ]\n" >> $LOG_DIR/history.log
