@@ -170,12 +170,17 @@ while [ -n "$1" ]; do
 		;;
 
 		clean|-C)
+			test_root
 			echo -e "[ $(date) ] [ $ACTION_CLEAN ]\n" >> $LOG_DIR/history.log
 			cache_clean
 		;;
 
 		help)
 			help_pkg
+		;;
+		
+		--version|-v)
+			echo "$VERSION"
 		;;
 		
 		--quiet)
