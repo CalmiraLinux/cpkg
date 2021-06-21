@@ -311,17 +311,15 @@ function file_list() {
 # Function for search a package in file system (do not for install/remove package!!!)
 # $1 - package
 function file_search() {
-	PKG=$1
-	print_msg ">> \e[1;32m$SEARCH_PACKAGE\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
-	log_msg "Search package $PKG" "Process"
-
-	if test -f "$PKG"; then
-		exa $DATABASE/packages |grep $PKG
-	else
-		log_msg "Search package $PKG" "FAIL"
+	if [ -z $1 ]; then
 		error no_pkg
 		exit 0
 	fi
+
+	PKG=$1
+	print_msg ">> \e[1;32m$SEARCH_PACKAGE\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
+
+	exa $DATABASE/packages |grep $PKG
 }
 
 # Function for clean cache

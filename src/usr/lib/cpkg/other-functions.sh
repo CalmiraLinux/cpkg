@@ -65,21 +65,13 @@ function test_root() {
 function error() {
 	if [ $1 = "no_pkg" ]; then
 		echo -e "\e[1;31mERROR\e[0m: package $PKG doesn't exists!"
-	fi
-
-	if [ $1 = "no_config" ]; then
+	elif [ $1 = "no_config" ]; then
 		echo -e "\e[1;31mERROR\e[0m: configurition file doesn't exists!"
-	fi
-
-	if [ $1 = "no_pkg_data" ]; then
+	elif [ $1 = "no_pkg_data" ]; then
 		echo -e "\e[1;31mERROR\e[0m: package data doesn't exists!"
-	fi
-
-	if [ $1 = "no_arch" ]; then
+	elif [ $1 = "no_arch" ]; then
 		echo -e "\e[1;31mERROR\e[0m: package architecture $2 doesn't support on this host!"
-	fi
-
-	if [ $1 = "not_found_arch" ]; then
+	elif [ $1 = "not_found_arch" ]; then
 		echo -e "\e[1;31mERROR\e[0m: doesn't find ARCHITECTURE variable on config.sh!"
 		dialog_msg
 	fi
