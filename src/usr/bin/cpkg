@@ -31,7 +31,7 @@
 CONF=/etc/cpkg
 SOURCE=$CONF/pkg.list
 DATABASE=/var/db/cpkg
-QUIET="true"	# turn off quiet mode (default)
+QUIET="false"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
 GetCalmiraVersion=$DISTRIB_RELEASE

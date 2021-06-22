@@ -10,6 +10,10 @@
 # LOG_DIR - directory for logs
 # NCURSES - pseudographic mode
 # BRANCH - packages branch
+# DATABASE 
 
 QUIET="false"
 BRANCH="main"
+CLEAN="false"
+DBG="false"
+DATABASE=/var/db/cpkg
