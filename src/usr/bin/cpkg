@@ -45,7 +45,7 @@ fi
 
 for FUNC in "other-functions.sh" "core-functions.sh"; do
 	if test -f "/usr/lib/cpkg/$FUNC"; then
-		source /usr/lib/cpkg/$FUNC		# Load the additional/other cpkg functions
+		source /usr/lib/cpkg/$FUNC	# Load the additional/other cpkg functions
 	else
 		echo -e "$ERROR_NO_FUNC"
 		exit 0

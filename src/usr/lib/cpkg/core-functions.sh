@@ -17,6 +17,7 @@ VERSION=1.0pa4
 GetArch=$(uname -m)
 GetDate=$(date)
 GetPkgLocation=$(pwd)
+PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
 PORT=false
 
 #==================================================================#
@@ -25,6 +26,11 @@ PORT=false
 #
 
 # Function for list depends
+# REQ_DEPS - required depends
+# TEST_DEPS - deps for test suite (only for port-packages)
+# OPT_DEPS - optional deps
+# BEF_DEPS - package may be installed before packages
+# from $BEF_DEPS variable
 function list_depends() {
 	echo -e "$DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
@@ -36,6 +42,8 @@ function list_depends() {
 # Function for check priority of package
 # If priority = system, then package doesn't
 # can remove from Calmira GNU/Linux
+## Priority:
+# 'system' and 'user'
 function check_priority() {
 	print_msg "$CHECK_PRIORITY_START"
 	if [ -z $PRIORITY ]; then
@@ -106,6 +114,7 @@ function arch_test_pkg() {
 	if [[ $ARCHITECTURE -ne $GetArch ]]; then
 		if [[ $ARCHITECTURE -ne "multiarch" ]]; then
 			error no_arch
+			dialog_msg
 		else
 			print_msg "$MULTIARCH_DONE "
 		fi
@@ -119,8 +128,7 @@ function arch_test_pkg() {
 # $1 - package
 function install_pkg() {
 	PKG=$1
-	cd /var/cache/cpkg/archives
-	cd PKG
+	cd $PACKAGE_CACHE
 	DIR=$(pwd)
 	if test -f "config.sh"; then
 		source config.sh
@@ -149,6 +157,7 @@ function install_pkg() {
 	if test -f "port.sh"; then
 		print_msg "$INSTALL_PORT"
 		PORT=true
+		chmod +x port.sh
 		./port.sh
 		cd $DIR
 	fi
@@ -238,7 +247,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 		log_msg "Removed unsucessfull" "FAIL"
 		print_msg "\e[31m$PACKAGE $PKG $REMOVE_PKG_FAIL \e[0m"
 	else
-		log_msg "Removed sucessfull!" "FAIL"
+		log_msg "Removed sucessfull!" "OK"
 		print_msg "\e[32m$PACKAGE $PKG $REMOVE_PKG_OK \e[0m"
 	fi
 }
