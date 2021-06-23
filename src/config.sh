@@ -1,8 +1,15 @@
 NAME=cpkg
 VERSION=1.0pa4
-DESCRIPTION="CPkg - автоматизированная утилита работы с пакетами для Calmira GNU/Linux"
+DESCRIPTION="CPkg - пакетный менеджер для Calmira GNU/Linux. Название cpkg происходит от двух слов:
+* Calmira - c
+* Package - pkg
+
+На данный момент, ПМ в разработке. Он может быть нестабильным, медленным, могут отсутствовать некоторые функции.
+
+---------------------------------------------------------
+(С) 2021 Михаил Linuxoid85 Краснов <linuxoid85@gmail.com>"
 REQ_DEPS="bash ls/exa tar"
 OPT_DEPS="dialog"
 PRIORITY=system
 MAINTAINER=Linuxoid85
-FILES="/usr/bin/cpkg /usr/share/cpkg /etc/cpkg /var/cache/cpkg"
+FILES="/usr/bin/cpkg /usr/share/cpkg /usr/share/doc/cpkg /etc/cpkg /var/cache/cpkg"
