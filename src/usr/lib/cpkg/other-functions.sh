@@ -91,13 +91,8 @@ function check_file() {
             if [[ $QUIET -eq "true" ]]; then
                 mkdir -p $DIR
             else
-                read run
-                if [[ $run -eq "y" ]]; then
-                    mkdir -pv $DIR
-                else
-                    print_msg "$CRITICAL_ERROR"
-                    exit 0
-                fi
+                dialog_msg
+                mkdir -pv $DIR
             fi
         fi
     done
