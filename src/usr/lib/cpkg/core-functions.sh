@@ -13,7 +13,7 @@
 #
 # BASE VARIABLES
 #
-VERSION=1.0pa4
+VERSION=v1.0pa4
 GetArch=$(uname -m)
 GetDate=$(date)
 GetPkgLocation=$(pwd)
