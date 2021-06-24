@@ -32,7 +32,7 @@ PORT=false
 # REQ_DEPS - required depends
 # TEST_DEPS - deps for test suite (only for port-packages)
 # OPT_DEPS - optional deps
-# BEF_DEPS - package may be installed before packages
+# BEF_DEPS - package may be installed before this depends
 # from $BEF_DEPS variable
 ## Options
 # list_depends install - for install_pkg function

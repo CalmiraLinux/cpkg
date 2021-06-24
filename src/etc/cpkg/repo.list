@@ -4,4 +4,4 @@
 #
 
 RELEASE="calmira2021"
-REPO="https://github.com/Linuxoid85/cpkg_packages/raw"
+BRANCH="main"

@@ -64,14 +64,16 @@ else
 fi
 
 print_dbg_msg "testing cpkg files... "
-if test -f "/etc/cpkg/settings"; then
-	print_dbg_msg "$DONE"
-	source /etc/cpkg/settings
-else
-	print_dbg_msg "$FAIL"
+for FUNC in "settings" "repo.list"; do
+	if test -f "/etc/cpkg/$FUNC"; then
+		print_dbg_msg "$DONE"
+		source /etc/cpkg/$FUNC
+	else
+		print_dbg_msg "$FAIL"
+	fi
 fi
 
-source /etc/lsb-release				# Load the system information
+source /etc/CalmiraVersion	# Load the system information
 
 check_file
 
