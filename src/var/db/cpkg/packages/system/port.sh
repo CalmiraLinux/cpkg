@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Don't remove this package!!"
+echo "Don't remove this package!"

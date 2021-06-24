@@ -345,6 +345,19 @@ function source_clean() {
 	rm -rf /usr/src/*
 }
 
+# Function for edit sources
+function edit_src() {
+	if test -f "/etc/cpkg/pkg.list"; then
+		if [ -z $EDITOR ]; then
+			export EDITOR="$(which vim)"
+		fi
+		$EDITOR /etc/cpkg/pkg.list
+	else
+		print_msg "\e[1;31mERROR: file\e[0m \e[35m/etc/cpkg/pkg.list\e[0m\e[1;31mdoesn't find!\e[0m"
+		exit 0
+	fi
+}
+
 # Help
 function help_pkg() {
 	echo -e "\e[1;35m$CPKG_ABOUT\e[0m

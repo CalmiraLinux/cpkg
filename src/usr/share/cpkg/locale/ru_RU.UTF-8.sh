@@ -29,6 +29,7 @@ ACTION_LIST="Просмотр списка пакетов"
 ACTION_SEARCH="Поиск пакета"
 ACTION_INFO="Просмотр информации о пакете"
 ACTION_CLEAN="Очистка кеша"
+ACTION_SOURCE="Редактирование списка пакетов"
 ACTION_UKNOWN_OPTION="Запуск 'cpkg' с опцией(ями), которая(ые) неизвестна(ы) ПМ: "
 
 # other
