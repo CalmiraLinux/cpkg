@@ -140,7 +140,7 @@ while [ -n "$1" ]; do
 		    fi
 		;;
 
-		update)
+		update)	# Option for update package list (pkg.list) of cpkg
 			test_root
         		echo -e "[ $(date) ] [ $ACTION_UPDATE_LIST ]\n" >> $LOG_DIR/history.log
 			cd /etc/cpkg
