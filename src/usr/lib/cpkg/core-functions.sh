@@ -20,6 +20,7 @@ GetPkgLocation=$(pwd)
 PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
 PORT=false
 
+
 #==================================================================#
 #
 # BASE FUNCTIONS
@@ -37,6 +38,13 @@ function list_depends() {
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
+	if [ $1 = "install" ]; then
+		print_msg "\e[1m$DEP_INSTALL\e[0m"
+	elif [ $1 = "remove" ]; then
+		print_msg "\e[1;$DEP_REMOVE\e[0m"
+	elif [ $1 = "info" ]; then
+		print_msg "\e[1m$DEP_INFO\e[0m"
+	fi
 }
 
 # Function for check priority of package
@@ -139,7 +147,7 @@ function install_pkg() {
 	arch_test_pkg
 	
 	echo -e "\n\e[1mУстановите эти зависимости перед тем, как устанавливать этот пакет!\e[0m\n"
-	list_depends
+	list_depends install
 	dialog_msg
 
 	if test -f "preinst.sh"; then
@@ -235,7 +243,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	check_priority
 	
 	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
-	list_depends
+	list_depends remove
 	dialog_msg
 	
 	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
@@ -308,7 +316,7 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 \e[1;34m$PACKAGE_DESCRIPTION\e[0m	$DESCRIPTION
 \e[1;34m$PACKAGE_MAINTAINER\e[0m	$MAINTAINER
 \e[1;34m$PACKAGE_FILES\e[0m		$FILES"
-	list_depends
+	list_depends info
 }
 
 # Function for a list packages in file system
