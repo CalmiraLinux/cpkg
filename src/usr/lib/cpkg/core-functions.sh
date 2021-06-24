@@ -39,7 +39,7 @@ PORT=false
 # list_depends remove  - for remove_pkg function
 # list_depends info    - for package_info function
 function list_depends() {
-	echo -e "$DEPEND_LIST_INSTALL
+	echo -e ">> $DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
@@ -166,19 +166,19 @@ function install_pkg() {
 	dialog_msg
 
 	if test -f "preinst.sh"; then
-		print_msg "$EXECUTE_PREINSTALL"
+		print_msg ">> $EXECUTE_PREINSTALL"
 		chmod +x preinst.sh
 		./preinst.sh
 	fi
 
 	if test -f "postinst.sh"; then
-		print_msg "$SETTING_UP_POSTINSTALL \n"
+		print_msg ">> $SETTING_UP_POSTINSTALL \n"
 		chmod +x postinst.sh
 		POSTINST=$DIR/postinst.sh
 	fi
 
 	if test -f "port.sh"; then
-		print_msg "$INSTALL_PORT"
+		print_msg ">> $INSTALL_PORT"
 		PORT=true
 		chmod +x port.sh
 		./port.sh
@@ -186,7 +186,7 @@ function install_pkg() {
 	fi
 
 	if test -d "pkg"; then
-		print_msg "$COPY_PKG_DATA"
+		print_msg ">> $COPY_PKG_DATA"
 		cd pkg
 		cp -r * /
 	else
@@ -204,7 +204,7 @@ function install_pkg() {
 	    CONF_DIR=..
 	fi
 
-	print_msg "$SETTING_UP_PACKAGE\n"
+	print_msg ">> $SETTING_UP_PACKAGE\n"
 	print_msg "$ADD_IN_DB"
 	echo "$NAME $VERSION" >> $DATABASE/all_db
 
@@ -213,16 +213,16 @@ function install_pkg() {
 	fi
 	
 	mkdir $DATABASE/packages/$NAME			# Creating a directory with information about the package
-	cp $CONF_DIR/config.sh $DATABASE/packages/$NAME	# Copyng config file in database
+	cp $CONF_DIR/config.sh $DATABASE/packages/$NAME	# Copying config file in database
 
 	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
     		if test -f "$CONF_DIR/$FILE"; then
-	    		cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copyng changelog and other files in database
+	    		cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copying changelog and other files in database
 	    	fi
 	done
 
 	if [ -f $DIR/postinst.sh ]; then
-		print_msg "$EXECUTE_POSTINSTALL"
+		print_msg ">> $EXECUTE_POSTINSTALL"
 		cd $DIR
 		./postinst.sh
 	fi
@@ -261,7 +261,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	list_depends remove
 	dialog_msg
 	
-	print_msg "$REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
+	print_msg ">> $REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
 	rm -rf $FILES
 
@@ -288,7 +288,7 @@ function download_pkg() {
 	
 	PKG=$(grep "$1" $SOURCE)	# TODO - доработать алгоритм поиска нужного пакета в базе данных
 	#alias wget='wget --no-check-certificate' # For Calmira 2021.1-2021.2
-	print_msg "$DOWNLOAD_PKG"
+	print_msg ">> $DOWNLOAD_PKG \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 	wget $PKG
 
 	print_dbg_msg -n "test package... "
