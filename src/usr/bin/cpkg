@@ -35,6 +35,16 @@ QUIET="false"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
 
+# Setting up a cpkg locale
+if [ -z $LANG ]; then
+	if [ -z $LC_ALL ]; then
+		print_msg "\e[1;31m$ERROR: \e[35m\$LC_ALL\e[0m\e[1;31m and \e[0m\e[35m\$LANG\e[0m\e[1;31m variables $DOESNT_EXISTS! \e[0m"
+		exit 0
+	else
+		export LANG=$LC_ALL
+	fi
+fi
+
 if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
     source /usr/share/cpkg/locale/$LANG.sh
 else
