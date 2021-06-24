@@ -107,7 +107,7 @@ while [ -n "$1" ]; do
 			# Clean package cache
 			if [ $CLEAN = "true" ]; then
 				print_dbg_msg "clean package cache..."
-				cache_clean
+				cpkg_clean cache && cpkg_clean source
 			fi
 			
 			search_pkg $2	# Search the package
@@ -126,7 +126,7 @@ while [ -n "$1" ]; do
 			test_root
 			# Clean package cache
 			if [[ $CLEAN -eq "true" ]]; then
-				cache_clean
+				cpkg_clean cache
 			fi
 
 			echo -e "[ $(date) ] [ $ACTION_DOWNLOAD $2 ]\n" >> $LOG_DIR/history.log
@@ -189,7 +189,10 @@ while [ -n "$1" ]; do
 		clean|-C)
 			test_root
 			echo -e "[ $(date) ] [ $ACTION_CLEAN ]\n" >> $LOG_DIR/history.log
-			cache_clean
+			for CLEAN_TYPE in "cache" "source" "log"; do
+				print_msg "Cleaning $CLEAN_TYPE..."
+				cpkg_clean $CLEAN_TYPE
+			done
 		;;
 		
 		history|-H)

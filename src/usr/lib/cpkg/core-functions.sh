@@ -355,18 +355,23 @@ function file_search() {
 	exa $DATABASE/packages |grep $PKG
 }
 
-# Function for clean cache
-function cache_clean() {
+# Function for clean cpkg files
+## Variables
+# $1 - option
+## Options
+# cpkg_clean cache - clean the cpkg cache (/var/cache/cpkg/archives/*)
+# cpkg_clean source - clean the cpkg source dir (/usr/src/*)
+# cpkg_clean log - clean the cpkg log dir (/var/log/cpkg/*)
+function cpkg_clean() {
 	print_msg "[ $GetDate ] \e[1;32m$CACHE_CLEAN\e[0m"
 	log_msg "Clearing cpkg cache..." "Process"
-	rm -rf /var/cache/cpkg/archives/*
-}
-
-# Function for clean source dir
-function source_clean() {
-	print_msg "[ $GetDate ] \e[1;32m$SRC_CLEAN\e[0m"
-	log_msg "Clearing source directory..." "Process"
-	rm -rf /usr/src/*
+	if [ $1 = "cache" ]; then
+		rm -rf /var/cache/cpkg/archives/*
+	elif [ $1 = "source" ]; then
+		rm -rf /usr/src/*
+	elif [ $1 = "log" ]; then
+		rm -rf /var/log/cpkg/*
+	fi
 }
 
 # Function for edit sources
