@@ -153,9 +153,10 @@ function install_pkg() {
 	cd $PACKAGE_CACHE
 	DIR=$(pwd)
 	if test -f "config.sh"; then
-		source config.sh
+		source config.sh	# Read package information
 	else
 		error no_config
+		exit 999
 	fi
 
 	arch_test_pkg
