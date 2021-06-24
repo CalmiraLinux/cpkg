@@ -145,7 +145,7 @@ while [ -n "$1" ]; do
         		echo -e "[ $(date) ] [ $ACTION_UPDATE_LIST ]\n" >> $LOG_DIR/history.log
 			cd /etc/cpkg
 			rm -vf pkg.list
-			print_msg -n "$PKGLIST_DOWNLOAD"
+			print_msg -n ">> $PKGLIST_DOWNLOAD"
 			wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
 			if test -f pkg.list; then
 				print_msg "$DONE"
@@ -189,18 +189,18 @@ while [ -n "$1" ]; do
 		;;
 		
 		--quiet)
-			QUIET="true"
+			export QUIET="true"
 		;;
 		
 		--debug)
-			DBG="true"
+			export DBG="true"
 		;;
 
 
 		### INSTALL AND REMOVE OPTIONS ###
 
 		--clean|-c)	# Clean cache before installation
-			CLEAN="true"
+			export CLEAN="true"
 		;;
 		
 		### OTHER OPTIONS ###

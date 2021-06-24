@@ -44,12 +44,15 @@ function list_depends() {
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
+	
 	if [ $1 = "install" ]; then
 		print_msg "\e[1m$DEP_INSTALL\e[0m"
 	elif [ $1 = "remove" ]; then
 		print_msg "\e[1;$DEP_REMOVE\e[0m"
 	elif [ $1 = "info" ]; then
 		print_msg "\e[1m$DEP_INFO\e[0m"
+	elif [ $1 = "" ]; then
+		log_msg "function 'list_depends' has started without arguments" "???"
 	fi
 }
 
@@ -59,7 +62,7 @@ function list_depends() {
 ## Priority:
 # 'system' and 'user'
 function check_priority() {
-	print_msg "$CHECK_PRIORITY_START"
+	print_msg ">> $CHECK_PRIORITY_START"
 	if [ -z $PRIORITY ]; then
 		echo -e "$PRIORITY_NOT_FOUND"
 		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER"
@@ -79,7 +82,7 @@ function check_priority() {
 # $1 - package
 function search_pkg() {
 	PKG=$1
-	print_msg "$SEARCH_PACKAGE"
+	print_msg ">> $SEARCH_PACKAGE"
 	if test -f "$PKG"; then
 		print_msg "$SEARCH1 \e[35m$PKG\e[0m $SEARCH2 \e[35m$GetPkgLocation\e[0m"
 	else
@@ -95,7 +98,7 @@ function unpack_pkg() {
 	cp $PKG /var/cache/cpkg/archives/
 
 	if test -f "/var/cache/cpkg/archives/$PKG"; then
-		print_msg "$UNPACK1 \e[35m$PKG\e[0m\e[1;32m...\e[0m"
+		print_msg ">> $UNPACK1 \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 	else
 		echo "$ERROR_UNPACK_PKG_NOT_FOUND"
 		exit 0
@@ -120,7 +123,7 @@ function unpack_pkg() {
 
 # Arch test
 function arch_test_pkg() {
-	print_msg -n "$ARCH_TEST"
+	print_msg -n ">> $ARCH_TEST"
 	if [ -d $ARCHITECTURE ]; then
 		print_msg " $ARCH_VARIABLE_NOT_FOUND"
 	fi
@@ -207,9 +210,9 @@ function install_pkg() {
 	cp $CONF_DIR/config.sh $DATABASE/packages/$NAME	# Copyng config file in database
 
 	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
-    	if test -f "$CONF_DIR/$FILE"; then
-	    	cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copyng changelog and other files in database
-	    fi
+    		if test -f "$CONF_DIR/$FILE"; then
+	    		cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copyng changelog and other files in database
+	    	fi
 	done
 
 	if [ -f $DIR/postinst.sh ]; then
