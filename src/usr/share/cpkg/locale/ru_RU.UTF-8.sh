@@ -122,8 +122,9 @@ PACKAGE_DESCRIPTION="Описание:"
 PACKAGE_MAINTAINER="Сборщик пакета:"
 PACKAGE_FILES="Установленные файлы:"
 
-# cache_clean
+# cpkg_clean
 CACHE_CLEAN="Очистка кеша..."
+CLEAN_MSG="Очистка (тип):"
 
 # help_pkg
 HELP_CPKG="\e[1;32mБазовые опции\e[0m

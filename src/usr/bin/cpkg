@@ -190,7 +190,7 @@ while [ -n "$1" ]; do
 			test_root
 			echo -e "[ $(date) ] [ $ACTION_CLEAN ]\n" >> $LOG_DIR/history.log
 			for CLEAN_TYPE in "cache" "source" "log"; do
-				print_msg "Cleaning $CLEAN_TYPE..."
+				print_msg "$CLEAN_MSG $CLEAN_TYPE..."
 				cpkg_clean $CLEAN_TYPE
 			done
 		;;
