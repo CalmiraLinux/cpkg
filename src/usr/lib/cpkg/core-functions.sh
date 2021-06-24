@@ -200,7 +200,7 @@ function install_pkg() {
 
 	print_msg "$SETTING_UP_PACKAGE\n"
 	print_msg "$ADD_IN_DB"
-	echo "$NAME $VERSION $DESCRIPTION $FILES" >> $DATABASE/all_db
+	echo "$NAME $VERSION" >> $DATABASE/all_db
 
 	if test -d $DATABASE/packages/$NAME; then
 		rm -rvf $DATABASE/packages/$NAME
