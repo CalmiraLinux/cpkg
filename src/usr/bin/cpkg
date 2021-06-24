@@ -34,7 +34,6 @@ DATABASE=/var/db/cpkg
 QUIET="false"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
-GetCalmiraVersion=$DISTRIB_RELEASE
 
 if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
     source /usr/share/cpkg/locale/$LANG.sh
