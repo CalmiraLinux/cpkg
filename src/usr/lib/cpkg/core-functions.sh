@@ -385,4 +385,4 @@ $HELP_CPKG $(GetCalmiraVersion)
 "
 }
 
-check_file
+#check_file
