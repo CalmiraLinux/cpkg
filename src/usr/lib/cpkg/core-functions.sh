@@ -161,7 +161,6 @@ function install_pkg() {
 
 	arch_test_pkg
 	
-	echo -e "\n\e[1mУстановите эти зависимости перед тем, как устанавливать этот пакет!\e[0m\n"
 	list_depends install
 	dialog_msg
 
@@ -257,7 +256,6 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	log_msg "Remove package $PKG" "Process"
 	check_priority
 	
-	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
 	list_depends remove
 	dialog_msg
 	
