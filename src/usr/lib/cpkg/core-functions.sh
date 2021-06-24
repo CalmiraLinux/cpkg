@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# CPkg - an automated packaging tool fog Calmira Linux
+# CPkg - an automated packaging tool for Calmira Linux
 # Copyright (C) 2021 Michail Krasnov
 #
 # core-functions.sh
@@ -13,12 +13,12 @@
 #
 # BASE VARIABLES
 #
-VERSION=v1.0pa4
-GetArch=$(uname -m)
-GetDate=$(date)
-GetPkgLocation=$(pwd)
+VERSION=v1.0pa4		# cpkg version
+GetArch=$(uname -m)	# System arch
+GetDate=$(date)		# System date
+GetPkgLocation=$(pwd)	# Package location
 PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
-PORT=false
+PORT=false		# Turn off port mode (default)
 
 
 #==================================================================#
@@ -364,7 +364,7 @@ function file_search() {
 # cpkg_clean log - clean the cpkg log dir (/var/log/cpkg/*)
 function cpkg_clean() {
 	print_msg "[ $GetDate ] \e[1;32m$CACHE_CLEAN\e[0m"
-	log_msg "Clearing cpkg cache..." "Process"
+	log_msg "Clearing cpkg files (type $1)..." "Process"
 	if [ $1 = "cache" ]; then
 		rm -rf /var/cache/cpkg/archives/*
 	elif [ $1 = "source" ]; then
@@ -372,6 +372,7 @@ function cpkg_clean() {
 	elif [ $1 = "log" ]; then
 		rm -rf /var/log/cpkg/*
 	fi
+	log_msg "Clearing cpkg files (type $1)..." "OK"
 }
 
 # Function for edit sources

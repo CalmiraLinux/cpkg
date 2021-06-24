@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# CPkg - an automated packaging tool fog Calmira Linux
+# CPkg - an automated packaging tool for Calmira Linux
 # Copyright (C) 2021 Michail Krasnov
 #
 # other-functions.sh
