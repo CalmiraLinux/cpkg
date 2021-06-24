@@ -359,9 +359,9 @@ function file_search() {
 ## Variables
 # $1 - option
 ## Options
-# cpkg_clean cache - clean the cpkg cache (/var/cache/cpkg/archives/*)
+# cpkg_clean cache  - clean the cpkg cache      (/var/cache/cpkg/archives/*)
 # cpkg_clean source - clean the cpkg source dir (/usr/src/*)
-# cpkg_clean log - clean the cpkg log dir (/var/log/cpkg/*)
+# cpkg_clean log    - clean the cpkg log dir    (/var/log/cpkg/*)
 function cpkg_clean() {
 	print_msg "[ $GetDate ] \e[1;32m$CACHE_CLEAN\e[0m"
 	log_msg "Clearing cpkg files (type $1)..." "Process"

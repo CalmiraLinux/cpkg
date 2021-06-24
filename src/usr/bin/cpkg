@@ -82,7 +82,7 @@ for FUNC in "settings" "repo.list"; do
 	else
 		print_dbg_msg "$FAIL"
 	fi
-fi
+done
 
 source /etc/CalmiraVersion	# Load the system information
 
