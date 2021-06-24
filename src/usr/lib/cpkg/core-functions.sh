@@ -43,7 +43,7 @@ function list_depends() {
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
-\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS"
+\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS" # List depends
 	
 	if [ $1 = "install" ]; then
 		print_msg "\e[1m$DEP_INSTALL\e[0m"
@@ -53,7 +53,7 @@ function list_depends() {
 		print_msg "\e[1m$DEP_INFO\e[0m"
 	elif [ $1 = "" ]; then
 		log_msg "function 'list_depends' has started without arguments" "???"
-	fi
+	fi	# Show help message
 }
 
 # Function for check priority of package
@@ -68,6 +68,8 @@ function check_priority() {
 		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER"
 		dialog_msg
 	else
+		# If priority = system, then package is not
+		# will remove
 		print_dbg_msg "Priority variable is found"
 		if [ $PRIORITY = "system" ]; then
 			echo -e "\e[1;31m$SYSTEM_PRIORITY_REMOVE_BLOCKED\e[0m"
@@ -79,6 +81,7 @@ function check_priority() {
 }
 
 # Function for search a package
+# Only for install_pkg function
 # $1 - package
 function search_pkg() {
 	PKG=$1
@@ -91,6 +94,7 @@ function search_pkg() {
 }
 
 # Function for unpack a package
+# Only for remove package
 # $1 - package
 function unpack_pkg() {
 	PKG=$1
@@ -122,9 +126,10 @@ function unpack_pkg() {
 }
 
 # Arch test
+# Only for install_pkg function
 function arch_test_pkg() {
 	print_msg -n ">> $ARCH_TEST"
-	if [ -d $ARCHITECTURE ]; then
+	if [ -z $ARCHITECTURE ]; then
 		print_msg " $ARCH_VARIABLE_NOT_FOUND"
 	fi
 
@@ -270,6 +275,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 }
 
 # Function for download a package
+# For unpack_pkg function
 # $1 - package
 function download_pkg() {
 	if grep "$1" $SOURCE; then
@@ -279,7 +285,7 @@ function download_pkg() {
 		exit 0
 	fi
 	
-	PKG=$(grep "$1" $SOURCE)
+	PKG=$(grep "$1" $SOURCE)	# TODO - доработать алгоритм поиска нужного пакета в базе данных
 	#alias wget='wget --no-check-certificate' # For Calmira 2021.1-2021.2
 	print_msg "$DOWNLOAD_PKG"
 	wget $PKG
@@ -366,7 +372,13 @@ function source_clean() {
 function edit_src() {
 	if test -f "/etc/cpkg/pkg.list"; then
 		if [ -z $EDITOR ]; then
-			export EDITOR="$(which vim)"
+			print_msg "\e[1m$WARNING $VARIABLE \e[0m\e[35m\$EDITOR\e[0m\e[1m $DOESNT_EXISTS! \e[0m"
+			if [ -f $(which vim) ]; then
+				export EDITOR="$(which vim)"
+			else
+				print_msg "\e[1;32m$ERROR $PACKAGE\e[0m \e[35mvim\e[0m\e[1;31m $DOESNT_INSTALLED! \e[0m"
+				exit 0
+			fi
 		fi
 		$EDITOR /etc/cpkg/pkg.list
 	else

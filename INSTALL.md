@@ -12,4 +12,4 @@ cp -rv src/{etc,usr,var} /
 cpkg -i cpkg.txz
 ```
 
-Дополнительную информацию смотрите в файле [`INSTALL.md`](INSTALL.md)
+Дополнительную информацию смотрите в файле [`README.md`](README.md)

@@ -110,18 +110,3 @@ function log_msg() {
 
 	echo -e "[ $(date) ] [ $1 ] [ $2 ]" >> $LOG
 }
-
-function GetCalmiraVersion() {
-	if [ -f "/etc/lsb-release" ]; then
-		source /etc/lsb-release
-		echo "$DISTRIB_RELEASE"
-		
-	elif [ -f "/etc/CalmiraVersion" ]; then
-		source /etc/CalmiraVersion
-		echo $CALMIRA_VERSION
-		
-	elif [ -f "/etc/os-release" ]; then
-		cat /etc/os-release |grep 'VERSION'
-		
-	fi
-}

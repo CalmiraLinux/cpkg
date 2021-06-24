@@ -19,6 +19,7 @@ ERROR_PACKAGE_NOT_INSTALLED="\e[1;31mОШИБКА: пакет \e[1;35m$PACKAGE\e
 ERROR_NO_OPTION="\e[1;31mОШИБКА: опция(и) '$@' не существуют! \e[0m\n"
 ERROR_UNPACK_PKG_NOT_FOUND="\e[1;31mПакет\e[0m\e[35m $PKG\e[0m\e[1;31m не распакован! \e[0m"
 CRITICAL_ERROR="\e[1;31mКритическая ошибка! Работа cpkg более не возможна.\e[0m"
+WARNING="ПРЕДУПРЕЖДЕНИЕ:"
 
 # actions
 ACTION_INSTALL="Установка пакета"
@@ -43,6 +44,7 @@ DOESNT_INSTALLED="не установлен!"
 PACKAGE="Пакет"
 CONTINUE="Продолжить?"
 CANSELLED="Прервано!"
+WARIABLE="Переменная"
 
 # depends
 REQUIRED_DEP="Необходимые:"
