@@ -353,7 +353,7 @@ function edit_src() {
 		fi
 		$EDITOR /etc/cpkg/pkg.list
 	else
-		print_msg "\e[1;31mERROR: file\e[0m \e[35m/etc/cpkg/pkg.list\e[0m\e[1;31mdoesn't find!\e[0m"
+		print_msg "\e[1;31m$ERROR $FILE\e[0m \e[35m/etc/cpkg/pkg.list\e[0m\e[1;31m$DOESNT_EXISTS\e[0m"
 		exit 0
 	fi
 }
