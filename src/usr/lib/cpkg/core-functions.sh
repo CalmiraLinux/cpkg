@@ -26,12 +26,18 @@ PORT=false
 # BASE FUNCTIONS
 #
 
+
 # Function for list depends
+## Variables
 # REQ_DEPS - required depends
 # TEST_DEPS - deps for test suite (only for port-packages)
 # OPT_DEPS - optional deps
 # BEF_DEPS - package may be installed before packages
 # from $BEF_DEPS variable
+## Options
+# list_depends install - for install_pkg function
+# list_depends remove  - for remove_pkg function
+# list_depends info    - for package_info function
 function list_depends() {
 	echo -e "$DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
