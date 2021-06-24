@@ -191,8 +191,12 @@ while [ -n "$1" ]; do
 			echo -e "[ $(date) ] [ $ACTION_CLEAN ]\n" >> $LOG_DIR/history.log
 			cache_clean
 		;;
+		
+		history|-H)
+			cat $LOG_DIR/history.log
+		;;
 
-		help)
+		help|-h)
 			help_pkg
 		;;
 		

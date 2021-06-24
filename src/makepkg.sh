@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # CPkg - an automated packaging tool fog Calmira Linux
-# Cooyright (C) 2021 Michail Krasnov
+# Copyright (C) 2021 Michail Krasnov
 #
 # Project Page: http://github.com/Linuxoid85/cpkg
 # Michail Krasnov linuxoid85@gmail.com
