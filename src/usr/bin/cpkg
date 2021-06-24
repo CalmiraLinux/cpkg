@@ -39,7 +39,8 @@ if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
     source /usr/share/cpkg/locale/$LANG.sh
 else
     echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
-    exit 0
+	export LANG=ru_RU-UTF-8			# Export default variable
+	source /usr/share/locale/$LANG.sh	# Source default locale file
 fi
 
 for FUNC in "other-functions.sh" "core-functions.sh"; do
