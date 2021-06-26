@@ -13,7 +13,7 @@
 #
 # BASE VARIABLES
 #
-VERSION=v1.0pa4		# cpkg version
+VERSION=v1.0b1		# cpkg version
 GetArch=$(uname -m)	# System arch
 GetDate=$(date)		# System date
 GetPkgLocation=$(pwd)	# Package location
@@ -29,16 +29,22 @@ PORT=false		# Turn off port mode (default)
 
 # Function for list depends
 ## Variables
-# REQ_DEPS - required depends
+# REQ_DEPS  - required depends
 # TEST_DEPS - deps for test suite (only for port-packages)
-# OPT_DEPS - optional deps
-# BEF_DEPS - package may be installed before this depends
+# OPT_DEPS  - optional deps
+# BEF_DEPS  - package may be installed before this depends
 # from $BEF_DEPS variable
 ## Options
 # list_depends install - for install_pkg function
 # list_depends remove  - for remove_pkg function
 # list_depends info    - for package_info function
 function list_depends() {
+	for DEPEND in "REQ_DEPS" "TEST_DEPS" "OPT_DEPS" "BEF_DEPS"; do
+		if [ -z $DEPEND ]; then
+			$DEPEND=none
+		fi
+	done
+	
 	echo -e ">> $DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
@@ -161,7 +167,6 @@ function install_pkg() {
 
 	arch_test_pkg
 	
-	echo -e "\n\e[1mУстановите эти зависимости перед тем, как устанавливать этот пакет!\e[0m\n"
 	list_depends install
 	dialog_msg
 
@@ -257,7 +262,6 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	log_msg "Remove package $PKG" "Process"
 	check_priority
 	
-	echo -e "\n\e[1mУдалите эти зависимости перед тем, как удалять этот пакет!\e[0m\n"
 	list_depends remove
 	dialog_msg
 	
