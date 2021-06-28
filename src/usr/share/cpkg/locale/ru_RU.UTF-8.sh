@@ -77,6 +77,11 @@ PRIOTITY_MSG="Приоритет"
 # check_md
 CHECK_MD="Проверка md5 контрольных сумм..."
 
+# blacklist_pkg
+ADD_BLACKLIST="Добавление пакета в чёрный список..."
+REMOVE_BLACKLIST="Удаление пакета из чёрного списка..."
+CHECK_BLACKLIST="Проверка пакета на нахождение в чёрном списке..."
+
 # search_pkg and file_search
 SEARCH_PACKAGE="\e[1;32mПоиск пакета\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 SEARCH1="\e[32mПакет\e[0m"

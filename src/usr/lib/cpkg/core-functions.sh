@@ -105,7 +105,7 @@ function check_instaled() {
 			print_dbg_msg "Default mode"
 		else
 			if [ $OPTION = "blacklist" ]; then
-				BLACK_FILE="$VARDIR/packages/$PKG"
+				BLACK_FILE="$VARDIR/packages/$PKG/black"
 			else
 				print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
 				exit 1
@@ -119,8 +119,9 @@ function check_instaled() {
 
 # Function for add package in blacklist.
 # If the package is blacklisted, then it cannot be removed or updated.
-## $1    - function mode
+## $1    - function mode:
 # add    - add in blacklist
+# check  - check package is blacklisted
 # remove - remove from blacklist
 ## $2    - package name
 function blacklist_pkg() {
@@ -128,10 +129,21 @@ function blacklist_pkg() {
 	PKG=$2
 	
 	check_installed $PKG blacklist
+	
 	if [ $OPTION = "add" ]; then
+		print_msg ">> \e[1;31m$ADD_BLACKLIST\e[0m"
 		echo "BLACK=true" > $BLACK_FILE
 	elif [ $OPTION = "remove" ]; then
+		print_msg ">> \e[1;31m$REMOVE_BLACKLIST\e[0m"
 		> $BLACK_FILE
+	elif [ $OPTION = "check" ]; then
+		print_msg ">> \e[1;31m$CHECK_BLACKLIST\e[0m"
+		if [ -f $BLACK_FILE ]; then
+			print_msg "$DONE"
+		else
+			print_msg "$FAIL"
+			exit 1
+		fi
 	else
 		print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION\e[0m"
 		exit 1
@@ -355,6 +367,8 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 
 	log_msg "Remove package $PKG" "Process"
 	check_priority
+	
+	blacklist_pkg check $PKG
 	
 	list_depends remove
 	dialog_msg
