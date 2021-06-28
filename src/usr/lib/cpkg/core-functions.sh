@@ -79,7 +79,7 @@ function check_priority() {
 		print_dbg_msg "Priority variable is found"
 		if [ $PRIORITY = "system" ]; then
 			echo -e "\e[1;31m$SYSTEM_PRIORITY_REMOVE_BLOCKED\e[0m"
-			exit 999
+			exit 1
 		else
 			echo -e "\e[1m$PRIORITY_MSG:\e[0m	$PRIORITY\n\e[32m$SYSTEM_PRIORITY_REMOVE_OK\e[0m"
 		fi
@@ -111,7 +111,7 @@ function unpack_pkg() {
 		print_msg ">> $UNPACK1 \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 	else
 		echo "$ERROR_UNPACK_PKG_NOT_FOUND"
-		exit 0
+		exit 1
 	fi
 
 	print_dbg_msg "Change dir..."
@@ -127,7 +127,7 @@ function unpack_pkg() {
 		print_msg "$UNPACK_COMPLETE1 \e[35m$PKG\e[0m $UNPACK_COMPLETE2"
 	else
 		print_msg "$UNPACK_FAIL1 \e[35m$PKG\e[0m $UNPACK_FAIL2!\n"
-		exit 0
+		exit 1
 	fi
 }
 
@@ -162,7 +162,7 @@ function install_pkg() {
 		source config.sh	# Read package information
 	else
 		error no_config
-		exit 999
+		exit 1
 	fi
 
 	arch_test_pkg
@@ -199,7 +199,7 @@ function install_pkg() {
 			echo "$WARN_NO_PKG_DIR"
 		else
 			error no_pkg_data
-			exit 0
+			exit 1
 		fi
 	fi
 	
@@ -251,12 +251,12 @@ function remove_pkg() {
 			log_msg "Read package information:
 test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
 			print_msg "\e[1;31m$FILE\e[0m \e[35m$(pwd)/config.sh\e[0m \e[1;31m$DOESNT_EXISTS $ERROR \e[0m"
-			exit 0
+			exit 1
 		fi
 	else
 		log_msg "Package $PKG isn't installed or it's name was entered incorrectly" "FAIL"
 		print_msg "\e[1;31m$PACKAGE\e[0m \e[35m$PKG\e[0m \e[1;31m$PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
-		exit 0
+		exit 1
 	fi
 
 	log_msg "Remove package $PKG" "Process"
@@ -287,7 +287,7 @@ function download_pkg() {
 		print_msg "$FOUND_PKG '$1'"
 	else
 		print_msg "$PACKAGE '$1' $NOT_FOUND_PKG $SOURCE"
-		exit 0
+		exit 1
 	fi
 	
 	PKG=$(grep "$1" $SOURCE)	# TODO - доработать алгоритм поиска нужного пакета в базе данных
@@ -304,7 +304,7 @@ function download_pkg() {
 	    else
     		print_dbg_msg "FAIL"
 	    	print_msg "\e[1;31m$ERROR: $PACKAGE '$1' $DOWNLOAD_PKG_FAIL \e[0m"
-	    	exit 0
+	    	exit 1
 	    fi
 	fi
 }
@@ -322,13 +322,13 @@ function package_info() {
 			log_msg "Read package information:
 test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
 			print_msg "\e[1;31m$ERROR\e[0m: $PWD/config.sh $DOESNT_EXISTS"
-			exit 0
+			exit 1
 		fi
 	else
 		log_msg "Print info about package $PKG:
 test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't find" "FAIL"
 		print_msg "\e[1;31m$ERROR: $PACKAGE \e[10m\e[1;35m$PKG\e[0m\e[1;31m $DOESNT_INSTALLED \e[0m"
-		exit 0
+		exit 1
 	fi
 
 	echo -e "\e[1;32m$PACKAGE_INFO ($PKG):\e[0m
@@ -350,7 +350,7 @@ function file_list() {
 function file_search() {
 	if [ -z $1 ]; then
 		error no_pkg
-		exit 0
+		exit 1
 	fi
 
 	PKG=$1
@@ -388,13 +388,13 @@ function edit_src() {
 				export EDITOR="$(which vim)"
 			else
 				print_msg "\e[1;32m$ERROR $PACKAGE\e[0m \e[35mvim\e[0m\e[1;31m $DOESNT_INSTALLED! \e[0m"
-				exit 0
+				exit 1
 			fi
 		fi
 		$EDITOR /etc/cpkg/pkg.list
 	else
 		print_msg "\e[1;31m$ERROR $FILE\e[0m \e[35m/etc/cpkg/pkg.list\e[0m\e[1;31m$DOESNT_EXISTS\e[0m"
-		exit 0
+		exit 1
 	fi
 }
 

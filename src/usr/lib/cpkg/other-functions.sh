@@ -49,7 +49,7 @@ function dialog_msg() {
 		print_dbg_msg "Continue"
 	else
 		echo "$CANSELLED"
-		exit 0
+		exit 1
 	fi
 }
 

@@ -39,7 +39,7 @@ CLEAN="false"	# turn off cleaning cache (default)
 if [ -z $LANG ]; then
 	if [ -z $LC_ALL ]; then
 		print_msg "\e[1;31m$ERROR: \e[35m\$LC_ALL\e[0m\e[1;31m and \e[0m\e[35m\$LANG\e[0m\e[1;31m variables $DOESNT_EXISTS! \e[0m"
-		exit 0
+		exit 1
 	else
 		export LANG=$LC_ALL
 	fi
@@ -58,7 +58,7 @@ for FUNC in "other-functions.sh" "core-functions.sh"; do
 		source /usr/lib/cpkg/$FUNC	# Load the additional/other cpkg functions
 	else
 		echo -e "$ERROR_NO_FUNC"
-		exit 0
+		exit 1
 	fi
 done
 
