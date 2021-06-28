@@ -21,6 +21,7 @@ PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
 PORT=false		# Turn off port mode (default)
 
 
+
 #==================================================================#
 #
 # BASE FUNCTIONS
@@ -85,6 +86,49 @@ function check_priority() {
 		fi
 	fi
 }
+
+
+# Function for check md5-sums of package
+## $1 - mode. If mode='noinstall'; then function
+# will be search and unpack the package. If
+# mode='install', then function doesn't will be
+# search and anpack the package.
+## $2 - package
+function check_md() {
+	PKG=$2
+	
+	if [ $1 = "noinstall" ]; then
+		search_pkg $PKG
+		unpack_pkg $PKG
+	elif [ $1 = "install" ]; then
+		print_dbg_msg "function 'check_md': install mode"
+	else
+		print_msg "$ERROR_NO_MODE_FOR_CHECK_MD"
+		exit 1
+	fi
+	
+	print_msg ">> \e[1;31m$CHECK_MD\e[0m"
+	
+	cd $PACKAGE_CACHE
+	
+	# Search md5 file
+	if [ -f "md5" ]; then
+		echo "success" > /dev/null
+	else
+		print_msg "$ERROR_SEARCH_MD_FILE"
+		exit 1
+	fi
+	
+	MD=$(cat md5)
+	MD_PKG=$(md5sum ../$PKG > /tmp/cpkg_md5)
+	
+	if grep "$MD" "$MD_PKG"; then
+		print_msg "$DONE"
+	else
+		print_msg "$FAIL"
+	fi
+}
+
 
 # Function for search a package
 # Only for install_pkg function

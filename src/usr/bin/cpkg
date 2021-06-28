@@ -98,6 +98,11 @@ fi
 # Options
 while [ -n "$1" ]; do
 	case $1 in
+		md_check)
+			test_root
+			check_md noinstall $2
+		;;
+		
 		install|-i)
 			test_root
 			echo -e "[ $(date) ] [ $ACTION_INSTALL $2 ]\n" >> $LOG_DIR/history.log
@@ -226,6 +231,7 @@ while [ -n "$1" ]; do
 			echo -e "[ $(date) ] [ $ACTION_UKNOWN_OPTION '$@' ]\n" >> $LOG_DIR/history.log
 			echo -e "$ERROR_NO_OPTION"
 			help_pkg
+			exit 1
 		;;
 	esac
 
