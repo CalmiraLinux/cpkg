@@ -173,6 +173,11 @@ while [ -n "$1" ]; do
 			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
 			file_list
 		;;
+		
+		blacklist)
+			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
+			blacklist add $1
+		;;
 
 		search|-s)
 			echo -e "[ $(date) ] [ $ACTION_SEARCH $2 ]\n" >> $LOG_DIR/history.log
