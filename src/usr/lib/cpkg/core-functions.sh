@@ -18,6 +18,7 @@ GetArch=$(uname -m)	# System arch
 GetDate=$(date)		# System date
 GetPkgLocation=$(pwd)	# Package location
 PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
+VARDIR=/var/db/cpkg	# Database dir
 PORT=false		# Turn off port mode (default)
 
 
@@ -87,6 +88,55 @@ function check_priority() {
 	fi
 }
 
+# Function to check if a package is installed
+## Options
+# $1 - package name
+# $2 - function mode
+## Mode
+# blacklist - for 'blacklist_pkg' function
+function check_instaled() {
+	PKG=$1
+	OPTION=$2
+	
+	# Test package dir
+	if [ -f "$VARDIR/packages/$PKG" ]; then
+		log_msg "Directory '$VARDIR/packages/$PKG' is found." "OK"
+		if [ -z $2 ]; then
+			print_dbg_msg "Default mode"
+		else
+			if [ $OPTION = "blacklist" ]; then
+				BLACK_FILE="$VARDIR/packages/$PKG"
+			else
+				print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
+				exit 1
+			fi
+		fi
+	else
+		print_msg "\e[1;31m$ERROR $PACKAGE \e[0m\e[35m'$PKG'\e[0m\e[1;31m $PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
+		exit 1
+	fi
+}
+
+# Function for add package in blacklist.
+# If the package is blacklisted, then it cannot be removed or updated.
+## $1    - function mode
+# add    - add in blacklist
+# remove - remove from blacklist
+## $2    - package name
+function blacklist_pkg() {
+	OPTION=$1
+	PKG=$2
+	
+	check_installed $PKG blacklist
+	if [ $OPTION = "add" ]; then
+		echo "BLACK=true" > $BLACK_FILE
+	elif [ $OPTION = "remove" ]; then
+		> $BLACK_FILE
+	else
+		print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION\e[0m"
+		exit 1
+	fi
+}
 
 # Function for check md5-sums of package
 ## $1 - mode. If mode='noinstall'; then function
