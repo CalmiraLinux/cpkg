@@ -101,15 +101,11 @@ function check_instaled() {
 	# Test package dir
 	if [ -f "$VARDIR/packages/$PKG" ]; then
 		log_msg "Directory '$VARDIR/packages/$PKG' is found." "OK"
-		if [ -z $2 ]; then
-			print_dbg_msg "Default mode"
+		if [ $OPTION = "blacklist" ]; then
+			BLACK_FILE="$VARDIR/packages/$PKG/black"
 		else
-			if [ $OPTION = "blacklist" ]; then
-				BLACK_FILE="$VARDIR/packages/$PKG/black"
-			else
-				print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
-				exit 1
-			fi
+			print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
+			exit 1
 		fi
 	else
 		print_msg "\e[1;31m$ERROR $PACKAGE \e[0m\e[35m'$PKG'\e[0m\e[1;31m $PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
@@ -135,7 +131,7 @@ function blacklist_pkg() {
 		echo "BLACK=true" > $BLACK_FILE
 	elif [ $OPTION = "remove" ]; then
 		print_msg ">> \e[1;31m$REMOVE_BLACKLIST\e[0m"
-		> $BLACK_FILE
+		echo > $BLACK_FILE
 	elif [ $OPTION = "check" ]; then
 		print_msg ">> \e[1;31m$CHECK_BLACKLIST\e[0m"
 		if [ -f $BLACK_FILE ]; then

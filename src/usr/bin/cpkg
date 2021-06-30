@@ -175,7 +175,7 @@ while [ -n "$1" ]; do
 		;;
 		
 		blacklist)
-			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
+			echo -e "[ $(date) ] [ $ACTION_BLACKLIST ]\n" >> $LOG_DIR/history.log
 			blacklist add $1
 		;;
 
@@ -239,6 +239,6 @@ while [ -n "$1" ]; do
 			exit 1
 		;;
 	esac
-
+	shift
 	exit 0
 done		
