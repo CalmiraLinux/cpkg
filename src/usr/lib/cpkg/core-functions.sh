@@ -142,7 +142,6 @@ function blacklist_pkg() {
 			else
 				CODE=0
 			fi
-			unset CODE
 		fi
 	else
 		print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION\e[0m"
