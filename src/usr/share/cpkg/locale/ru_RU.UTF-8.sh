@@ -21,6 +21,7 @@ ERROR_UNPACK_PKG_NOT_FOUND="\e[1;31mПакет\e[0m\e[35m $PKG\e[0m\e[1;31m не
 ERROR_NO_OPTION="Опция не распознана!"
 ERROR_NO_MODE_FOR_CHECK_MD="\e[1;31m$ERROR для функции 'check_md' не указан режим работы! \e[0m"
 CRITICAL_ERROR="\e[1;31mКритическая ошибка! Работа cpkg более не возможна.\e[0m"
+ERROR_PKG_BLOCKED="Пакет находится в чёрном списке, поэтому его удаление запрещено!"
 WARNING="ПРЕДУПРЕЖДЕНИЕ:"
 
 # actions

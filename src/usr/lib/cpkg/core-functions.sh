@@ -134,11 +134,15 @@ function blacklist_pkg() {
 		echo > $BLACK_FILE
 	elif [ $OPTION = "check" ]; then
 		print_msg ">> \e[1;31m$CHECK_BLACKLIST\e[0m"
+		
 		if [ -f $BLACK_FILE ]; then
 			print_msg "$DONE"
-		else
-			print_msg "$FAIL"
-			exit 1
+			if grep 'BLACK=true' $BLACK_FILE; then
+				CODE=1
+			else
+				CODE=0
+			fi
+			unset CODE
 		fi
 	else
 		print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION\e[0m"
@@ -365,6 +369,10 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	check_priority
 	
 	blacklist_pkg check $PKG
+	if [ $CODE="1" ]; then
+		print_msg "\e[1;31m$ERROR $ERROR_PKG_BLOCKED\e[0m"
+		exit 1
+	fi
 	
 	list_depends remove
 	dialog_msg
