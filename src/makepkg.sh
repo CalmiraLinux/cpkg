@@ -6,6 +6,7 @@
 # Project Page: http://github.com/Linuxoid85/cpkg
 # Michail Krasnov linuxoid85@gmail.com
 #
+# Version: 1.0b1
 
 source config.sh
 PACKAGE="$NAME-$VERSION-$(date --rfc-3339=date).txz"
