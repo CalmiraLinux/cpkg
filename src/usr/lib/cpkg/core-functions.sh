@@ -51,8 +51,7 @@ function list_depends() {
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
-\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS
-\e[1m$CONFLICT_DEP\e[0m		$CON_DEPS" # List depends
+\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS" # List depends
 	
 	if [ $1 = "install" ]; then
 		print_msg "\e[1m$DEP_INSTALL\e[0m"

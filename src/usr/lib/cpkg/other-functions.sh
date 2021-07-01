@@ -60,18 +60,6 @@ function test_root() {
 	fi
 }
 
-function send_signal() {
-	if [ $1 = "quiet" ]; then
-		export QUIET=true
-	elif [ $1 = "debug" ]; then
-		export DBG=true
-	elif [ $1 = "clean" ]; then
-		export CLEAN=true
-	else
-		print_msg "\e;1;31mERROR: uknown option '$1'"
-	fi
-}
-
 # Function for a print error message on screen
 # $1 - error type
 function error() {
