@@ -56,6 +56,8 @@ function list_depends() {
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS" # List depends
+	# TODO - добавить опцию, позволяющую выводить только те разделы, которые описаны в config.sh
+	# На данный момент выводятся все поля, даже если они пусты.
 	
 	if [ $1 = "install" ]; then
 		print_msg "\e[1m$DEP_INSTALL\e[0m"
@@ -270,6 +272,7 @@ function install_pkg() {
 
 	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
     		if test -f "$CONF_DIR/$FILE"; then
+			print_msg "$FILE: $FOUND_PKG"
 	    		cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copying changelog and other files in database
 	    	fi
 	done
