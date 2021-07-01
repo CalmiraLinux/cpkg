@@ -512,7 +512,7 @@ function edit_src() {
 # Help
 function help_pkg() {
 	echo -e "\e[1;35m$CPKG_ABOUT\e[0m
-\e[1m$CPKG_VER\e[0m        $VERSION (PreAlpha 4)
+\e[1m$CPKG_VER\e[0m        $VERSION (Beta 1)
 \e[1m$CPKG_DISTRO_VER\e[0m $(GetCalmiraVersion)
 
 $HELP_CPKG $(GetCalmiraVersion)
