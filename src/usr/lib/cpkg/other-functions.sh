@@ -98,6 +98,32 @@ function check_file() {
     done
 }
 
+
+# Function to check if a package is installed
+## Options
+# $1 - package name
+# $2 - function mode
+## Mode
+# blacklist - for 'blacklist_pkg' function
+function check_instaled() {
+	PKG=$2
+	OPTION=$1
+	
+	# Test package dir
+	if [ -f "$VARDIR/packages/$PKG" ]; then
+		log_msg "Directory '$VARDIR/packages/$PKG' is found." "OK"
+		if [ $OPTION = "blacklist" ]; then
+			BLACK_FILE="$VARDIR/packages/$PKG/black"
+		else
+			print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
+			exit 1
+		fi
+	else
+		print_msg "\e[1;31m$ERROR $PACKAGE \e[0m\e[35m'$PKG'\e[0m\e[1;31m $PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
+		exit 1
+	fi
+}
+
 function log_msg() {
 	# $1 - msg
 	# $2 - result
