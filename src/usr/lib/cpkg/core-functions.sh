@@ -88,42 +88,6 @@ function check_priority() {
 	fi
 }
 
-# Function for add package in blacklist.
-# If the package is blacklisted, then it cannot be removed or updated.
-## $1    - function mode:
-# add    - add in blacklist
-# check  - check package is blacklisted
-# remove - remove from blacklist
-## $2    - package name
-function blacklist_pkg() {
-	OPTION=$1
-	PKG=$2
-	
-	check_installed blacklist $PKG
-	
-	if [ $OPTION = "add" ]; then
-		print_msg ">> \e[1;31m$ADD_BLACKLIST\e[0m"
-		echo "BLACK=true" > $BLACK_FILE
-	elif [ $OPTION = "remove" ]; then
-		print_msg ">> \e[1;31m$REMOVE_BLACKLIST\e[0m"
-		echo > $BLACK_FILE
-	elif [ $OPTION = "check" ]; then
-		print_msg ">> \e[1;31m$CHECK_BLACKLIST\e[0m"
-		
-		if [ -f $BLACK_FILE ]; then
-			print_msg "$DONE"
-			if grep 'BLACK=true' $BLACK_FILE; then
-				CODE=1
-			else
-				CODE=0
-			fi
-		fi
-	else
-		print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION\e[0m"
-		exit 1
-	fi
-}
-
 # Function for check md5-sums of package
 ## $1 - mode. If mode='noinstall'; then function
 # will be search and unpack the package. If
@@ -341,12 +305,6 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 
 	log_msg "Remove package $PKG" "Process"
 	check_priority
-	
-	blacklist_pkg check $PKG
-	if [ $CODE="1" ]; then
-		print_msg "\e[1;31m$ERROR $ERROR_PKG_BLOCKED\e[0m"
-		exit 1
-	fi
 	
 	list_depends remove
 	dialog_msg

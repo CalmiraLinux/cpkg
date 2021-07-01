@@ -176,7 +176,7 @@ while [ -n "$1" ]; do
 		
 		blacklist)
 			echo -e "[ $(date) ] [ $ACTION_BLACKLIST ]\n" >> $LOG_DIR/history.log
-			blacklist_pkg add $1
+			blacklist_pkg add $2
 		;;
 
 		search|-s)
