@@ -46,6 +46,7 @@ DOESNT_EXISTS="не существует!"
 DOESNT_INSTALLED="не установлен!"
 PACKAGE="Пакет"
 CONTINUE="Продолжить?"
+NONE="нет"
 CANSELLED="Прервано!"
 WARIABLE="Переменная"
 

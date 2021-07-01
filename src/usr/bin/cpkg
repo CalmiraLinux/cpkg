@@ -46,13 +46,14 @@ if [ -z $LANG ]; then
 fi
 
 if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
-    source /usr/share/cpkg/locale/$LANG.sh
+	source /usr/share/cpkg/locale/$LANG.sh
 else
-    echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
+	echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
 	export LANG=ru_RU-UTF-8			# Export default variable
 	source /usr/share/locale/$LANG.sh	# Source default locale file
 fi
 
+# Source a default files and libs
 for FUNC in "other-functions.sh" "core-functions.sh"; do
 	if test -f "/usr/lib/cpkg/$FUNC"; then
 		source /usr/lib/cpkg/$FUNC	# Load the additional/other cpkg functions
@@ -84,7 +85,7 @@ for FUNC in "/etc/cpkg/settings" "/etc/cpkg/repo.list" "/etc/CalmiraVersion"; do
 	fi
 done
 
-check_file
+check_file	# Checking base dirs and files
 
 #==================================================================#
 #

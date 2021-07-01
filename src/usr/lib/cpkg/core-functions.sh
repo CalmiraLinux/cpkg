@@ -43,10 +43,10 @@ PORT=false		# Turn off port mode (default)
 function list_depends() {
 	for DEPEND in "REQ_DEPS" "TEST_DEPS" "OPT_DEPS" "BEF_DEPS"; do
 		if [ -z $DEPEND ]; then
-			DEPEND=none
+			DEPEND=$NONE
 		else
 			if [ $DEPEND = '' ]; then
-				DEPEND=none
+				DEPEND=$NONE
 			fi
 		fi
 	done	# FIXME - этот механизм может работать некорректно, либо же вообще неправильно
