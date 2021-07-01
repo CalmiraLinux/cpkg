@@ -181,7 +181,7 @@ while [ -n "$1" ]; do
 
 		search|-s)
 			echo -e "[ $(date) ] [ $ACTION_SEARCH $2 ]\n" >> $LOG_DIR/history.log
-			file_list --verbose=on |grep $2
+			file_search $2
 		;;
 		
 		source|-S)
