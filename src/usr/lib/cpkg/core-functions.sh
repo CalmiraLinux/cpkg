@@ -49,7 +49,7 @@ function list_depends() {
 				DEPEND=none
 			fi
 		fi
-	done
+	done	# FIXME - этот механизм может работать некорректно, либо же вообще неправильно
 	
 	echo -e ">> $DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
