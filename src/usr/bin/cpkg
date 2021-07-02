@@ -198,6 +198,9 @@ while [ -n "$1" ]; do
 		info|-I)
 			echo -e "[ $(date) ] [ $ACTION_INFO $2 ]\n" >> $LOG_DIR/history.log
 			package_info $2
+			if [ $2 = "system" ]; then
+				about
+			fi
 		;;
 
 		clean|-C)
