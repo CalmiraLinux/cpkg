@@ -25,7 +25,7 @@ PORT=false		# Turn off port mode (default)
 
 #==================================================================#
 #
-# BASE FUNCTIONS
+# PROGRAM FUNCTIONS
 #
 
 
@@ -172,11 +172,6 @@ function blacklist_pkg() {
 		fi
 	fi
 }
-
-#==================================================================#
-#
-# PROGRAM FUNCTIONS
-#
 
 # Function for check md5-sums of package
 ## $1 - mode. If mode='noinstall'; then function
