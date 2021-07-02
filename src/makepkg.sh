@@ -34,8 +34,8 @@ echo -e "\nMake dirs and copy package data..."
 echo -e "\n$(date)" >> log
 mkdir -pv PKG/pkg >> log
 cp -rv {usr,etc,var} PKG/pkg/ >> log
-cp -v ../{README.md,INSTALL.md,USAGE} usr/share/doc/cpkg >> log
-cp -v ../{README.md,INSTALL.md,USAGE} PKG/pkg/usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/usr/share/doc/cpkg >> log
 
 echo -e "Write package information..."
 echo "$(cat config.sh)" > PKG/config.sh
