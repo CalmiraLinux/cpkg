@@ -118,10 +118,14 @@ function blacklist_pkg() {
 	
 	if [ $OPTION = "add" ]; then
 		# Add in blacklist
+		print_msg ">> \e[1;31m$BLACKLIST_ADD_PKG\e[0m"
+		
 		echo "BLACKLIST=true" > $BLACK_FILE
 		
 	elif [ $OPTION = "check" ]; then
 		# Checking..
+		print_msg ">> \e[1;31m$BLACKLIST_CHECK_PKG\e[0m"
+		
 		if [ -f $BLACK_FILE ]; then
 			if grep 'BLACKLIST=true' $BLACK_FILE; then
 				print_msg "\e[32m$CHECK_BLACKLIST_DONE\e[0m"
@@ -136,6 +140,9 @@ function blacklist_pkg() {
 		fi
 		
 	elif [ $OPTION = "remove" ]; then
+		# Remove package from blacklist
+		print_msg ">> \e[1;31m$BLACKLIST_REMOVE_PKG\e[0m"
+		
 		if [ -f $BLACK_FILE ]; then
 			print_msg "\e[1m$REMOVE_BLACK\e[0m"
 			rm -f $BLACK_FILE
