@@ -377,6 +377,11 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 
 	log_msg "Remove package $PKG" "Process"
 	check_priority
+	blacklist_pkg check $PKG
+	if [ $CODE = "done" ]; then
+		print_msg "\e[1;31m$ERROR: $ERROR_NO_DELETE_BLACKLIST\e[0m"
+		exit 1
+	fi
 	
 	list_depends remove
 	dialog_msg
