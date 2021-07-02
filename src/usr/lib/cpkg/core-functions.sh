@@ -102,7 +102,7 @@ function check_priority() {
 # add    - add to blacklist
 # remove - remove from blacklist
 # check  -
-function add_blacklist() {
+function blacklist_pkg() {
 	OPTION=$1
 	PKG=$2
 	BLACK_FILE="$VARDIR/packages/$PKG/black"
@@ -142,11 +142,14 @@ function add_blacklist() {
 			
 			if [ -f $BLACK_FILE ]; then
 				print_msg "\e[31m$REMOVE_BLACK_FAIL\e[0m"
+				CODE=fail
 			else
 				print_msg "\e[32m$REMOVE_BLACK_DONE\e[0m"
+				CODE=done
 			fi
 		else
 			print_msg "\e[32m$CHECK_BLACKLIST_FAIL\e[0m"
+			CODE=fail
 		fi
 	fi
 }
