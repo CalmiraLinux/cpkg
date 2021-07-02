@@ -406,7 +406,7 @@ function download_pkg() {
 		exit 1
 	fi
 	
-	PKG=$(grep "$1" $SOURCE)	# TODO - доработать алгоритм поиска нужного пакета в базе данных
+	PKG=$(grep "https://github.com/Linuxoid85/cpkg_packages/raw/$BRANCH/$RELEASE/{add,calm,core,network,security,utils}/$1" $SOURCE)	# FIXME - доработать алгоритм поиска нужного пакета в базе данных
 	#alias wget='wget --no-check-certificate' # For Calmira 2021.1-2021.2
 	print_msg ">> $DOWNLOAD_PKG \e[35m$PKG\e[0m\e[1;32m...\e[0m"
 	wget $PKG
