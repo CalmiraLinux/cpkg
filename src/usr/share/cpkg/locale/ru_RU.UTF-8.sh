@@ -79,6 +79,9 @@ PRIOTITY_MSG="Приоритет"
 # check_md
 CHECK_MD="Проверка md5 контрольных сумм..."
 
+# check_installed
+CHECK_INSTALLED="Проверка на наличие пакета в системе..."
+
 # blacklist_pkg
 ADD_BLACKLIST="Добавление пакета в чёрный список..."
 REMOVE_BLACKLIST="Удаление пакета из чёрного списка..."
