@@ -111,11 +111,33 @@ function log_msg() {
 	echo -e "[ $(date) ] [ $1 ] [ $2 ]" >> $LOG
 }
 
-GetCalmiraVersion() {
+function GetCalmiraVersion() {
 	if [ -f "/etc/lsb-release" ]; then
 		source /etc/lsb-release
 		echo "$DISTRIB_RELEASE"
 	else
 		echo "Uknown version of Calmira"
 	fi
+}
+
+function about_sys() {
+	source /etc/lsb-release
+	echo -e "           \e[36m#######\e[0m\e[1;96m*.*.\e[0m
+       \e[1;36m=#DD-D####DDD#\e[0m
+      \e[1;36m#----#\e[0m      \e[1;94m#-#\e[0m
+     \e[1;36m#---#\e[0m         \e[1;94m##\e[0m
+    \e[96m#---#\e[0m                 \e[33m'\e[0m
+    \e[96m#@@@#\e[0m                  \e[1;93m*\e[0m
+    \e[1;34m#=@=#\e[0m        \e[34m##\e[0m         \e[33m'\e[0m
+     \e[1;34m#===#\e[0m    \e[34m##=#\e[0m           \e[93m'\e[0m
+       \e[1;34m##===\e[0m\e[34m==\e[0m\e[1;34m##=\e[0m
+
+
+\e[1;36m---=== О системе ===---\e[0m
+\e[1;36mИмя:\e[0m		$DISTRIB_ID
+\e[1;36mВерсия:\e[0m		$DISTRIB_RELEASE
+\e[1;36mКодовое имя:\e[0m  	$DISTRIB_CODENAME
+\e[1;36mПользователь:\e[0m 	$(whoami)
+\e[1;36mПоложение:\e[0m	$PWD
+"
 }

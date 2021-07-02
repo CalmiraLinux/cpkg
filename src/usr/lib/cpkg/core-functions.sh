@@ -545,4 +545,9 @@ function help_pkg() {
 	print_msg "$HELP_CPKG $(GetCalmiraVersion)"
 }
 
+#==================================================================#
+#
+# BASE FUNCTIONS
+#
+
 #check_file
