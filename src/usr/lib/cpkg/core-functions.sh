@@ -139,6 +139,18 @@ function blacklist_pkg() {
 			CODE=fail
 		fi
 		
+	elif [ $OPTION = "info_check" ]; then
+		# Check for 'info_pkg' function
+		if [ -f $BLACK_FILE ]; then
+			if grep 'BLACKLIST=true' $BLACK_FILE; then
+				CODE=done
+			else
+				CODE=fail
+			fi
+		else
+			CODE=fail
+		fi
+		
 	elif [ $OPTION = "remove" ]; then
 		# Remove package from blacklist
 		print_msg ">> \e[1;31m$BLACKLIST_REMOVE_PKG\e[0m"
@@ -465,6 +477,12 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 \e[1;34m$PACKAGE_MAINTAINER\e[0m	$MAINTAINER
 \e[1;34m$PACKAGE_FILES\e[0m		$FILES"
 	list_depends info
+	
+	unset CODE
+	blacklist_pkg check_info
+	if [ $CODE = "done" ]; then
+		print_msg "\e[1m$PACKAGE_IN_BLACKLIST\e[0m"
+	fi
 }
 
 # Function for a list packages in file system

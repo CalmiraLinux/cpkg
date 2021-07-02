@@ -144,6 +144,7 @@ PACKAGE_RELEASE="Версия:"
 PACKAGE_DESCRIPTION="Описание:"
 PACKAGE_MAINTAINER="Сборщик пакета:"
 PACKAGE_FILES="Установленные файлы:"
+PACKAGE_IN_BLACKLIST="Пакет находится в чёрном списке cpkg и не может быть удалён."
 
 # cpkg_clean
 CACHE_CLEAN="Очистка кеша..."
