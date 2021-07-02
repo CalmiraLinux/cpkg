@@ -94,29 +94,60 @@ function check_priority() {
 	fi
 }
 
-# Function to check if a package is installed
-## Options
-# $1 - package name
-# $2 - function mode
-## Mode
-# blacklist - for 'blacklist_pkg' function
-function check_installed() {
-	PKG=$2
+# Function for adding and removing package to/from blacklist
+## Options:
+# $1 - mode
+# $2 - package
+## Mode:
+# add    - add to blacklist
+# remove - remove from blacklist
+# check  -
+function add_blacklist() {
 	OPTION=$1
+	PKG=$2
+	BLACK_FILE="$VARDIR/packages/$PKG/black"
+	unset CODE
 	
-	print_msg ">> \e[1;32m$CHECK_INSTALLED\e[0m"
-	# Test package dir
+	print_msg " >> \e[1;31m$CHECK_INSTALLED\e[0m"
 	if [ -f "$VARDIR/packages/$PKG" ]; then
 		log_msg "Directory '$VARDIR/packages/$PKG' is found." "OK"
-		if [ $OPTION = "blacklist" ]; then
-			BLACK_FILE="$VARDIR/packages/$PKG/black"
-		else
-			print_msg "\e[1;31m$ERROR $ERROR_NO_OPTION ('check_installed' function)\e[0m"
-			exit 1
-		fi
 	else
 		print_msg "\e[1;31m$ERROR $PACKAGE \e[0m\e[35m'$PKG'\e[0m\e[1;31m $PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
 		exit 1
+	fi
+	
+	if [ $OPTION = "add" ]; then
+		# Add in blacklist
+		echo "BLACKLIST=true" > $BLACK_FILE
+		
+	elif [ $OPTION = "check" ]; then
+		# Checking..
+		if [ -f $BLACK_FILE ]; then
+			if grep 'BLACKLIST=true' $BLACK_FILE; then
+				print_msg "\e[32m$CHECK_BLACKLIST_DONE\e[0m"
+				CODE=done
+			else
+				print_msg "\e[32m$CHECK_BLACKLIST_FAIL\e[0m"
+				CODE=fail
+			fi
+		else
+			print_msg "\e[32m$CHECK_BLACKLIST_FAIL\e[0m"
+			CODE=fail
+		fi
+		
+	elif [ $OPTION = "remove" ]; then
+		if [ -f $BLACK_FILE ]; then
+			print_msg "\e[1m$REMOVE_BLACK\e[0m"
+			rm -f $BLACK_FILE
+			
+			if [ -f $BLACK_FILE ]; then
+				print_msg "\e[31m$REMOVE_BLACK_FAIL\e[0m"
+			else
+				print_msg "\e[32m$REMOVE_BLACK_DONE\e[0m"
+			fi
+		else
+			print_msg "\e[32m$CHECK_BLACKLIST_FAIL\e[0m"
+		fi
 	fi
 }
 
