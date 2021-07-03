@@ -79,6 +79,11 @@ PRIOTITY_MSG="Приоритет"
 # check_md
 CHECK_MD="Проверка md5 контрольных сумм..."
 
+# check_metadata
+CHECK_METADATA="Проверка метаданных пакета..."
+CHECK_METADATA_OK="Проверка метаданных завершена успешно!"
+CHECK_METADATA_FAIL="Проверка метаданных завершена с ошибкой. Вероятно, этот пакет не предназначен для Calmira текущей версии."
+
 # blacklist_pkg
 CHECK_INSTALLED="Проверка на наличие пакета в системе..."
 CHECK_BLACKLIST_DONE="Пакет находится в чёрном списке"
