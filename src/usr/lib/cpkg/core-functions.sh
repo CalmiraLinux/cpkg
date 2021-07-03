@@ -94,6 +94,21 @@ function check_priority() {
 	fi
 }
 
+# Function for get package metadata
+function check_metadata() {
+	print_msg ">> \e[32m$CHECK_METADATA\e[0m"
+	if [ -f "metadata.xz" ]; then
+		tar -xf metadata.xz
+		if [ "$(GrepMetadata)" = "$(DefMetadata)" ]; then
+			print_msg "--> \e[32m$CHECK_METADATA_OK\e[0m"
+		else
+			print_msg "--> \e[31m$CHECK_METADATA_FAIL\e[0m"
+		fi
+	else
+		print_msg "$FAIL!"
+	fi
+}
+
 # Function for adding and removing package to/from blacklist
 ## Options:
 # $1 - mode
@@ -295,9 +310,9 @@ function install_pkg() {
 	fi
 
 	arch_test_pkg
-	
 	list_depends install
 	dialog_msg
+	check_metadata
 
 	if test -f "preinst.sh"; then
 		print_msg ">> $EXECUTE_PREINSTALL"
@@ -544,10 +559,5 @@ function help_pkg() {
 	less /usr/share/doc/cpkg/USAGE
 	print_msg "$HELP_CPKG $(GetCalmiraVersion)"
 }
-
-#==================================================================#
-#
-# BASE FUNCTIONS
-#
 
 #check_file
