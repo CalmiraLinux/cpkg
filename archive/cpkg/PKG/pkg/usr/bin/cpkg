@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# CPkg - an automated packaging tool fog Calmira Linux
+# Cooyright (C) 2021 Michail Krasnov
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://github.com/Linuxoid85/cpkg
+# Michail Krasnov (aka Linuxoid85) michail383krasnov@mail.ru
+#
+
+#==================================================================#
+#
+# LOAD SCRIPT CONFIGURATIONS
+#
+source /usr/lib/cpkg/core-functions.sh		# Load the cpkg functions
+source /etc/lsb-release				# Load the system information
+
+# CONF - configuretion directory
+# SOURCE - a mirror of Calmira
+CONF=/etc/cpkg
+QUIET="false"
+
+#==================================================================#
+#
+# COMMAND LINE PARSING
+#
+if [ $# -eq 0 ]; then
+	help_pkg
+fi
+
+# Options
+while [ -n "$1" ]; do
+	case $1 in
+		install|-i)
+			unpack_pkg $2	# Unpack the package
+			cd /var/cache/cpkg/archives
+			install_pkg $2
+			exit 0
+		;;
+		
+		remove|-r)
+			remove_pkg $2	# Remove
+			exit 0
+		;;
+		
+		help)
+			help_pkg
+			exit 0
+		;;
+
+		*)
+			echo -e "\e[1;31mERROR: option(s) '$@' doesn't exists! \e[0m\n"
+			help_pkg
+			exit 0
+		;;
+	esac
+done
+			
