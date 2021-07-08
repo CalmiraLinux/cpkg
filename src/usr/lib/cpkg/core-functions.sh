@@ -333,11 +333,19 @@ function install_pkg() {
 		./port.sh
 		cd $DIR
 	fi
-
+	
+	# Если переменная INSTALL_ROOT установлена, то cpkg скопирует пакет в ту
+	# директорию, которая установлена в переменнной.
+	if [ -z "$INSTALL_ROOT" ]; then
+		INSTALL_ROOT="/"
+	fi
+	
+	# Тестирование на наличие директории pkg, в которой находятся данные
+	# пакета. И копирование в INSTALL_ROOT.
 	if test -d "pkg"; then
 		print_msg ">> $COPY_PKG_DATA"
 		cd pkg
-		cp -r * /
+		cp -r * $INSTALL_ROOT
 	else
 		if [[ $PORT = "true" ]]; then
 			echo "$WARN_NO_PKG_DIR"
