@@ -202,6 +202,21 @@ while [ -n "$1" ]; do
 				about
 			fi
 		;;
+		
+		GetMeta)
+			GetCopyMetadata
+			if [ -f "metadata.old" ]; then
+				echo -e "\e[32m$METADATA_IS_CREATED\e[0m"
+			else
+				echo -e "\e[1;31m$ERROR $METADATA_IS_NOT_CREATED\e[0m"
+				exit 0
+			fi
+			
+			mkdir metadata
+			mv metadata.old metadata/metadata
+			tar -cf metadata.xz metadata -J
+			rm -rf metadata
+		;;
 
 		clean|-C)
 			test_root
