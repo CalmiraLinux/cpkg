@@ -66,7 +66,7 @@ function list_depends() {
 	elif [ $1 = "info" ]; then
 		print_msg "\e[1m$DEP_INFO\e[0m"
 	elif [ $1 = "" ]; then
-		log_msg "function 'list_depends' has started without arguments" "???"
+		log_msg "function 'list_depends' from 'core-functions.sh' has started without arguments" "EMERG"
 	fi	# Show help message
 }
 
@@ -77,7 +77,9 @@ function list_depends() {
 # 'system' and 'user'
 function check_priority() {
 	print_msg ">> $CHECK_PRIORITY_START"
+	log_msg "Function 'check_priority' from 'core-functions.sh': STARTING" "Notice"
 	if [ -z $PRIORITY ]; then
+		log_msg "Function 'check_priority' from 'core-functions.sh'. Priority variable NOT FOUND. WARNING" "Warning"
 		echo -e "$PRIORITY_NOT_FOUND"
 		echo -e -n "$PRIORITY_NOT_FOUND_ANSWER"
 		dialog_msg
@@ -85,10 +87,13 @@ function check_priority() {
 		# If priority = system, then package is not
 		# will remove
 		print_dbg_msg "Priority variable is found"
+		log_msg "Function 'check_priority' from 'core-functions.sh'. Priority variable is found." "OK"
 		if [ $PRIORITY = "system" ]; then
 			echo -e "\e[1;31m$SYSTEM_PRIORITY_REMOVE_BLOCKED\e[0m"
+			log_msg "ERROR: Function 'check_priority' from 'core-functions.sh' returned a signal number 1. System priority; remove blocked!" "EMERG"
 			exit 1
 		else
+			log_msg "Function 'check_priority' from 'core-functions.sh'. User priority." "OK"
 			echo -e "\e[1m$PRIORITY_MSG:\e[0m	$PRIORITY\n\e[32m$SYSTEM_PRIORITY_REMOVE_OK\e[0m"
 		fi
 	fi
