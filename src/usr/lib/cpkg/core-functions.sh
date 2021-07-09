@@ -40,17 +40,7 @@ PORT=false		# Turn off port mode (default)
 # list_depends install - for install_pkg function
 # list_depends remove  - for remove_pkg function
 # list_depends info    - for package_info function
-function list_depends() {
-	for DEPEND in "REQ_DEPS" "TEST_DEPS" "OPT_DEPS" "BEF_DEPS"; do
-		if [ -z $DEPEND ]; then
-			DEPEND=$NONE
-		else
-			if [ $DEPEND = '' ]; then
-				DEPEND=$NONE
-			fi
-		fi
-	done	# FIXME - этот механизм может работать некорректно, либо же вообще неправильно
-	
+function list_depends() {	
 	echo -e ">> $DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
