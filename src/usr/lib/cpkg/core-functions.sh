@@ -94,6 +94,28 @@ function check_priority() {
 	fi
 }
 
+# Function to get a copy of the package metadata
+function GetCopyMetadata() {
+	cat > metadata.old << "EOF"
+Platform: LX4
+Version:  1.0
+Build date: 10.07.2021
+Builder:  Linuxoid85
+EOF
+}
+
+# Function for grep package metadata
+function GrepMetadata() {
+	cd metadata
+	cat metadata.package
+}
+
+# Function to get a default metadata
+function DefMetadata() {
+	GetCopyMetadata
+	cat metadata.old
+}
+
 # Function for get package metadata
 function check_metadata() {
 	print_msg ">> \e[32m$CHECK_METADATA\e[0m"
