@@ -380,9 +380,9 @@ function install_pkg() {
 function remove_pkg() {
 	PKG=$1
 	log_msg "Search package $PKG" "Process"
-	if test -d "$DATABASE/packages/$PKG"; then
+	if [ -d "$DATABASE/packages/$PKG" ]; then
 		log_msg "Search package $PKG: $PWD" "OK" && log_msg "Read package information" "Process"
-		if test -f "$DATABASE/packages/$PKG/config.sh"; then
+		if [ -f "$DATABASE/packages/$PKG/config.sh" ]; then
 			cd $DATABASE/packages/$PKG
 			log_msg "Read package information:" "OK"
 			source config.sh
@@ -414,7 +414,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	rm -rf $FILES
 	rm -rf $DATABASE/packages/$PKG
 
-	if test -d $DATABASE/packages/$PKG; then
+	if [ -d $DATABASE/packages/$PKG ]; then
 		log_msg "Removed unsucessfull" "FAIL"
 		print_msg "\e[31m$PACKAGE $PKG $REMOVE_PKG_FAIL \e[0m"
 	else
@@ -440,10 +440,10 @@ function download_pkg() {
 	wget $PKG
 
 	print_dbg_msg -n "test package... "
-	if test -f "$1"; then
+	if [ -f "$1" ]; then
 		print_dbg_msg "done"
 	else
-	    if test -f "$1*.txz"; then
+	    if [ -f "$1*.txz" ]; then
 	        print_dbg_msg "done"
 	    else
     		print_dbg_msg "FAIL"
