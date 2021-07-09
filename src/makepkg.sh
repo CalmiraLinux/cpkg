@@ -56,6 +56,13 @@ else
     echo "changelog doesn't find in $PWD !"
 fi
 
+if test -f metadata.xz; then
+	echo "metadata is found"
+	cp -v metadata.xz PKG >> log
+else
+	echo "metadata doesn't find in $PWD !"
+fi
+
 echo -e "\nBuild package..."
 tar -cvf "$PACKAGE" PKG -J >> log
 
