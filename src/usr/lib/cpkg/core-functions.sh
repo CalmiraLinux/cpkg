@@ -457,9 +457,9 @@ function download_pkg() {
 # $1 - package
 function package_info() {
 	PKG=$1
-	if test -d "$DATABASE/packages/$PKG"; then
+	if [ -d "$DATABASE/packages/$PKG" ]; then
 		cd $DATABASE/packages/$PKG
-		if test -f "config.sh"; then
+		if [ -f "config.sh" ]; then
 			log_msg "Read package information:" "OK"
 			source config.sh
 		else
