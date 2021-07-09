@@ -50,7 +50,11 @@ if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
 else
 	echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
 	export LANG=ru_RU-UTF-8			# Export default variable
-	source /usr/share/locale/$LANG.sh	# Source default locale file
+	if [ -f /usr/share/cpkg/locale/$LANG.sh ]; then
+		source /usr/share/locale/$LANG.sh	# Source default locale file
+	else
+		exit 1
+	fi
 fi
 
 # Source a default files and libs
