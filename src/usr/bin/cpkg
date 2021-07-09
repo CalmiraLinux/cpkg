@@ -54,7 +54,7 @@ else
 fi
 
 # Source a default files and libs
-for FUNC in "other-functions.sh" "core-functions.sh"; do
+for FUNC in "other-functions.sh" "core-functions.sh" "meta-functions.sh"; do
 	if test -f "/usr/lib/cpkg/$FUNC"; then
 		source /usr/lib/cpkg/$FUNC	# Load the additional/other cpkg functions
 	else
