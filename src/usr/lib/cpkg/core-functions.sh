@@ -536,14 +536,18 @@ function edit_src() {
 			print_msg "\e[1m$WARNING $VARIABLE \e[0m\e[35m\$EDITOR\e[0m\e[1m $DOESNT_EXISTS! \e[0m"
 			if [ -f $(which vim) ]; then
 				export EDITOR="$(which vim)"
+				log_msg "Function 'edit_src' from file 'core-functions.sh'. Editor: vim" "Notice"
 			else
 				print_msg "\e[1;32m$ERROR $PACKAGE\e[0m \e[35mvim\e[0m\e[1;31m $DOESNT_INSTALLED! \e[0m"
+				log_msg "Error: package 'vim' doesn't installed!" "EMERG"
 				exit 1
 			fi
 		fi
+		log_msg "Function 'edit_src' from file 'core-functions.sh'. Editor: $EDITOR" "Notice"
 		$EDITOR /etc/cpkg/pkg.list
 	else
 		print_msg "\e[1;31m$ERROR $FILE\e[0m \e[35m/etc/cpkg/pkg.list\e[0m\e[1;31m$DOESNT_EXISTS\e[0m"
+		log_msg "Error: /etc/cpkg/pkg.list doesn't exists!" "EMERG/FAIL/ERROR"
 		exit 1
 	fi
 }
