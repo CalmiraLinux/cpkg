@@ -45,7 +45,7 @@ if [ -z $LANG ]; then
 	fi
 fi
 
-if test -f "/usr/share/cpkg/locale/$LANG.sh"; then
+if [ -f "/usr/share/cpkg/locale/$LANG.sh" ]; then
 	source /usr/share/cpkg/locale/$LANG.sh
 else
 	echo -e "\e[1;31mERROR: locale $LANG.sh doesn't exists!"
@@ -59,7 +59,7 @@ fi
 
 # Source a default files and libs
 for FUNC in "other-functions.sh" "core-functions.sh" "meta-functions.sh"; do
-	if test -f "/usr/lib/cpkg/$FUNC"; then
+	if [ -f "/usr/lib/cpkg/$FUNC" ]; then
 		source /usr/lib/cpkg/$FUNC	# Load the additional/other cpkg functions
 	else
 		echo -e "$ERROR_NO_FUNC"
@@ -81,7 +81,7 @@ fi
 
 print_dbg_msg "testing cpkg files... "
 for FUNC in "/etc/cpkg/settings" "/etc/cpkg/repo.list" "/etc/CalmiraVersion"; do
-	if test -f "$FUNC"; then
+	if [ -f "$FUNC" ]; then
 		print_dbg_msg "$DONE"
 		source $FUNC
 	else
@@ -143,7 +143,7 @@ while [ -n "$1" ]; do
 		
 		local_repo)
 			test_root
-      		    if test -f /usr/bin/git; then
+      		    if [ -f /usr/bin/git ]; then
 		        mkdir -pv /var/cache/cpkg/localrepo
 		        cd /var/cache/cpkg/localrepo
 		        
@@ -172,7 +172,7 @@ while [ -n "$1" ]; do
 			print_msg -n ">> $PKGLIST_DOWNLOAD"
 			wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
 			
-			if test -f pkg.list; then
+			if [ -f pkg.list ]; then
 				print_msg "$DONE"
 			else
 				print_msg "$FAIL"
