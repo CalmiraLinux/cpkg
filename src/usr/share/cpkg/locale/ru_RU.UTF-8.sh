@@ -11,6 +11,8 @@
 CPKG_ABOUT="CPkg - пакетный менеджер для Calmira GNU/Linux"
 CPKG_VER="Версия ПМ:"
 CPKG_DISTRO_VER="Версия дистрибутива:"
+METADATA_IS_CREATED="Метаданные успешно созданы!"
+METADATA_IS_NOT_CREATED="Метаданные не были созданы!"
 
 # errors
 ERROR="ОШИБКА:"
