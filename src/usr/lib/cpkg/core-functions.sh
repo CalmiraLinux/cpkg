@@ -94,43 +94,6 @@ function check_priority() {
 	fi
 }
 
-# Function to get a copy of the package metadata
-function GetCopyMetadata() {
-	cat > metadata.old << "EOF"
-Platform: LX4
-Version:  1.0
-Build date: 10.07.2021
-Builder:  Linuxoid85
-EOF
-}
-
-# Function for grep package metadata
-function GrepMetadata() {
-	cd metadata
-	cat metadata.package
-}
-
-# Function to get a default metadata
-function DefMetadata() {
-	GetCopyMetadata
-	cat metadata.old
-}
-
-# Function for get package metadata
-function check_metadata() {
-	print_msg ">> \e[32m$CHECK_METADATA\e[0m"
-	if [ -f "metadata.xz" ]; then
-		tar -xf metadata.xz
-		if [ "$(GrepMetadata)" = "$(DefMetadata)" ]; then
-			print_msg "--> \e[32m$CHECK_METADATA_OK\e[0m"
-		else
-			print_msg "--> \e[31m$CHECK_METADATA_FAIL\e[0m"
-		fi
-	else
-		print_msg "$FAIL!"
-	fi
-}
-
 # Function for adding and removing package to/from blacklist
 ## Options:
 # $1 - mode
@@ -259,9 +222,10 @@ function search_pkg() {
 	PKG=$1
 	print_msg ">> $SEARCH_PACKAGE"
 	if test -f "$PKG"; then
-		print_msg "$SEARCH1 \e[35m$PKG\e[0m $SEARCH2 \e[35m$GetPkgLocation\e[0m"
+		print_msg "\e[32m$SEARCH1\e[0m \e[35m$PKG\e[0m \e[32m$SEARCH2\e[0m \e[35m$GetPkgLocation\e[0m"
 	else
-		download_pkg $PKG
+		print_msg "\e[1;32m$ERROR $SEARCH1\e[0m \e[35m$PKG\e[0m \e[1;31m$DOESNT_EXISTS\e[0m"
+		exit 0
 	fi
 }
 
