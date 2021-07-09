@@ -531,7 +531,7 @@ function cpkg_clean() {
 
 # Function for edit sources
 function edit_src() {
-	if test -f "/etc/cpkg/pkg.list"; then
+	if [ -f "/etc/cpkg/pkg.list" ]; then
 		if [ -z $EDITOR ]; then
 			print_msg "\e[1m$WARNING $VARIABLE \e[0m\e[35m\$EDITOR\e[0m\e[1m $DOESNT_EXISTS! \e[0m"
 			if [ -f $(which vim) ]; then
