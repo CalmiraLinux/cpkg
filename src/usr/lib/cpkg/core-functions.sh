@@ -247,13 +247,13 @@ function unpack_pkg() {
 	print_dbg_msg "Change dir..."
 	cd /var/cache/cpkg/archives
 
-	if test -d "PKG"; then
+	if [ -d "PKG" ]; then
 		rm -rf PKG
 	fi
 
 	tar -xf $PKG
 
-	if test -d "PKG"; then
+	if [ -d "PKG" ]; then
 		print_msg "$UNPACK_COMPLETE1 \e[35m$PKG\e[0m $UNPACK_COMPLETE2"
 	else
 		print_msg "$UNPACK_FAIL1 \e[35m$PKG\e[0m $UNPACK_FAIL2!\n"
