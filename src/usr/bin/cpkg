@@ -212,10 +212,10 @@ while [ -n "$1" ]; do
 				exit 0
 			fi
 			
-			mkdir metadata
-			mv metadata.old metadata/metadata
-			tar -cf metadata.xz metadata -J
-			rm -rf metadata
+			mkdir -v metadata
+			mv -v metadata.old metadata/metadata
+			tar -cvf metadata.xz metadata -J
+			rm -rvf metadata
 		;;
 
 		clean|-C)
