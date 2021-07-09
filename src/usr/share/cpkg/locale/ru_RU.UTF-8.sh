@@ -104,8 +104,8 @@ CHECK_BLACKLIST="Проверка пакета на нахождение в чё
 
 # search_pkg and file_search
 SEARCH_PACKAGE="\e[1;32mПоиск пакета\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
-SEARCH1="\e[32mПакет\e[0m"
-SEARCH2="\e[32mсуществует в \e[0m"
+SEARCH1="Пакет"
+SEARCH2="существует в"
 SEARCH_RESULT="Результаты поиска:"
 
 # unpack_pkg
