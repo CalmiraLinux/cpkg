@@ -288,7 +288,7 @@ function install_pkg() {
 	PKG=$1
 	cd $PACKAGE_CACHE
 	DIR=$(pwd)
-	if test -f "config.sh"; then
+	if [ -f "config.sh" ]; then
 		source config.sh	# Read package information
 	else
 		error no_config
@@ -300,19 +300,19 @@ function install_pkg() {
 	dialog_msg
 	check_metadata
 
-	if test -f "preinst.sh"; then
+	if [ -f "preinst.sh" ]; then
 		print_msg ">> $EXECUTE_PREINSTALL"
 		chmod +x preinst.sh
 		./preinst.sh
 	fi
 
-	if test -f "postinst.sh"; then
+	if [ -f "postinst.sh" ]; then
 		print_msg ">> $SETTING_UP_POSTINSTALL \n"
 		chmod +x postinst.sh
 		POSTINST=$DIR/postinst.sh
 	fi
 
-	if test -f "port.sh"; then
+	if [ -f "port.sh" ]; then
 		print_msg ">> $INSTALL_PORT"
 		PORT=true
 		chmod +x port.sh
@@ -328,7 +328,7 @@ function install_pkg() {
 	
 	# Тестирование на наличие директории pkg, в которой находятся данные
 	# пакета. И копирование в INSTALL_ROOT.
-	if test -d "pkg"; then
+	if [ -d "pkg" ]; then
 		print_msg ">> $COPY_PKG_DATA"
 		cd pkg
 		cp -r * $INSTALL_ROOT
@@ -351,7 +351,7 @@ function install_pkg() {
 	print_msg "$ADD_IN_DB"
 	echo "$NAME $VERSION" >> $DATABASE/all_db
 
-	if test -d $DATABASE/packages/$NAME; then
+	if [ -d $DATABASE/packages/$NAME ]; then
 		rm -rvf $DATABASE/packages/$NAME
 	fi
 	
@@ -359,7 +359,7 @@ function install_pkg() {
 	cp $CONF_DIR/config.sh $DATABASE/packages/$NAME	# Copying config file in database
 
 	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
-    		if test -f "$CONF_DIR/$FILE"; then
+    		if [ -f "$CONF_DIR/$FILE" ]; then
 			print_msg "$FILE: $FOUND_PKG"
 	    		cp $CONF_DIR/$FILE $DATABASE/packages/$NAME/	# Copying changelog and other files in database
 	    	fi
