@@ -412,6 +412,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	
 	print_msg ">> $REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
+	# Remove package files
 	rm -rf $FILES
 	
 	# Выполнение опционалных скриптов после удаления пакета
@@ -420,6 +421,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 		./postremove.sh
 	fi
 	
+	# Remove package from cpkg datatabase
 	rm -rf $DATABASE/packages/$PKG
 
 	if [ -d $DATABASE/packages/$PKG ]; then
