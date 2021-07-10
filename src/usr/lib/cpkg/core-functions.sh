@@ -319,6 +319,8 @@ function install_pkg() {
 	# директорию, которая установлена в переменнной.
 	if [ -z "$INSTALL_ROOT" ]; then
 		INSTALL_ROOT="/"
+	else
+		print_msg "\e[31m$INSTALL_OTHER_PREFIX_WARNING\e[0m"
 	fi
 	
 	# Тестирование на наличие директории pkg, в которой находятся данные
