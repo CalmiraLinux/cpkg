@@ -392,6 +392,12 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 		print_msg "\e[1;31m$PACKAGE\e[0m \e[35m$PKG\e[0m \e[1;31m$PACKAGE_NOT_INSTALLED_OR_NAME_INCORRECTLY\e[0m"
 		exit 1
 	fi
+	
+	# Выполнение опциональных скриптов перед удалением пакета
+	if [ -f "preremove.sh" ]; then
+		chmod +x preremove.sh
+		./preremove.sh
+	fi
 
 	log_msg "Remove package $PKG" "Process"
 	check_priority
@@ -407,6 +413,13 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	print_msg ">> $REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
 
 	rm -rf $FILES
+	
+	# Выполнение опционалных скриптов после удаления пакета
+	if [ -f "postremove.sh" ]; then
+		chmod +x postremove.sh
+		./postremove.sh
+	fi
+	
 	rm -rf $DATABASE/packages/$PKG
 
 	if [ -d $DATABASE/packages/$PKG ]; then
