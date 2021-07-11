@@ -514,6 +514,12 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 	if [ $CODE = "done" ]; then
 		print_msg "\e[1m$PACKAGE_IN_BLACKLIST\e[0m"
 	fi
+	
+	if [ -z $INSTALL_ROOT ]; then
+		if [ $INSTALL_ROOT != "/" ]; then
+			print_msg "$PACKAGE_IN_OTHER_PREFIX"
+		fi
+	fi
 }
 
 # Function for a list packages in file system
