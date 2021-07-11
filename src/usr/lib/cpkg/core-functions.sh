@@ -354,6 +354,12 @@ function install_pkg() {
 	
 	mkdir $DATABASE/packages/$NAME			# Creating a directory with information about the package
 	cp $CONF_DIR/config.sh $DATABASE/packages/$NAME	# Copying config file in database
+	
+	# Если пакет был установлен в альтернативный префикс, то
+	# записать информацию об этом в config.sh пакета
+	if [ $INSTALL_ROOT != "/" ]; then
+		echo "INSTALL_ROOT=$INSTALL_ROOT" >> $DATABASE/packages/$NAME/config.sh
+	fi
 
 	for FILE in "changelog" "postinst.sh" "preinst.sh" "port.sh"; do
     		if [ -f "$CONF_DIR/$FILE" ]; then
@@ -376,6 +382,8 @@ function install_pkg() {
 # $1 - package
 function remove_pkg() {
 	PKG=$1
+	unset INSTALL_ROOT	# В целях безопасности
+	
 	log_msg "Search package $PKG" "Process"
 	if [ -d "$DATABASE/packages/$PKG" ]; then
 		log_msg "Search package $PKG: $PWD" "OK" && log_msg "Read package information" "Process"
@@ -413,6 +421,13 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	dialog_msg
 	
 	print_msg ">> $REMOVE_PKG \e[35m$PKG\e[0m\e[1;34m...\e[0m"
+	
+	if [ -z $INSTALL_ROOT ]; then
+		if [ $INSTALL_ROOT != "/" ]; then
+			print_msg "\e[1;31m$ERROR $INSTALL_OTHER_PREFIX_WARNING\e[0m"
+			exit 1
+		fi
+	fi
 
 	# Remove package files
 	rm -rf $FILES
