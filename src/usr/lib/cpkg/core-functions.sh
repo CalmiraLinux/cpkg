@@ -502,6 +502,10 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 		exit 1
 	fi
 
+	# Name
+	# Description
+	# Maintainer
+	# Files
 	echo -e "\e[1;32m$PACKAGE_INFO ($PKG):\e[0m
 \e[1;34m$PACKAGE_NAME\e[0m		$NAME
 \e[1;34m$PACKAGE_DESCRIPTION\e[0m	$DESCRIPTION

@@ -207,7 +207,8 @@ while [ -n "$1" ]; do
 			fi
 		;;
 		
-		GetMeta)
+		GetMeta)	## Получение копии метаданных для
+				## формирования пакета с определённой программой
 			GetCopyMetadata
 			if [ -f "metadata.old" ]; then
 				echo -e "\e[32m$METADATA_IS_CREATED\e[0m"
@@ -260,7 +261,7 @@ while [ -n "$1" ]; do
 		
 		### OTHER OPTIONS ###
 
-		*)
+		*)	# Error of typing
 			echo -e "[ $(date) ] [ $ACTION_UKNOWN_OPTION '$@' ]\n" >> $LOG_DIR/history.log
 			echo -e "$ERROR_NO_OPTION"
 			help_pkg
