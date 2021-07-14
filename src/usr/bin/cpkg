@@ -102,10 +102,11 @@ fi
 
 # Options
 while [ -n "$1" ]; do
-	case $1 in
+	case "$1" in
 		md_check)
 			test_root
 			check_md noinstall $2
+			exit $EXIT_CODE
 		;;
 		
 		install|-i)
@@ -122,12 +123,14 @@ while [ -n "$1" ]; do
 			unpack_pkg $2	# Unpack the package
 			cd /var/cache/cpkg/archives
 			install_pkg $2
+			exit $EXIT_CODE
 		;;
 
 		remove|-r)
 			test_root
 			echo -e "[ $(date) ] [ $ACTION_REMOVE $2 ]\n" >> $LOG_DIR/history.log
 			remove_pkg $2	# Remove
+			exit $EXIT_CODE
 		;;
 
 		download|-d)
@@ -139,6 +142,7 @@ while [ -n "$1" ]; do
 
 			echo -e "[ $(date) ] [ $ACTION_DOWNLOAD $2 ]\n" >> $LOG_DIR/history.log
 			download_pkg $2
+			exit $EXIT_CODE
 		;;
 		
 		local_repo)
@@ -177,11 +181,13 @@ while [ -n "$1" ]; do
 			else
 				print_msg "$FAIL"
 			fi
+			exit $EXIT_CODE
 		;;
 
 		list|-l)
 			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
 			file_list
+			exit $EXIT_CODE
 		;;
 		
 		blacklist)
@@ -259,6 +265,10 @@ while [ -n "$1" ]; do
 			export CLEAN="true"
 		;;
 		
+		unset-variables)
+			unset {QUIET,DBG,CLEAN}
+		;;
+		
 		### OTHER OPTIONS ###
 
 		*)	# Error of typing
@@ -269,5 +279,5 @@ while [ -n "$1" ]; do
 		;;
 	esac
 	shift
-	exit 0
+	#exit 0
 done		
