@@ -90,6 +90,9 @@ for FUNC in "/etc/cpkg/settings" "/etc/cpkg/repo.list" "/etc/CalmiraVersion"; do
 done
 
 check_file	# Checking base dirs and files
+if [ $0 != "cpkg" ]; then
+	echo -e "\e[1;31mИСПОЛЬЗОВАНИЕ ЭТОЙ ПРОГРАММЫ В СТОРОННИХ СКРИПТАХ НЕНАДЁЖНО! ДЛЯ УСТАНОВКИ ПАКЕТОВ ИСПОЛЬЗУЙТЕ ДРУГИЕ ИНСТРУМЕНТА КОМАНДНОЙ СТРОКИ!\e[0m"
+fi
 
 #==================================================================#
 #

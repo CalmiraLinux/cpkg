@@ -1,5 +1,5 @@
 NAME=cpkg
-VERSION=v1.0b1
+VERSION=v1.0
 DESCRIPTION="CPkg - пакетный менеджер для Calmira GNU/Linux. Название cpkg происходит от двух слов:
 * Calmira - c
 * Package - pkg
