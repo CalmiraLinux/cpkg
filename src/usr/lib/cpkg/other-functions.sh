@@ -15,6 +15,7 @@
 #
 BACKTITLE="Calmira package manager"		# Backtitle for `print_ps_msg`
 TITLE="cpkg"					# Title for `print_ps_msg`
+NAME_FILE="other-functions.sh"			# File name for log_msg
 
 #==================================================================#
 #
@@ -98,6 +99,19 @@ function check_file() {
     done
 }
 
+# Function for write logs in log file
+## Options:
+# $1 - message
+# $2 - status
+# $3 - log file (optional)
+## Statuses:
+# Notice
+# Error
+# Emerg
+# OK
+## Variables:
+# NAME_FUNCTION - function name
+# NAME_FILE     - file name (e.g. 'core-functions.sh', 'other-functions.sh', etc.)
 function log_msg() {
 	# $1 - msg
 	# $2 - result
@@ -107,8 +121,13 @@ function log_msg() {
 	else
 		LOG=$3
 	fi
+	
+	if [ -z $NAME_FUNCTION ]; then
+		NAME_FUNCTION="Uknown"
+	fi
 
-	echo -e "[ $(date) ] [ $1 ] [ $2 ]" >> $LOG
+	echo -e "[ $(date) ] Function $NAME_FUNCTION from $NAME_FILE: $1 [ $2 ]" >> $LOG
+	         # DATE      MESSAGE INFO                             # MESSAGE # STATUS
 }
 
 function GetCalmiraVersion() {

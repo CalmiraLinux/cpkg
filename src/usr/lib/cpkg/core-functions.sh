@@ -20,6 +20,7 @@ GetPkgLocation=$(pwd)	# Package location
 PACKAGE_CACHE=/var/cache/cpkg/archives/PKG
 VARDIR=/var/db/cpkg	# Database dir
 PORT=false		# Turn off port mode (default)
+NAME_FILE="core-functions.sh"
 
 
 
@@ -41,6 +42,7 @@ PORT=false		# Turn off port mode (default)
 # list_depends remove  - for remove_pkg function
 # list_depends info    - for package_info function
 function list_depends() {	
+	NAME_FUNCTION="list_depends()"
 	echo -e ">> $DEPEND_LIST_INSTALL
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
@@ -66,6 +68,7 @@ function list_depends() {
 ## Priority:
 # 'system' and 'user'
 function check_priority() {
+	NAME_FUNCTION="check_priority"
 	print_msg ">> $CHECK_PRIORITY_START"
 	log_msg "Function 'check_priority' from 'core-functions.sh': STARTING" "Notice"
 	if [ -z $PRIORITY ]; then
@@ -98,6 +101,7 @@ function check_priority() {
 # remove - remove from blacklist
 # check  -
 function blacklist_pkg() {
+	NAME_FUNCTION="blacklist_pkg"
 	OPTION=$1
 	PKG=$2
 	BLACK_FILE="$VARDIR/packages/$PKG/black"
@@ -175,6 +179,7 @@ function blacklist_pkg() {
 # search and anpack the package.
 ## $2 - package
 function check_md() {
+	NAME_FUNCTION="check_md"
 	PKG=$2
 	
 	if [ $1 = "noinstall" ]; then
@@ -214,6 +219,7 @@ function check_md() {
 # Only for install_pkg function
 # $1 - package
 function search_pkg() {
+	NAME_FUNCTION="search_pkg"
 	PKG=$1
 	print_msg ">> $SEARCH_PACKAGE"
 	if test -f "$PKG"; then
@@ -228,6 +234,7 @@ function search_pkg() {
 # Only for remove package
 # $1 - package
 function unpack_pkg() {
+	NAME_FUNCTION="unpack_pkg"
 	PKG=$1
 	print_dbg_msg "Copy $PKG in /var/cache/cpkg/archives..."
 	cp $PKG /var/cache/cpkg/archives/
@@ -259,6 +266,7 @@ function unpack_pkg() {
 # Arch test
 # Only for install_pkg function
 function arch_test_pkg() {
+	NAME_FUNCTION="arch_test_pkg"
 	print_msg -n ">> $ARCH_TEST"
 	if [ -z $ARCHITECTURE ]; then
 		print_msg " $ARCH_VARIABLE_NOT_FOUND"
@@ -280,6 +288,7 @@ function arch_test_pkg() {
 ## VARIABLES:
 # $1 - package
 function install_pkg() {
+	NAME_FUNCTION="install_pkg"
 	PKG=$1
 	cd $PACKAGE_CACHE
 	DIR=$(pwd)
@@ -381,6 +390,7 @@ function install_pkg() {
 # Function for remove package
 # $1 - package
 function remove_pkg() {
+	NAME_FUNCTION="remove_pkg"
 	PKG=$1
 	unset INSTALL_ROOT	# В целях безопасности
 	
@@ -454,6 +464,7 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 # For unpack_pkg function
 # $1 - package
 function download_pkg() {
+	NAME_FUNCTION="download_pkg"
 	if grep "$1" $SOURCE; then
 		print_msg "$FOUND_PKG '$1'"
 	else
@@ -483,6 +494,7 @@ function download_pkg() {
 # Function to read package info
 # $1 - package
 function package_info() {
+	NAME_FUNCTION="package_info"
 	PKG=$1
 	if [ -d "$DATABASE/packages/$PKG" ]; then
 		cd $DATABASE/packages/$PKG
@@ -528,6 +540,7 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 
 # Function for a list packages in file system
 function file_list() {
+	NAME_FUNCTION="file_list"
 	cd $DATABASE/packages/
 	exa --tree
 }

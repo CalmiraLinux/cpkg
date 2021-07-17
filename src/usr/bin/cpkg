@@ -34,6 +34,7 @@ DATABASE=/var/db/cpkg
 QUIET="false"	# turn off quiet mode (default)
 DBG="false"	# turn off debug mode (default)
 CLEAN="false"	# turn off cleaning cache (default)
+NAME_FILE="cpkg"
 
 # Setting up a cpkg locale
 if [ -z $LANG ]; then
