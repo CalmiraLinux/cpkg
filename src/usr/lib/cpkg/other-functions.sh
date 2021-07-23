@@ -47,8 +47,11 @@ function print_document_dial() {
 		;;
 		
 		0)
+			echo "Выбрана установка документации."
 			if [ -f "install_doc.sh" ]; then
+				echo "Выставление нужных прав..."
 				chmod +x install_doc.sh
+				echo "Запуск установщика..."
 				./install_doc.sh
 			else
 				echo -e "\e[1;31mОШИБКА: скрипт для установки документации не найден! \e[0m"
