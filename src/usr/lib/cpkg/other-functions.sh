@@ -160,3 +160,5 @@ function about_sys() {
 \e[1;36mПоложение:\e[0m	$PWD
 "
 }
+
+log_msg "Date other-functions started: $(date)" "OK"

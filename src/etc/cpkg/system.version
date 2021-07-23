@@ -1,0 +1,5 @@
+DISTRIB_NAME="Calmira LX4"
+DISTRIB_CODENAME="Cassiopeia"
+DISTRIB_VER="1.1"
+DISTRIB_BUILD_DATE="05.08.2021"
+DISTRIB_BUILDER="Michail Krasnov <linuxoid85@mail.ru>"

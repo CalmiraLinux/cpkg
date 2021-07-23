@@ -609,3 +609,5 @@ function help_pkg() {
 }
 
 #check_file
+NAME_FUNCTION="  "
+log_msg "Date core-functions started: $(date)" "OK"
