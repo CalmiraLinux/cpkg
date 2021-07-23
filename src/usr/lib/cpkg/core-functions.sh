@@ -440,7 +440,12 @@ test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "
 	fi
 
 	# Remove package files
-	rm -rf $FILES
+	if [ -z $FILES ]; then
+		print_msg "\e[1;31m$ERROR $ERROR_NO_FILE_VAR\e[0m"
+		exit 1
+	else
+		rm -rf $FILES
+	fi
 	
 	# Выполнение опционалных скриптов после удаления пакета
 	if [ -f "postremove.sh" ]; then
