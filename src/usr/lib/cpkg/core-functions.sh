@@ -584,8 +584,8 @@ function edit_src() {
 	if [ -f "/etc/cpkg/pkg.list" ]; then
 		if [ -z $EDITOR ]; then
 			print_msg "\e[1m$WARNING $VARIABLE \e[0m\e[35m\$EDITOR\e[0m\e[1m $DOESNT_EXISTS! \e[0m"
-			if [ -f $(which vim) ]; then
-				export EDITOR="$(which vim)"
+			if [ -f "/usr/bin/vim" ]; then
+				export EDITOR="/usr/bin/vim"
 				log_msg "Function 'edit_src' from file 'core-functions.sh'. Editor: vim" "Notice"
 			else
 				print_msg "\e[1;32m$ERROR $PACKAGE\e[0m \e[35mvim\e[0m\e[1;31m $DOESNT_INSTALLED! \e[0m"
