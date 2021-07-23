@@ -35,6 +35,35 @@ function print_ps_msg() {
 	dialog --backtitle "$BACKTITLE" --title " $TITLE " --msgbox "$1" 0 0
 }
 
+function print_document_dial() {
+	dialog  --backtitle "Система портов Calmira LX4 Linux" --title " ASK " \
+		--yesno "Для пакета $1 предусмотрена установка дополнительной документации. Установить её?" 0 0
+	
+	case $? in
+		1)
+			dialog  --backtitle "Система портов Calmira LX4 Linux" --title " CANSEL " \
+				--msgbox "Установка документации прервана" 0 0
+			exit 0
+		;;
+		
+		0)
+			if [ -f "install_doc.sh" ]; then
+				chmod +x install_doc.sh
+				./install_doc.sh
+			else
+				echo -e "\e[1;31mОШИБКА: скрипт для установки документации не найден! \e[0m"
+				exit 1
+			fi
+		;;
+		
+		255)
+			dialog  --backtitle "Система портов Calmira LX4 Linux" --title " CANSEL " \
+				--msgbox "Была нажата клавиша для отмены установки." 0 0
+			exit 1
+		;;
+	esac
+}
+
 # Function for print a debug messages on screen
 function print_dbg_msg() {
 	if [[ $DBG = "false" ]]; then
