@@ -13,7 +13,7 @@
 #
 # BASE VARIABLES
 #
-VERSION=v1.0b1		# cpkg version
+VERSION=v1.1		# cpkg version
 GetArch=$(uname -m)	# System arch
 GetDate=$(date)		# System date
 GetPkgLocation=$(pwd)	# Package location
@@ -47,7 +47,9 @@ function list_depends() {
 \e[1m$REQUIRED_DEP\e[0m		$REQ_DEPS
 \e[1m$TESTING_DEP\e[0m		$TEST_DEPS
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
-\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS" # List depends
+\e[1m$BEFORE_DEP\e[0m		$BEF_DEPS
+\e[1m$RECOMMEND_DEP\e[0m	$RECOM_DEPS
+\e[1m$PORT_PKG\e[0m		$PORT" # List depends
 	# TODO - добавить опцию, позволяющую выводить только те разделы, которые описаны в config.sh
 	# На данный момент выводятся все поля, даже если они пусты.
 	
@@ -527,7 +529,8 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 \e[1;34m$PACKAGE_NAME\e[0m		$NAME
 \e[1;34m$PACKAGE_DESCRIPTION\e[0m	$DESCRIPTION
 \e[1;34m$PACKAGE_MAINTAINER\e[0m	$MAINTAINER
-\e[1;34m$PACKAGE_FILES\e[0m		$FILES"
+\e[1;34m$PACKAGE_FILES\e[0m		$FILES
+\e[1;34m$PACKAGE_SITE\e[0m		$SITE"
 	list_depends info
 	
 	unset CODE
