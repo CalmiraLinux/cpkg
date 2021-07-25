@@ -78,7 +78,7 @@ function print_dbg_msg() {
 
 function dialog_msg() {
 	read -p "$CONTINUE (y/n): " run
-	if [ $run = "y" ] && [ $run = "Y" ]; then
+	if [ $run = "y" ] || [ $run = "Y" ]; then
 		print_dbg_msg "Continue"
 	else
 		echo "$CANSELLED"

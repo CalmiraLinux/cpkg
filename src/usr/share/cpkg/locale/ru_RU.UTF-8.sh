@@ -164,5 +164,6 @@ CLEAN_MSG="Очистка (тип):"
 # help_pkg
 HELP_CPKG="
 ---------------------------------------------------
+
 (C) 2021 Михаил Краснов \e[4m<michail383krasnov@mail.ru>\e[0m
 Для Calmira GNU/Linux"
