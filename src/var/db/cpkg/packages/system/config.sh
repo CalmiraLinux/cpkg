@@ -1,32 +1,31 @@
 NAME=system
 VERSION=2022.1
 DESCRIPTION="System package. DO NOT REMOVE!
-NEWS:
-* added packages exa, fd, git, make-ca in base system
-* upgrade Linux 5.12, cpkg 1.0pa4
-
-BUGS:
-* package 'git' doesn't work properly
-
-TODO:
-* Xorg Server, Fluxbox, IceWM, OpenBox, thunar and other port-packages
-
-CONTACTS:
-* VK:           www.vk.com/linuxsovet
-* TELEGRAM:     t.me/linuxsovet
-* mail:         linuxoid85@gmail.com
 
 -------------------------------------------------------------
 НОВОСТИ:
-* добавлены пакеты exa, fd, git, make-ca в базовую систему
-* обновлены Linux 5.12, cpkg 1.0pa4
-
-БАГИ:
-* пакет 'git' не работает правильно
-
-TODO:
-* Сборка Xorg Server, Fluxbox, IceWM, OpenBox, thunar и других port-пакетов.
-
+* Сборка по LX4 1.3.
+* Возвращение на более безопасную и надёжную раздельную систему каталогов, когда '/bin', '/sbin', '/usr/sbin' не являются ссылками на '/usr/bin' (и '/lib' на '/usr/lib'), а являются отдельными каталогами.
+* Возвращение в поставку пакетного менеджера 'cpkg 1.0'.
+* Использование системы портов в качестве сборки базового ПО (располагается в '/usr/ports'). Так как основной упор был на компиляцию пакетов из исходного кода (так было с версии Calmira 2021.1). Предоставляются бинарные пакеты с 'gcc', 'clang' и 'lvvm' для установки посредством 'cpkg', всё остальное компилируется из портов.
+* Обновления пакетов:
+   * iproute2-5.13
+   * linux-5.13.1
+   * texinfo-6.8
+   * less-590
+   * cpkg 1.0
+* Модификация приглашения 'bash' - теперь оно бесцветное, тип: 'PS1= '\u:\w\$ ''.
+* Утверждено расписание выходов новых версий дистрибутива. Тестовые релизы выходят 5 числа определённого месяца, стабильные - 15 числа. В репозиториях на [Github](https://Linuxoid85/CalmiraLinux) и [GitLab](https://gitlab.com/Linuxoid85/calmira_ports) создаётся соответствующая дистрибутиву ветка. Поддержка портов для определённого дистрибутива заканчивается через 5 лет после выхода этой версии дистрибутива.
+* Написание своих конфигов для системы, либо модификация из LFS и LX4.
+* **Добавление пакетов:**
+  * curl-7.71.1
+  * git-2.28.0
+  * pciutils-3.7.0
+  * Calmira Ports 1.1 rc1
+  * cpkg-1.0
+  * which (bash скрипт)
+  
+  
 КОНТАКТЫ:
 * ВКонтакте:     www.vk.com/linuxsovet
 * Telegram:      t.me/linuxsovet
