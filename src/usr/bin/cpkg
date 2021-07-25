@@ -107,7 +107,7 @@ while [ -n "$1" ]; do
 		md_check)
 			test_root
 			check_md noinstall $2
-			exit $EXIT_CODE
+			exit 0
 		;;
 		
 		install|-i)
@@ -124,14 +124,14 @@ while [ -n "$1" ]; do
 			unpack_pkg $2	# Unpack the package
 			cd /var/cache/cpkg/archives
 			install_pkg $2
-			exit $EXIT_CODE
+			exit 0
 		;;
 
 		remove|-r)
 			test_root
 			echo -e "[ $(date) ] [ $ACTION_REMOVE $2 ]\n" >> $LOG_DIR/history.log
 			remove_pkg $2	# Remove
-			exit $EXIT_CODE
+			exit 0
 		;;
 
 		download|-d)
@@ -143,7 +143,7 @@ while [ -n "$1" ]; do
 
 			echo -e "[ $(date) ] [ $ACTION_DOWNLOAD $2 ]\n" >> $LOG_DIR/history.log
 			download_pkg $2
-			exit $EXIT_CODE
+			exit 0
 		;;
 		
 		local_repo)
@@ -182,23 +182,25 @@ while [ -n "$1" ]; do
 			else
 				print_msg "$FAIL"
 			fi
-			exit $EXIT_CODE
+			exit 0
 		;;
 
 		list|-l)
 			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
 			file_list
-			exit $EXIT_CODE
+			exit 0
 		;;
 		
 		blacklist)
 			echo -e "[ $(date) ] [ $ACTION_BLACKLIST ]\n" >> $LOG_DIR/history.log
 			blacklist_pkg add $2
+			exit 0
 		;;
 
 		search|-s)
 			echo -e "[ $(date) ] [ $ACTION_SEARCH $2 ]\n" >> $LOG_DIR/history.log
 			file_search $2
+			exit 0
 		;;
 		
 		source|-S)
@@ -212,6 +214,7 @@ while [ -n "$1" ]; do
 			if [ $2 = "system" ]; then
 				about
 			fi
+			exit 0
 		;;
 		
 		GetMeta)	## Получение копии метаданных для
