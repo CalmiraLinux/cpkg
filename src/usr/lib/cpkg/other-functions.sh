@@ -141,6 +141,7 @@ function check_file() {
 # Error
 # Emerg
 # OK
+# Warning
 ## Variables:
 # NAME_FUNCTION - function name
 # NAME_FILE     - file name (e.g. 'core-functions.sh', 'other-functions.sh', etc.)
