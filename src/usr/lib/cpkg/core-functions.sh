@@ -509,6 +509,10 @@ test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't fin
 		print_msg "\e[1;31m$ERROR: $PACKAGE \e[10m\e[1;35m$PKG\e[0m\e[1;31m $DOESNT_INSTALLED \e[0m"
 		exit 1
 	fi
+	
+	if [ $PKG = "system" ]; then
+		about_sys
+	fi
 
 	# Name
 	# Description

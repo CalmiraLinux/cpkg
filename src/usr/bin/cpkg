@@ -133,18 +133,6 @@ while [ -n "$1" ]; do
 			remove_pkg $2	# Remove
 			exit 0
 		;;
-
-		download|-d)
-			test_root
-			# Clean package cache
-			if [[ $CLEAN -eq "true" ]]; then
-				cpkg_clean cache
-			fi
-
-			echo -e "[ $(date) ] [ $ACTION_DOWNLOAD $2 ]\n" >> $LOG_DIR/history.log
-			download_pkg $2
-			exit 0
-		;;
 		
 		local_repo)
 			test_root
