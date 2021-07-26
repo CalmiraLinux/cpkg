@@ -49,6 +49,7 @@ function list_depends() {
 \e[1m$OPTIONAL_DEP\e[0m		$OPT_DEPS
 \e[1m$BEFORE_DEP\e[0m		$BEF_DEPS
 \e[1m$RECOMMEND_DEP\e[0m	$RECOM_DEPS
+\e[1m$CONFLICT_DEP\e[0m		$CON_DEPS
 \e[1m$PORT_PKG\e[0m		$PORT" # List depends
 	# TODO - добавить опцию, позволяющую выводить только те разделы, которые описаны в config.sh
 	# На данный момент выводятся все поля, даже если они пусты.
