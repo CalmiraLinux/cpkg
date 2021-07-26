@@ -32,10 +32,18 @@ done
 
 echo -e "\nMake dirs and copy package data..."
 echo -e "\n$(date)" >> log
+
+# Создание основных каталогов
 mkdir -pv PKG/pkg >> log
 cp -rv {usr,etc,var} PKG/pkg/ >> log
+
+# Копирование файлов документации в каталог с исходниками
 cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} var/db/cpkg/packages/cpkg >> log
+
+# Копирование файлов документации в пакет
 cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/var/db/cpkg/packages/cpkg >> log
 
 echo -e "Write package information..."
 echo "$(cat config.sh)" > PKG/config.sh
