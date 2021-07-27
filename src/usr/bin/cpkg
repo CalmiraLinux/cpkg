@@ -155,24 +155,6 @@ while [ -n "$1" ]; do
 		    fi
 		;;
 
-		update)	# Option for update package list (pkg.list) of cpkg
-			test_root
-        		echo -e "[ $(date) ] [ $ACTION_UPDATE_LIST ]\n" >> $LOG_DIR/history.log
-			
-			cd /etc/cpkg
-			rm -vf pkg.list
-			
-			print_msg -n ">> $PKGLIST_DOWNLOAD"
-			wget https://raw.githubusercontent.com/Linuxoid85/cpkg_packages/main/calmira2021/pkg.list
-			
-			if [ -f pkg.list ]; then
-				print_msg "$DONE"
-			else
-				print_msg "$FAIL"
-			fi
-			exit 0
-		;;
-
 		list|-l)
 			echo -e "[ $(date) ] [ $ACTION_LIST ]\n" >> $LOG_DIR/history.log
 			file_list
