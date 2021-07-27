@@ -32,7 +32,13 @@ function print_msg() {
 }
 
 function print_ps_msg() {
-	dialog --backtitle "$BACKTITLE" --title " $1 " --msgbox "$2" 0 0
+	if [ -z $3 ]; then
+		BackTitle=$BACKTITLE
+	else
+		BackTitle=$3
+	fi
+	
+	dialog --backtitle "$BackTitle" --title " $1 " --msgbox "$2" 0 0
 }
 
 function print_document_dial() {
@@ -41,7 +47,7 @@ function print_document_dial() {
 	
 	case $? in
 		1)
-			print_ps_msg " CANSEL " "Установка документации прервана"
+			print_ps_msg "CANSEL" "Установка документации прервана" "Система портов Calmira"
 			exit 0
 		;;
 		
@@ -53,13 +59,13 @@ function print_document_dial() {
 				echo "Запуск установщика..."
 				./install_doc.sh
 			else
-				print_ps_msg " ERROR " "ОШИБКА: скрипт для установки документации не найден!"
+				print_ps_msg " ERROR " "ОШИБКА: скрипт для установки документации не найден!" "Система портов Calmira"
 				exit 1
 			fi
 		;;
 		
 		255)
-			print_ps_msg " CANSEL " "Была нажата клавиша для отмены установки. Выход с кодом завершения 1"
+			print_ps_msg "CANSEL" "Была нажата клавиша для отмены установки. Выход с кодом завершения 1" "Система портов Calmira"
 			exit 1
 		;;
 	esac
