@@ -32,7 +32,7 @@ function print_msg() {
 }
 
 function print_ps_msg() {
-	dialog --backtitle "$BACKTITLE" --title " $TITLE " --msgbox "$1" 0 0
+	dialog --backtitle "$BACKTITLE" --title " $1 " --msgbox "$2" 0 0
 }
 
 function print_document_dial() {
@@ -41,8 +41,7 @@ function print_document_dial() {
 	
 	case $? in
 		1)
-			dialog  --backtitle "Система портов Calmira LX4 Linux" --title " CANSEL " \
-				--msgbox "Установка документации прервана" 0 0
+			print_ps_msg " CANSEL " "Установка документации прервана"
 			exit 0
 		;;
 		
@@ -54,14 +53,13 @@ function print_document_dial() {
 				echo "Запуск установщика..."
 				./install_doc.sh
 			else
-				echo -e "\e[1;31mОШИБКА: скрипт для установки документации не найден! \e[0m"
+				print_ps_msg " ERROR " "ОШИБКА: скрипт для установки документации не найден!"
 				exit 1
 			fi
 		;;
 		
 		255)
-			dialog  --backtitle "Система портов Calmira LX4 Linux" --title " CANSEL " \
-				--msgbox "Была нажата клавиша для отмены установки." 0 0
+			print_ps_msg " CANSEL " "Была нажата клавиша для отмены установки. Выход с кодом завершения 1"
 			exit 1
 		;;
 	esac
@@ -93,6 +91,7 @@ function test_root() {
 	fi
 }
 
+## Development has been interrupted. DEPRECATED! {{{
 # Function for a print error message on screen
 # $1 - error type
 function error() {
@@ -109,6 +108,8 @@ function error() {
 		dialog_msg
 	fi
 }
+
+## }}}
 
 # Function to check for the presence of the
 # required files and directories
@@ -194,4 +195,5 @@ function about_sys() {
 "
 }
 
+NAME_FUNCTION="cpkg_interface_tools"
 log_msg "Date other-functions started: $(date)" "OK"
