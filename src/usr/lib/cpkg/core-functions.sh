@@ -13,7 +13,7 @@
 #
 # BASE VARIABLES
 #
-VERSION=v1.1b1		# cpkg version
+VERSION=v1.1		# cpkg version
 GetArch=$(uname -m)	# System arch
 GetDate=$(date)		# System date
 GetPkgLocation=$(pwd)	# Package location

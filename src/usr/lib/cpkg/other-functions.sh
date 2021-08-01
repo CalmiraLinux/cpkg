@@ -165,8 +165,10 @@ function log_msg() {
 	if [ -z $NAME_FUNCTION ]; then
 		NAME_FUNCTION="Uknown"
 	fi
+	
+	cpkg_log "$NAME_FUNCTION" "$1" "$2"
 
-	echo -e "[ $(date) ] Function $NAME_FUNCTION from $NAME_FILE: $1 [ $2 ]" >> $LOG
+	#echo -e "[ $(date) ] Function $NAME_FUNCTION from $NAME_FILE: $1 [ $2 ]" >> $LOG
 	         # DATE      MESSAGE INFO                             # MESSAGE # STATUS
 }
 
