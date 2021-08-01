@@ -1,8 +1,8 @@
-/******************************************
- * Program for write messages on log file *
- * (C) 2021 Michail Linuxoid85 Krasnov    *
- * <linuxoid85@gmail.com>                 *
- ******************************************/
+/*******************************************
+ * Program for read messages from log file *
+ * (C) 2021 Michail Linuxoid85 Krasnov     *
+ * <linuxoid85@gmail.com>                  *
+ *******************************************/
 #include <iostream>
 #include <fstream>
 #include "calmira-core-functions.h"
@@ -10,19 +10,19 @@ using namespace std;
 
 /***************************
  * SYNOPSIS:               *
- * cpkg_log <MSG>          *
+ * cpkg_log_read <MSG>     *
  ***************************/
 int main(int argc, char* argv[]) {		
-	if(argc < 5) {
+	if(argc < 2) {
 		print_msg("ОШИБКА: недостаточное число аргументов!", "--quiet");
 		log_msg("main(cpkg_log)", "ERROR: попытка запуска 'cpkg_log': ОШИБКА. Недостаточное число аргументов.", "EMERG", "cpkg.log");
 		exit(1);
-	} else if(argc > 5) {
+	} else if(argc > 2) {
 		print_msg("ОШИБКА: избыточное число аргументов!", "--quiet");
 		log_msg("main(cpkg_log)", "ERROR: попытка запуска 'cpkg_log': ОШИБКА. Избыточное число аргументов.", "EMERG", "cpkg.log");
 		exit(1);
 	}
 	
-	log_msg(argv[1], argv[2], argv[3], argv[4]);
+	getLog(argv[1]);
 	return 0;
 }

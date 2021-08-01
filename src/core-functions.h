@@ -1,3 +1,8 @@
+/***************************************
+ * Core functions and variables for    *
+ * cpkg package manager                *
+ * (C) 2021 Michail Linuxoid85 Krasnov *
+ ***************************************/
 #ifndef CORE_FUNCTIONS
 #define CORE_FUNCTIONS
 #include <iostream>
@@ -5,7 +10,7 @@
 using namespace std;
 
 /* Get current date & time */
-const string _getDate() {
+const string getDate() {
 	time_t     now = time(0);
 	struct tm  tstruct;
 	char       buf[80];
@@ -24,7 +29,7 @@ void log_msg(string Function, string Message, string Status, string LogFile) {
 		exit(1);
 	}
 	
-	log << "[ " << _getDate() << " ]" << " Function '" << Function << "': " << Message << " [ " << Status << " ]\n";
+	log << "[ " << getDate() << " ]" << " Function '" << Function << "': " << Message << " [ " << Status << " ]\n";
 	log.close();
 }
 
