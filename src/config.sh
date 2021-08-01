@@ -1,5 +1,5 @@
 NAME=cpkg
-VERSION=v1.0
+VERSION=v1.1a1
 DESCRIPTION="CPkg - пакетный менеджер для Calmira GNU/Linux. Название cpkg происходит от двух слов:
 * Calmira - c
 * Package - pkg
@@ -12,4 +12,4 @@ REQ_DEPS="bash exa tar"
 OPT_DEPS="dialog"
 PRIORITY=system
 MAINTAINER=Linuxoid85
-FILES="/usr/bin/cpkg /usr/share/cpkg /usr/share/doc/cpkg /etc/cpkg /var/cache/cpkg"
+FILES="/usr/bin/{cpkg,cpkg_log,cpkg_log_read} /usr/include/calmira-core-functions.h /usr/share/cpkg /usr/share/doc/cpkg /etc/cpkg /var/cache/cpkg"
