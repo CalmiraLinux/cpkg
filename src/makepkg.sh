@@ -57,7 +57,7 @@ else
 	mkdir -v usr/include
 fi
 
-cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/include >> log
+cp -v calmira-core-functions.h usr/include >> log
 
 # Запись информации о пакете
 echo -e "Write package information..."
@@ -89,7 +89,7 @@ fi
 echo -e "\nBuild package..."
 tar -cvf "$PACKAGE" PKG -J >> log
 
-echo "Test package..."
+echo -n "Test package... "
 if test -f "$PACKAGE"; then
     echo "Build package done"
     rm -rf PKG log
