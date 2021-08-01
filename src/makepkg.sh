@@ -57,7 +57,7 @@ else
 	mkdir -v usr/include
 fi
 
-cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/include
+cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/include >> log
 
 # Запись информации о пакете
 echo -e "Write package information..."
@@ -94,7 +94,7 @@ if test -f "$PACKAGE"; then
     echo "Build package done"
     rm -rf PKG log
     read -p "Show the package data? (Y/n) " run
-    if [ $run = Y ]; then
+    if [ $run = Y ] || [ $run = y 0]; then
         tar -listf $PACKAGE
     fi
 else
