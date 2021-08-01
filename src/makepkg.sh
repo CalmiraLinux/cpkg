@@ -17,7 +17,7 @@ for FILE in "usr/bin" "usr/lib/cpkg" "usr/include" "etc/cpkg" "var/db/cpkg" "usr
         echo "$FILE is found"
     else
         echo "$FILE doesn't find in $PWD !"
-        exit 0
+        exit 1
     fi
 done
 
@@ -27,7 +27,7 @@ for FILE in "usr/bin/cpkg" "usr/lib/cpkg/core-functions.sh" "usr/lib/cpkg/other-
         echo "$FILE is found"
     else
         echo "$FILE doesn't find in $PWD !"
-        exit 0
+        exit 1
     fi
 done
 
