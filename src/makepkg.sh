@@ -94,7 +94,7 @@ if test -f "$PACKAGE"; then
     echo "Build package done"
     rm -rf PKG log
     read -p "Show the package data? (Y/n) " run
-    if [ $run = Y ] || [ $run = y 0]; then
+    if [ $run = Y ] || [ $run = y ]; then
         tar -listf $PACKAGE
     fi
 else
