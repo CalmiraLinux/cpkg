@@ -10,8 +10,9 @@
 source config.sh
 PACKAGE="$NAME-$VERSION-$(date --rfc-3339=date).txz"
 
+# Проверка на существование нужных директорий и файлов
 echo -e "\e[1mDIRS:\e[0m"
-for FILE in "usr/bin" "usr/lib/cpkg" "etc/cpkg" "var/db/cpkg" "usr/share/cpkg"; do
+for FILE in "usr/bin" "usr/lib/cpkg" "usr/include" "etc/cpkg" "var/db/cpkg" "usr/share/cpkg"; do
     if test -d $FILE; then
         echo "$FILE is found"
     else
@@ -21,7 +22,7 @@ for FILE in "usr/bin" "usr/lib/cpkg" "etc/cpkg" "var/db/cpkg" "usr/share/cpkg"; 
 done
 
 echo -e "\n\e[1mFILES:\e[0m"
-for FILE in "usr/bin/cpkg" "usr/lib/cpkg/core-functions.sh" "usr/lib/cpkg/other-functions.sh" "etc/cpkg/settings"; do
+for FILE in "usr/bin/cpkg" "usr/lib/cpkg/core-functions.sh" "usr/lib/cpkg/other-functions.sh" "usr/include/calmira-core-functions.h" "etc/cpkg/settings"; do
     if test -f $FILE; then
         echo "$FILE is found"
     else
@@ -34,17 +35,31 @@ echo -e "\nMake dirs and copy package data..."
 echo -e "\n$(date)" >> log
 
 # Создание основных каталогов
-mkdir -pv PKG/pkg >> log
+mkdir -pv PKG/pkg             >> log
 cp -rv {usr,etc,var} PKG/pkg/ >> log
 
 # Копирование файлов документации в каталог с исходниками
-cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} usr/share/doc/cpkg        >> log
 cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} var/db/cpkg/packages/cpkg >> log
 
 # Копирование файлов документации в пакет
-cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/usr/share/doc/cpkg >> log
+cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/usr/share/doc/cpkg        >> log
 cp -v ../{README.md,INSTALL.md,USAGE,TODO.md} PKG/pkg/var/db/cpkg/packages/cpkg >> log
 
+# Компиляция программ
+g++ log.cpp      -o usr/bin/cpkg_log
+g++ read_log.cpp -o usr/bin/cpkg_log_read
+
+# Копирование файлов исходного кода в каталог с исходниками
+if [ -d "usr/include" ]; then
+	echo "usr/include: OK"
+else
+	mkdir -v usr/include
+fi
+
+cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/inslude
+
+# Запись информации о пакете
 echo -e "Write package information..."
 echo "$(cat config.sh)" > PKG/config.sh
 
