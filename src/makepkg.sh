@@ -57,7 +57,7 @@ else
 	mkdir -v usr/include
 fi
 
-cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/inslude
+cp -v {calmira-core-functions.h,log.cpp,read_log.cpp} usr/include
 
 # Запись информации о пакете
 echo -e "Write package information..."
