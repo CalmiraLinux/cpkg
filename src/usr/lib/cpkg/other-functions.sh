@@ -71,6 +71,30 @@ function print_document_dial() {
 	esac
 }
 
+# Function for add package into database
+function package_add_port_db() {
+	DIR=$PWD
+	DATABASE=/var/db/cpkg
+	
+	if [ -f "config.sh" ]; then
+		print_dbg_msg "checking 'config.sh' file: OK"
+		. config.sh
+	else
+		echo "ERROR: ОШИБКА: файл 'config.sh' не найден."
+		exit 1
+	fi
+
+	echo "$NAME $VERSION" >> $DATABASE/all_db
+
+	if [ -d $DATABASE/packages/$NAME ]; then
+		log_msg "Clean up database" "Notice"
+		rm -rvf $DATABASE/packages/$NAME
+	fi
+	
+	mkdir $DATABASE/packages/$NAME					# Creating a directory with information about the package
+	cp -v $DIR/config.sh $DATABASE/packages/$NAME	# Copying config file in database
+}
+
 # Function for print a debug messages on screen
 function print_dbg_msg() {
 	if [[ $DBG = "false" ]]; then
