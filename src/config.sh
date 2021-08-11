@@ -8,7 +8,7 @@ DESCRIPTION="CPkg - пакетный менеджер для Calmira GNU/Linux. 
 
 ---------------------------------------------------------
 (С) 2021 Михаил Linuxoid85 Краснов <linuxoid85@gmail.com>"
-REQ_DEPS="bash exa tar"
+REQ_DEPS="bash tar"
 OPT_DEPS="dialog"
 PRIORITY=system
 MAINTAINER=Linuxoid85
