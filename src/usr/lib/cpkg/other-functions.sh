@@ -13,7 +13,7 @@
 #
 # BASE VARIABLES
 #
-BACKTITLE="Calmira package manager"		# Backtitle for `print_ps_msg`
+BACKTITLE="Система портов Calmira GNU/Linux"		# Backtitle for `print_ps_msg`
 TITLE="cpkg"					# Title for `print_ps_msg`
 NAME_FILE="other-functions.sh"			# File name for log_msg
 
@@ -69,6 +69,10 @@ function print_document_dial() {
 			exit 1
 		;;
 	esac
+}
+
+warn_dialog() {
+	dialog --backtitle "Система портов Calmira GNU/Linux" --title " WARN " --msgbox "$1" 0 0
 }
 
 # Function for add package into database
